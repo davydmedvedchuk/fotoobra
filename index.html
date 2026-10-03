@@ -3,52 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#EFEBE4">
+<meta name="theme-color" content="#17324D">
 <meta name="color-scheme" content="light">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="FotoObra">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
 <title>FotoObra</title>
 <style>
-:root{--bg:#EFEBE4;--card:#FFFFFF;--ink:#1B1A17;--muted:#5E5A52;--line:#D9D3C8;--accent:#C2410C;--soft:#F3E6DA;--edge:#B5AD9E}
+:root{--bg:#F1EFEA;--card:#FFFFFF;--ink:#1B1A17;--muted:#5E5A52;--line:#DDD8CE;--brand:#17324D;--brand2:#22476B;--accent:#FFB400;--accent-ink:#1B1A17;--soft:#FFF4D6;--sky:#E6EEF6;--edge:#B5AD9E}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-text-size-adjust:100%}
 button{font:inherit;color:inherit;cursor:pointer}
 svg{flex-shrink:0}
-.top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;max-width:760px;margin:0 auto}
+.top{position:sticky;top:0;z-index:5;background:var(--brand);color:#fff;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;margin-bottom:12px}
+.top-in{display:flex;align-items:center;gap:10px;max-width:728px;margin:0 auto}
+.top .icon-btn{background:rgba(255,255,255,.12);color:#fff}
+.top .sub{color:#C9D6E3}
+.top.flat{margin-bottom:0}
 .grow{flex:1;min-width:0}
-.logo{width:36px;height:36px;border-radius:9px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--brand);display:flex;align-items:center;justify-content:center}
 .icon-btn{width:44px;height:44px;border-radius:12px;border:none;background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .title{font-weight:800;font-size:22px;letter-spacing:-.3px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sub{display:block;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wrap{padding:4px 16px calc(120px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto}
 .proj{display:flex;gap:14px;align-items:center;width:100%;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;text-align:left}
-.proj img,.noimg{width:64px;height:64px;border-radius:12px;object-fit:cover;flex-shrink:0;background:#CFC8BB;display:flex;align-items:center;justify-content:center;color:#fff}
+.proj img,.noimg{width:64px;height:64px;border-radius:12px;object-fit:cover;flex-shrink:0;background:var(--sky);display:flex;align-items:center;justify-content:center;color:var(--brand2)}
 .pname{display:block;font-size:17px;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .empty{text-align:center;padding:48px 16px;color:var(--muted);line-height:1.5}
 .empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
 .bar-in{display:flex;gap:10px;max-width:728px;margin:0 auto}
 .btn{height:52px;border-radius:14px;border:none;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;flex:1;white-space:nowrap}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.dark{background:var(--ink);color:#fff}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.dark{background:var(--brand);color:#fff}
 .btn.ghost{background:transparent;border:1.5px solid var(--edge)}
 .btn.danger{background:transparent;border:1.5px solid #DC2626;color:#B91C1C}
 .btn.sq{flex:0 0 52px;padding:0}
 .btn:disabled{opacity:.5}
-.group-label{font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px}
+.group-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--brand2);margin:18px 0 10px}
+.group-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .ph{position:relative;display:flex;flex-direction:column;padding:0;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .ph img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#CFC8BB}
 .ph .cap{padding:8px 10px 0;margin-bottom:10px;font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ph .cap.none{color:var(--muted)}
-.time{position:absolute;left:8px;top:8px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(27,26,23,.75);color:#fff}
-.pick .tick{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.time{position:absolute;left:8px;top:8px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(23,50,77,.85);color:#fff}
+.pick .tick{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;border:2px solid #fff}
 .pick.off img{opacity:.35}
 .pick.off .tick{background:rgba(255,255,255,.92);color:transparent;border-color:var(--edge)}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
@@ -62,7 +67,7 @@ textarea{min-height:92px;resize:vertical;line-height:1.4}
 .hint{font-size:13px;color:var(--muted);margin:0;line-height:1.4}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .chip{height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--edge);background:transparent;font-size:14px;font-weight:600}
-.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .preview-img{width:100%;max-height:52vh;object-fit:contain;border-radius:14px;background:#2B2926;display:block;margin-bottom:16px}
 .done{margin-top:16px;padding:14px;border-radius:14px;background:#E7F5E4;font-weight:600;display:flex;gap:8px;align-items:center}
 .section{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
@@ -73,6 +78,44 @@ h2{font-size:18px;margin:0 0 10px}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.45;font-size:14px}
+.card.note{background:var(--soft);border-color:#F2DA94}
+.proj{border-left:4px solid var(--accent)}
+.hero-band{background:var(--brand);color:#fff;padding:2px 16px 22px;border-radius:0 0 24px 24px;margin-bottom:8px}
+.hero-band-in{max-width:728px;margin:0 auto}
+.hero-band p{margin:0 0 14px;color:#C9D6E3;font-size:15px;line-height:1.4}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 12px}
+.stat b{display:block;font-size:22px;font-weight:800;color:var(--accent);line-height:1.1}
+.stat span{font-size:12px;color:#C9D6E3}
+.steps{display:grid;gap:10px;margin-bottom:6px}
+.step{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.4}
+.step i{font-style:normal;flex:0 0 30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;display:flex;align-items:center;justify-content:center}
+.step b{display:block;font-size:15px;margin-bottom:2px}
+.sample{display:flex;gap:14px;align-items:center;background:var(--sky);border:1px solid #C9D8E8;border-radius:16px;padding:14px;margin-bottom:10px}
+.sample-page{flex:0 0 74px;height:104px;border-radius:6px;background:#fff;box-shadow:0 2px 8px rgba(23,50,77,.18);padding:8px 7px;display:flex;flex-direction:column;gap:4px}
+.sample-page .l{height:3px;background:var(--accent);border-radius:2px;margin-bottom:2px}
+.sample-page .t{height:6px;width:70%;background:var(--brand);border-radius:2px}
+.sample-page .g{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:3px}
+.sample-page .g span{height:22px;border-radius:2px;background:#C9D8E8}
+.sample-page .g span:nth-child(2n){background:#E8D9B5}
+.sample .btn{height:44px;font-size:15px}
+.sample .btn.sq{flex:0 0 44px}
+#sampleBtns{display:flex;gap:8px;margin-top:10px}
+details.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;font-size:14px;line-height:1.45}
+details.qa summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:700;font-size:15px;display:flex;gap:10px;align-items:center}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary::after{content:"+";margin-left:auto;font-size:20px;font-weight:500;color:var(--brand2)}
+details.qa[open] summary::after{content:"–"}
+details.qa .a{padding:0 14px 14px;color:#3D3A34}
+details.qa ul{margin:0;padding-left:18px}
+details.qa li{margin-bottom:6px}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--soft);color:#8A5A00;margin-left:6px;vertical-align:middle}
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:8px}
+.strip figure{margin:0;position:relative}
+.strip img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
+.strip figcaption{position:absolute;left:5px;bottom:5px;font-size:10px;font-weight:700;padding:1px 6px;border-radius:5px;background:var(--accent);color:var(--accent-ink)}
+.trust{display:flex;flex-wrap:wrap;gap:8px}
+.trust span{padding:8px 12px;border-radius:10px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:14px;color:var(--brand)}
 </style>
 </head>
 <body>
@@ -119,7 +162,8 @@ const ICON = {
   share: I('<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/>'),
   download: I('<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>'),
   home: I('<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/>', 24),
-  chev: I('<path d="M9 6l6 6-6 6"/>', 18)
+  chev: I('<path d="M9 6l6 6-6 6"/>', 18),
+  brand: `<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.5 9.4 3.8h5.2l1.2 1.7H19a2.5 2.5 0 0 1 2.5 2.5v9.5A2.5 2.5 0 0 1 19 20H5a2.5 2.5 0 0 1-2.5-2.5V8A2.5 2.5 0 0 1 5 5.5z" fill="currentColor"/><circle cx="12" cy="12.6" r="4.6" fill="#FFB400"/><circle cx="12" cy="12.6" r="2.6" fill="currentColor"/><circle cx="17.8" cy="8.6" r="1" fill="#FFB400"/></svg>`
 };
 
 let toastT;
@@ -244,30 +288,78 @@ window.addEventListener('popstate', e => {
   S.pid = st.pid ?? null; S.photoId = st.photoId ?? null;
   render(st.v);
 });
-const topBar = (title, sub, left = 'back', right = '') => `
-<header class="top">
+const topBar = (title, sub, left = 'back', right = '', cls = '') => `
+<header class="top ${cls}"><div class="top-in">
   ${left === 'back' ? `<button class="icon-btn" data-act="back" aria-label="Назад">${ICON.back}</button>` : left === 'close' ? `<button class="icon-btn" data-act="back" aria-label="Отмена">${ICON.close}</button>` : left}
   <div class="grow"><div class="title">${esc(title)}</div>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}</div>${right}
-</header>`;
+</div></header>`;
 const bar = inner => `<div class="bar"><div class="bar-in" id="barIn">${inner}</div></div>`;
 
 /* ---------- views ---------- */
+/* Companies that agreed to be listed on the home screen. Empty = section hidden. */
+const TRUSTED = [];
+const TIPS = [
+  ['Одна точка — до, во время, после', 'Снимай одно и то же место с одного ракурса на каждом этапе. Клиент сразу видит разницу.'],
+  ['Общий план + деталь', 'Сначала вся комната или стена, потом крупно узел: стык, угол, розетку.'],
+  ['Скрытые работы — до закрытия', 'Трубы, проводку, гидроизоляцию снимай, пока их не закрыли. Положи рулетку для масштаба.'],
+  ['Свет', 'Включи свет в помещении, не снимай против окна. Протри объектив от пыли.'],
+  ['Держи телефон горизонтально', 'Такие фото лучше смотрятся в PDF и на экране у клиента.'],
+  ['Подпись: что, где, сколько', 'Например: «2-й этаж, ванная: плитка на стенах, 14 м²». Удобно надиктовать голосом.']
+];
+const FAQ = [
+  ['Где хранятся фото?', 'Только на твоём телефоне. Никуда не загружаются, никто, кроме тебя, их не видит.'],
+  ['Нужен интернет?', 'Нет. После первого открытия приложение работает офлайн. Интернет нужен только чтобы отправить PDF.'],
+  ['Сколько это стоит?', 'Бесплатно. Без аккаунта и без подписки.'],
+  ['Как отправить отчёт клиенту?', 'Объект → «Отчёт» → выбери период → «Создать PDF» → «Отправить». Откроется WhatsApp, почта или Drive.'],
+  ['На каких языках отчёт?', 'Português, English, Русский, Українська. Меняется в настройках.'],
+  ['Как перенести всё на новый телефон?', 'Настройки → «Сделать копию». Сохрани файл в Drive, на новом телефоне — «Восстановить».'],
+  ['Можно поставить свой логотип?', 'Да. Настройки → «Логотип». Он будет в шапке каждого отчёта вместе с названием фирмы.']
+];
+const qa = (q, a, open = false) => `<details class="qa" ${open ? 'open' : ''}><summary>${esc(q)}</summary><div class="a">${a}</div></details>`;
+
 VIEWS.home = async () => {
   const [projects, photos] = await Promise.all([getAll('projects'), getAll('photos')]);
   const st = {};
+  const today = startOfDay(Date.now());
+  let todayN = 0;
   for (const ph of photos) {
     const s = st[ph.projectId] || (st[ph.projectId] = { n: 0, last: 0, thumb: null });
     s.n++; if (ph.ts >= s.last) { s.last = ph.ts; s.thumb = ph; }
+    if (ph.ts >= today) todayN++;
   }
   projects.sort((a, b) => (st[b.id]?.last || b.created) - (st[a.id]?.last || a.created));
-  app.innerHTML = topBar('FotoObra', '', `<div class="logo">${ICON.camera}</div>`, `<button class="icon-btn" data-act="settings" aria-label="Настройки">${ICON.gear}</button>`) + `
+  const steps = [['Создай объект', 'Название, адрес и клиент.'], ['Снимай и диктуй', 'Фото с камеры, подпись голосом.'], ['Отправь PDF', 'Отчёт за день или неделю — в WhatsApp или на почту.']];
+  app.innerHTML = topBar('FotoObra', '', `<div class="logo">${ICON.brand}</div>`, `<button class="icon-btn" data-act="settings" aria-label="Настройки">${ICON.gear}</button>`, 'flat') + `
+<div class="hero-band"><div class="hero-band-in">
+  <p>Фотоотчёты по объектам. Снял — надиктовал — отправил клиенту PDF.</p>
+  <div class="stats"><div class="stat"><b>${projects.length}</b><span>объектов</span></div><div class="stat"><b>${photos.length}</b><span>фото</span></div><div class="stat"><b>${todayN}</b><span>сегодня</span></div></div>
+</div></div>
 <main class="wrap">
-${projects.length ? projects.map(p => {
+${projects.length ? `<div class="group-label">Мои объекты</div>` + projects.map(p => {
     const s = st[p.id];
     return `<button class="proj" data-act="open" data-id="${p.id}">
       ${s ? `<img src="${thumbUrl(s.thumb)}" alt="">` : `<span class="noimg">${ICON.home}</span>`}
       <span class="grow"><span class="pname">${esc(p.name)}</span>${p.addr ? `<span class="sub">${esc(p.addr)}</span>` : ''}<span class="sub">${s ? s.n + ' фото · ' + relDay(s.last) : 'Пока без фото'}</span></span>${ICON.chev}</button>`;
-  }).join('') : `<div class="empty"><b>Пока нет объектов</b>Создай первый объект, и фотографируй работу по нему.</div>`}
+  }).join('') : `<div class="group-label">Как это работает</div><div class="steps">${steps.map(([t, d], i) => `<div class="step"><i>${i + 1}</i><span><b>${t}</b>${d}</span></div>`).join('')}</div>`}
+
+  <div class="group-label">Пример отчёта</div>
+  <div class="sample">
+    <div class="sample-page" aria-hidden="true"><div class="l"></div><div class="t"></div><div class="g"><span></span><span></span><span></span><span></span></div></div>
+    <div class="grow"><b>Ремонт ванной, 4 фото</b><span class="sub" style="white-space:normal">Так выглядит PDF, который получит клиент. С твоим логотипом и на языке из настроек.</span>
+      <div id="sampleBtns"><button class="btn dark" data-act="sample">${ICON.file} Открыть пример</button></div></div>
+  </div>
+
+  <div class="strip">${sampleThumbs().map((u, i) => `<figure><img src="${u}" alt=""><figcaption>${esc((SAMPLE[settings.pdfLang] || SAMPLE.ru).stages[i])}</figcaption></figure>`).join('')}</div>
+  <p class="hint" style="margin:-2px 0 0">Пример: одна ванная, снятая с одной точки на каждом этапе.</p>
+
+  <div class="group-label">Советы по съёмке</div>
+  ${qa('Как снимать, чтобы отчёт выглядел профессионально', `<ul>${TIPS.map(([t, d]) => `<li><b>${t}.</b> ${d}</li>`).join('')}</ul>`)}
+
+  <div class="group-label">Вопросы и ответы</div>
+  ${FAQ.map(([q, a]) => qa(q, esc(a))).join('')}
+
+  ${TRUSTED.length ? `<div class="group-label">Работают с FotoObra</div><div class="trust">${TRUSTED.map(n => `<span>${esc(n)}</span>`).join('')}</div>` : ''}
+  <p class="hint" style="margin-top:24px;text-align:center">Работает без интернета · Фото остаются на телефоне · Бесплатно</p>
 </main>` + bar(`<button class="btn primary" data-act="newProject">${ICON.plus} Новый объект</button>`);
 };
 
@@ -386,15 +478,15 @@ VIEWS.settings = async () => {
   const opt = (v, cur, t) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${t}</option>`;
   app.innerHTML = topBar('Настройки', '') + `
 <main class="wrap">
-  ${standalone ? '' : `<div class="card"><b>Установи на экран «Домой».</b> iPhone: Safari → «Поделиться» → «На экран Домой». Android: Chrome → меню ⋮ → «Добавить на гл. экран». Открывай приложение с иконки — так фото надёжнее сохраняются.</div>`}
+  ${standalone ? '' : `<div class="card note"><b>Установи на экран «Домой».</b> iPhone: Safari → «Поделиться» → «На экран Домой». Android: Chrome → меню ⋮ → «Добавить на гл. экран». Открывай приложение с иконки — так фото надёжнее сохраняются.</div>`}
   <h2>Для PDF-отчёта</h2>
   <div class="field"><label for="sCompany">Компания</label><input type="text" id="sCompany" value="${esc(s.company)}" placeholder="Название фирмы"></div>
   <div class="field"><label for="sLine2">Вторая строка</label><input type="text" id="sLine2" value="${esc(s.line2)}" placeholder="NIF, телефон, e-mail"></div>
   <div class="field"><label for="sPerson">Ответственный</label><input type="text" id="sPerson" value="${esc(s.person)}" placeholder="Твоё имя"></div>
   <div class="field"><label>Логотип</label>${logoUrl ? `<img class="logo-prev" src="${logoUrl}" alt="Логотип">` : ''}
     <div class="btn-row"><button class="btn ghost" data-act="logo">${ICON.gallery} ${s.logo ? 'Заменить' : 'Загрузить'}</button>${s.logo ? `<button class="btn ghost" data-act="logoDel">${ICON.trash} Убрать</button>` : ''}</div></div>
-  <div class="row"><div class="field"><label for="sPdfLang">Язык отчёта</label><select id="sPdfLang">${opt('pt', s.pdfLang, 'Português')}${opt('ru', s.pdfLang, 'Русский')}${opt('uk', s.pdfLang, 'Українська')}</select></div>
-  <div class="field"><label for="sVoice">Язык диктовки</label><select id="sVoice">${opt('ru-RU', s.voiceLang, 'Русский')}${opt('pt-PT', s.voiceLang, 'Português')}${opt('uk-UA', s.voiceLang, 'Українська')}</select></div></div>
+  <div class="row"><div class="field"><label for="sPdfLang">Язык отчёта</label><select id="sPdfLang">${opt('pt', s.pdfLang, 'Português')}${opt('ru', s.pdfLang, 'Русский')}${opt('uk', s.pdfLang, 'Українська')}${opt('en', s.pdfLang, 'English')}</select></div>
+  <div class="field"><label for="sVoice">Язык диктовки</label><select id="sVoice">${opt('ru-RU', s.voiceLang, 'Русский')}${opt('pt-PT', s.voiceLang, 'Português')}${opt('uk-UA', s.voiceLang, 'Українська')}${opt('en-GB', s.voiceLang, 'English')}</select></div></div>
   <button class="btn primary" data-act="saveSettings" style="width:100%">${ICON.check} Сохранить настройки</button>
 
   <div class="section">
@@ -411,7 +503,8 @@ VIEWS.settings = async () => {
 const LBL = {
   pt: { title: 'Relatório de obra', client: 'Cliente', period: 'Período', person: 'Responsável', date: 'Data', summary: 'Resumo', page: 'Página', of: 'de', file: 'Relatorio' },
   ru: { title: 'Отчёт по объекту', client: 'Клиент', period: 'Период', person: 'Ответственный', date: 'Дата', summary: 'Кратко', page: 'Страница', of: 'из', file: 'Otchet' },
-  uk: { title: 'Звіт по об’єкту', client: 'Клієнт', period: 'Період', person: 'Відповідальний', date: 'Дата', summary: 'Коротко', page: 'Сторінка', of: 'з', file: 'Zvit' }
+  uk: { title: 'Звіт по об’єкту', client: 'Клієнт', period: 'Період', person: 'Відповідальний', date: 'Дата', summary: 'Коротко', page: 'Сторінка', of: 'з', file: 'Zvit' },
+  en: { title: 'Site report', client: 'Client', period: 'Period', person: 'Responsible', date: 'Date', summary: 'Summary', page: 'Page', of: 'of', file: 'Report' }
 };
 function buildPdf(pages) {
   const enc = new TextEncoder(), parts = [], offs = [];
@@ -436,9 +529,9 @@ function buildPdf(pages) {
   push(`trailer\n<< /Size ${total} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
   return new Blob(parts, { type: 'application/pdf' });
 }
-async function makeReportPdf(project, photos, summary) {
-  const L = LBL[settings.pdfLang] || LBL.pt;
-  const W = 1240, H = 1754, M = 90, ACC = '#C2410C', INK = '#1B1A17', MUT = '#5E5A52';
+async function makeReportPdf(project, photos, summary, cfg = settings) {
+  const L = LBL[cfg.pdfLang] || LBL.pt;
+  const W = 1240, H = 1754, M = 90, ACC = '#FFB400', BRAND = '#17324D', INK = '#1B1A17', MUT = '#5E5A52';
   const F = (px, w = 400) => `${w} ${px}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`;
   const pages = [];
   let c, x, y;
@@ -465,9 +558,9 @@ async function makeReportPdf(project, photos, summary) {
   newPage();
   /* header */
   let hx = M;
-  if (settings.logo) {
+  if (cfg.logo) {
     try {
-      const lg = await loadImg(new Blob([settings.logo.buf], { type: settings.logo.type }));
+      const lg = await loadImg(new Blob([cfg.logo.buf], { type: cfg.logo.type }));
       const s = Math.min(96 / lg.naturalHeight, 240 / lg.naturalWidth);
       const lw = lg.naturalWidth * s, lh = lg.naturalHeight * s;
       x.drawImage(lg, hx, y + (96 - lh) / 2, lw, lh); hx += lw + 26;
@@ -475,21 +568,21 @@ async function makeReportPdf(project, photos, summary) {
   }
   const dateTxt = fmtDate(Date.now());
   x.font = F(28, 600); const dw = x.measureText(dateTxt).width;
-  x.fillStyle = INK; x.font = F(30, 600); x.fillText(clip(settings.company || '', W - M - hx - dw - 40), hx, y + 42);
-  x.fillStyle = MUT; x.font = F(22); x.fillText(clip(settings.line2 || '', W - M - hx - dw - 40), hx, y + 78);
+  x.fillStyle = INK; x.font = F(30, 600); x.fillText(clip(cfg.company || '', W - M - hx - dw - 40), hx, y + 42);
+  x.fillStyle = MUT; x.font = F(22); x.fillText(clip(cfg.line2 || '', W - M - hx - dw - 40), hx, y + 78);
   x.textAlign = 'right'; x.fillStyle = MUT; x.font = F(22); x.fillText(L.date, W - M, y + 38);
   x.fillStyle = INK; x.font = F(28, 600); x.fillText(dateTxt, W - M, y + 76); x.textAlign = 'left';
   y += 118; x.fillStyle = ACC; x.fillRect(M, y, W - 2 * M, 5); y += 50;
-  x.fillStyle = INK; x.font = F(58, 800); x.fillText(L.title, M, y + 52); y += 84;
+  x.fillStyle = BRAND; x.font = F(58, 800); x.fillText(L.title, M, y + 52); y += 84;
   x.fillStyle = '#3D3A34'; x.font = F(28); x.fillText(clip([project.name, project.addr].filter(Boolean).join(' · '), W - 2 * M), M, y + 28); y += 58;
   /* info boxes */
   const t0 = Math.min(...photos.map(p => p.ts)), t1 = Math.max(...photos.map(p => p.ts));
   const period = dayKey(t0) === dayKey(t1) ? fmtDate(t0) : fmtDate(t0) + ' – ' + fmtDate(t1);
-  const boxes = [[L.client, project.client || '—'], [L.period, period], [L.person, settings.person || '—']];
+  const boxes = [[L.client, project.client || '—'], [L.period, period], [L.person, cfg.person || '—']];
   const bw = (W - 2 * M - 2 * 24) / 3;
   boxes.forEach(([k, v], i) => {
     const bx = M + i * (bw + 24);
-    x.fillStyle = '#F5F2EC'; x.fillRect(bx, y, bw, 104);
+    x.fillStyle = '#EEF3F8'; x.fillRect(bx, y, bw, 104); x.fillStyle = ACC; x.fillRect(bx, y, 6, 104);
     x.fillStyle = MUT; x.font = F(20); x.fillText(k, bx + 22, y + 38);
     x.fillStyle = INK; x.font = F(26, 600); x.fillText(clip(v, bw - 44), bx + 22, y + 78);
   });
@@ -510,7 +603,7 @@ async function makeReportPdf(project, photos, summary) {
     const cx = M + col * (cw + gap);
     x.fillStyle = '#F2EFEA'; x.fillRect(cx, y, cw, ih);
     try {
-      const full = await get('blobs', ph.id);
+      const full = ph.full || await get('blobs', ph.id);
       const img = await loadImg(new Blob([full ? full.buf : ph.thumb.buf], { type: 'image/jpeg' }));
       const s = Math.min(cw / img.naturalWidth, ih / img.naturalHeight);
       const w = img.naturalWidth * s, h = img.naturalHeight * s;
@@ -529,7 +622,7 @@ async function makeReportPdf(project, photos, summary) {
     const g = pg.getContext('2d');
     g.fillStyle = '#E5E0D6'; g.fillRect(M, H - M + 6, W - 2 * M, 2);
     g.fillStyle = MUT; g.font = F(20);
-    g.fillText(settings.company || 'FotoObra', M, H - M + 40);
+    g.fillText(cfg.company || 'FotoObra', M, H - M + 40);
     g.textAlign = 'right'; g.fillText(`${L.page} ${i + 1} ${L.of} ${pages.length}`, W - M, H - M + 40); g.textAlign = 'left';
   });
   const jpgs = [];
@@ -540,6 +633,86 @@ async function makeReportPdf(project, photos, summary) {
   }
   const name = `${L.file}_${slug(project.name)}_${dayKey(Date.now())}.pdf`;
   return { file: new File([buildPdf(jpgs)], name, { type: 'application/pdf' }), pages: pages.length };
+}
+
+/* ---------- sample report (drawn photos, nothing stored) ---------- */
+const SAMPLE = {
+  ru: { stages: ['До', 'Работа', 'Плитка', 'Готово'], company: 'Ваша компания', line2: 'Телефон · e-mail', person: 'Ваше имя', summary: 'Ванная на 1-м этаже. Демонтаж, выравнивание стен, гидроизоляция и укладка плитки закончены. Сантехника установлена.',
+    caps: ['Демонтаж старой плитки в ванной завершён', 'Выровняли стены, нанесли гидроизоляцию по углам и полу', 'Уложили плитку на стены, затирка завтра', 'Ванная готова: затирка, силикон, сантехника установлена'] },
+  pt: { stages: ['Antes', 'Obra', 'Azulejo', 'Pronto'], company: 'A sua empresa', line2: 'Telefone · e-mail', person: 'O seu nome', summary: 'Casa de banho do r/c. Demolição, regularização das paredes, impermeabilização e assentamento de azulejo concluídos. Loiças instaladas.',
+    caps: ['Demolição do azulejo antigo concluída', 'Paredes regularizadas, impermeabilização nos cantos e no chão', 'Azulejo assente nas paredes, betumação amanhã', 'Casa de banho pronta: betumação, silicone e loiças instaladas'] },
+  uk: { stages: ['До', 'Роботи', 'Плитка', 'Готово'], company: 'Ваша компанія', line2: 'Телефон · e-mail', person: 'Ваше ім’я', summary: 'Ванна на 1-му поверсі. Демонтаж, вирівнювання стін, гідроізоляція та укладання плитки завершені. Сантехніку встановлено.',
+    caps: ['Демонтаж старої плитки у ванній завершено', 'Вирівняли стіни, нанесли гідроізоляцію в кутах і на підлозі', 'Поклали плитку на стіни, затирка завтра', 'Ванна готова: затирка, силікон, сантехніку встановлено'] },
+  en: { stages: ['Before', 'Prep', 'Tiling', 'Done'], company: 'Your company', line2: 'Phone · e-mail', person: 'Your name', summary: 'Ground floor bathroom. Strip-out, wall levelling, waterproofing and tiling finished. Fixtures installed.',
+    caps: ['Old bathroom tiles removed', 'Walls levelled, waterproofing on corners and floor', 'Wall tiles laid, grouting tomorrow', 'Bathroom finished: grout, silicone, fixtures installed'] }
+};
+function drawDemo(stage, W = 1200, H = 900) {
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d');
+  let seed = 7 + stage * 101;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const fy = H * 0.74; /* floor line */
+  const wall = ['#9C978E', '#C9C6BF', '#C9C6BF', '#F4F2EE'][stage];
+  x.fillStyle = wall; x.fillRect(0, 0, W, fy);
+  x.fillStyle = ['#6E6A62', '#8A9BA8', '#8A9BA8', '#D8D2C6'][stage]; x.fillRect(0, fy, W, H - fy);
+  const tiles = (x0, y0, x1, y1, s, col, grout) => {
+    x.fillStyle = col; x.fillRect(x0, y0, x1 - x0, y1 - y0);
+    x.strokeStyle = grout; x.lineWidth = 3;
+    for (let gx = x0; gx <= x1; gx += s) { x.beginPath(); x.moveTo(gx, y0); x.lineTo(gx, y1); x.stroke(); }
+    for (let gy = y1; gy >= y0; gy -= s * 0.5) { x.beginPath(); x.moveTo(x0, gy); x.lineTo(x1, gy); x.stroke(); }
+  };
+  if (stage === 0) {
+    for (let i = 0; i < 18; i++) { x.fillStyle = `rgba(${rnd() > .5 ? '70,68,64' : '190,186,178'},${.08 + rnd() * .12})`; x.beginPath(); x.ellipse(rnd() * W, rnd() * fy, 60 + rnd() * 140, 40 + rnd() * 80, 0, 0, 7); x.fill(); }
+    tiles(W * 0.62, fy * 0.18, W * 0.92, fy * 0.5, 60, '#D9CBA3', '#A89B78');
+    for (let i = 0; i < 60; i++) { x.fillStyle = ['#8C877E', '#5A5650', '#B8B2A6', '#D9CBA3'][i % 4]; const px = rnd() * W, py = fy + 20 + rnd() * (H - fy - 40), r = 8 + rnd() * 26; x.beginPath(); x.moveTo(px, py - r); x.lineTo(px + r, py); x.lineTo(px + r * .3, py + r * .7); x.lineTo(px - r, py + r * .2); x.fill(); }
+  }
+  if (stage >= 1) {
+    x.fillStyle = 'rgba(90,120,150,.55)';
+    x.fillRect(0, fy - 70, W, 70); x.fillRect(W * 0.48, 0, 34, fy);
+  }
+  if (stage === 2) tiles(0, fy * 0.38, W, fy, 150, '#FBFAF8', '#C8C4BC');
+  if (stage === 3) {
+    tiles(0, 0, W, fy, 150, '#FBFAF8', '#D6D2CA');
+    tiles(0, fy, W, H, 200, '#CFC7B8', '#B2AA9A');
+    x.fillStyle = '#E8EEF3'; x.strokeStyle = '#9AA6B0'; x.lineWidth = 6;
+    x.beginPath(); x.roundRect(W * 0.16, fy * 0.18, W * 0.24, fy * 0.34, 18); x.fill(); x.stroke();
+    x.fillStyle = '#FFFFFF'; x.beginPath(); x.roundRect(W * 0.12, fy * 0.6, W * 0.32, 60, 14); x.fill(); x.stroke();
+    x.fillStyle = '#FFFFFF'; x.beginPath(); x.roundRect(W * 0.62, fy * 0.6, 150, 220, 40); x.fill(); x.stroke();
+    x.beginPath(); x.ellipse(W * 0.62 + 75, fy + 40, 110, 70, 0, 0, 7); x.fill(); x.stroke();
+  }
+  if (stage === 1 || stage === 2) {
+    x.fillStyle = '#5A6B78'; x.fillRect(W * 0.72, fy - 40, 150, 170);
+    x.fillStyle = '#FFB400'; x.fillRect(W * 0.72, fy - 40, 150, 26);
+  }
+  if (stage === 2) {
+    x.fillStyle = '#D6C7A4'; for (let i = 0; i < 3; i++) x.fillRect(W * 0.08 + i * 12, fy + 30 - i * 44, 240, 44);
+  }
+  /* light + vignette so it reads as a photo */
+  const g = x.createRadialGradient(W * 0.45, H * 0.35, 80, W * 0.5, H * 0.5, W * 0.75);
+  g.addColorStop(0, 'rgba(255,250,235,.18)'); g.addColorStop(1, 'rgba(0,0,0,.32)');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  return c;
+}
+async function canvasJpeg(c, q = 0.82) {
+  const b = await new Promise(r => c.toBlob(r, 'image/jpeg', q));
+  return { buf: await b.arrayBuffer(), type: 'image/jpeg', w: c.width, h: c.height };
+}
+function sampleThumbs() {
+  if (!S.sampleThumbs) S.sampleThumbs = [0, 1, 2, 3].map(i => drawDemo(i, 320, 240).toDataURL('image/jpeg', 0.8));
+  return S.sampleThumbs;
+}
+async function makeSamplePdf() {
+  const lang = SAMPLE[settings.pdfLang] ? settings.pdfLang : 'pt';
+  const T = SAMPLE[lang];
+  const now = Date.now();
+  const photos = [];
+  for (let i = 0; i < 4; i++) {
+    const ts = startOfDay(now) - (3 - i) * 2 * DAY + (9 + i * 2) * 3600000;
+    photos.push({ id: 'sample' + i, ts, caption: T.caps[i], full: await canvasJpeg(drawDemo(i)) });
+  }
+  const cfg = settings.company ? settings : { ...settings, company: T.company, line2: T.line2, person: T.person };
+  const project = { name: 'Moradia Estoril', addr: 'Rua das Flores 12, Estoril', client: 'Ana Silva' };
+  return (await makeReportPdf(project, photos, T.summary, { ...cfg, pdfLang: lang })).file;
 }
 
 function download(file) {
@@ -682,7 +855,14 @@ const ACT = {
   backup: b => busy(b, 'Готовлю копию…', async () => { S.backupFile = await makeBackup(); readSettingsFields(); await render('settings'); window.scrollTo(0, document.body.scrollHeight); }),
   shareBackup: () => shareFile(S.backupFile, 'FotoObra — резервная копия'),
   dlBackup: () => download(S.backupFile),
-  restore: () => $('#backupIn').click()
+  restore: () => $('#backupIn').click(),
+  sample: b => busy(b, 'Создаю пример…', async () => {
+    if (S.sampleUrl) URL.revokeObjectURL(S.sampleUrl);
+    S.samplePdf = await makeSamplePdf();
+    S.sampleUrl = URL.createObjectURL(S.samplePdf);
+    $('#sampleBtns').innerHTML = `<a class="btn dark" href="${S.sampleUrl}" target="_blank" rel="noopener" style="text-decoration:none">${ICON.file} Открыть PDF</a><button class="btn ghost sq" data-act="dlSample" aria-label="Скачать пример">${ICON.download}</button>`;
+  }),
+  dlSample: () => download(S.samplePdf)
 };
 app.addEventListener('click', e => {
   const b = e.target.closest('[data-act]');
