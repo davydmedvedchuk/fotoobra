@@ -18,10 +18,11 @@ FotoObra keeps photos by job site and turns them into a clean PDF in a couple of
 
 - **Job sites.** Name, address, client.
 - **Photos by day.** Straight from the camera or several at once from the gallery.
-- **Voice captions.** Tap the mic and say what was done. Russian, Portuguese or Ukrainian.
-- **PDF report.** Today, last 7 days, all, or custom dates. Tap a photo to leave it out. Your logo and company name in the header. Report language: PT, RU or UA.
+- **Voice captions.** Tap the mic and say what was done. Russian, Portuguese, Ukrainian or English.
+- **PDF report.** Today, last 7 days, all, or custom dates. Tap a photo to leave it out. Your logo and company name in the header. Report language: PT, EN, RU or UA.
 - **Send.** Share the PDF straight to WhatsApp, email or Drive.
 - **Backup.** One file with everything. Restore on a new phone.
+- **Help on the home screen.** How it works, a sample PDF report, photo tips and FAQ.
 
 | Job sites | Photo feed | Report |
 |---|---|---|
