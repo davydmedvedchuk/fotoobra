@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17324D">
+<meta name="description" content="Photo reports for construction sites. Take a photo, say what was done, send a PDF to your client on WhatsApp. Free, no account, works offline.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<title>FotoObra: photo reports from the job site</title>
+<script>
+/* The installed app opens this page: send it straight to the app. */
+if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) location.replace('app/');
+</script>
+<style>
+:root{--navy:#17324D;--deep:#0F2236;--navy2:#22476B;--amber:#FFB400;--bg:#F5F6F8;--ink:#14202B;--muted:#5B6672;--line:#E1E5EA;--soft:#C9D6E3}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.c{max-width:1180px;margin:0 auto;padding:0 40px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 24px;border-radius:14px;font-weight:700;font-size:16px;white-space:nowrap}
+.btn.amber{background:var(--amber);color:var(--ink)}
+.btn.ghost{border:1.5px solid rgba(255,255,255,.45);color:#fff}
+.btn.navy{background:var(--navy);color:#fff}
+.btn.sm{height:40px;padding:0 16px;font-size:14px;border-radius:11px}
+.kicker{font-family:Oswald,Inter,sans-serif;font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#A87500;margin-bottom:12px}
+h1,h2,h3{margin:0}
+h2{font-family:Oswald,Inter,sans-serif;font-weight:700;text-transform:uppercase;font-size:48px;letter-spacing:.2px;line-height:1.05;margin-bottom:16px}
+.sub{font-size:18px;color:var(--muted);margin:0 0 44px;max-width:640px;line-height:1.5}
+section{padding:100px 0}
+
+/* hero */
+.hero{position:relative;color:#fff;background:var(--deep) url(assets/kitchen.jpg) center 40%/cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,34,54,.97) 0%,rgba(15,34,54,.9) 42%,rgba(15,34,54,.4) 75%,rgba(15,34,54,.25) 100%)}
+.hero>.c{position:relative}
+nav{display:flex;align-items:center;gap:26px;padding:20px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.links{display:flex;gap:24px;margin-left:auto;font-size:15px;color:#D5DFEA}
+.links a:hover{color:#fff}
+.lang{display:flex;gap:2px;background:rgba(255,255,255,.1);border-radius:10px;padding:3px}
+.lang button{font:inherit;font-size:13px;font-weight:700;color:#D5DFEA;background:none;border:0;border-radius:8px;padding:6px 9px;cursor:pointer}
+.lang button[aria-pressed=true]{background:#fff;color:var(--ink)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:end;padding:44px 0 0}
+.eyebrow{display:inline-block;font-family:Oswald,Inter,sans-serif;font-size:15px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--amber);background:rgba(255,180,0,.14);padding:6px 12px;border-radius:999px;margin-bottom:20px}
+h1{font-family:Oswald,Inter,sans-serif;font-size:84px;line-height:.98;letter-spacing:.3px;margin-bottom:22px;font-weight:700;text-transform:uppercase}
+h1 span{color:var(--amber)}
+.lead{font-size:19px;line-height:1.5;color:#D5DFEA;margin:0 0 30px;max-width:520px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.ticks{display:flex;gap:10px 22px;flex-wrap:wrap;font-size:15px;color:#D5DFEA;margin-bottom:34px}
+.ticks span::before{content:"✓";color:var(--amber);font-weight:800;margin-right:7px}
+.qrline{display:flex;align-items:center;gap:14px;padding-bottom:64px}
+.qrline .q{background:#fff;border-radius:12px;padding:8px}
+.qrline img{width:72px;height:72px}
+.qrline b{display:block;font-size:15px}
+.qrline small{color:#AFC0D2;font-size:13px}
+
+/* phone with the app */
+.phone{width:300px;height:600px;margin:0 auto -60px;background:#0A0F15;border-radius:46px;padding:12px;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 0 0 2px #2A3440;position:relative;z-index:2}
+.screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#F4F5F7;color:var(--ink);position:relative}
+.at{background:var(--navy);color:#fff;padding:36px 14px 12px;display:flex;align-items:center;gap:10px}
+.at .bk{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.14)}
+.at b{display:block;font-size:16px}
+.at small{font-size:11px;color:var(--soft)}
+.feed{padding:10px 12px}
+.day{font-family:Oswald,Inter,sans-serif;font-size:11px;font-weight:500;letter-spacing:.8px;color:var(--navy2);margin:4px 0 8px;text-transform:uppercase}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ph{background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden;position:relative}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ph i{position:absolute;left:6px;top:6px;font-style:normal;font-size:9px;font-weight:700;color:#fff;background:rgba(23,50,77,.85);padding:1px 5px;border-radius:4px}
+.ph p{margin:0;padding:6px 7px 8px;font-size:10px;line-height:1.3}
+.ab{position:absolute;left:0;right:0;bottom:0;display:flex;gap:6px;padding:10px 12px 18px;background:#F4F5F7;border-top:1px solid var(--line)}
+.ab div{flex:1;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.ab .a{background:var(--amber)}
+.ab .n{background:var(--navy);color:#fff}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
+.step .n{flex:0 0 44px;height:44px;border-radius:50%;background:var(--navy);color:var(--amber);font-family:Oswald,Inter,sans-serif;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center}
+.step h3{margin:6px 0 6px;font-size:20px}
+.step p{margin:0;color:var(--muted);line-height:1.5}
+
+/* real jobs */
+.jobs{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.jg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.card .im{position:relative}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;position:relative}
+.pair .arrow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.tag{position:absolute;left:12px;top:12px;font-family:Oswald,Inter,sans-serif;text-transform:uppercase;letter-spacing:.6px;font-size:13px;font-weight:500;background:var(--amber);color:var(--ink);padding:3px 9px;border-radius:7px}
+.tag.d{background:var(--navy);color:#fff}
+.card .t{padding:16px 18px 20px}
+.card .t b{display:block;font-size:16px;margin-bottom:4px}
+.card .t span{color:var(--muted);font-size:14.5px;line-height:1.45}
+
+/* sample report */
+.rg{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center}
+.paper{background:#E9EDF2;border-radius:24px;padding:36px;display:flex;justify-content:center}
+.paper img{width:100%;max-width:420px;border-radius:6px;box-shadow:0 30px 60px rgba(15,34,54,.25)}
+.list{list-style:none;padding:0;margin:0 0 30px}
+.list li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:16px}
+.list li::before{content:"";flex:0 0 22px;height:22px;border-radius:50%;background:var(--amber) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12l4 4 8-9' fill='none' stroke='%2314202B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat}
+
+/* why photos */
+.shots{background:var(--deep);color:#fff}
+.shots .kicker{color:var(--amber)}
+.shots .sub{color:#B9C7D6}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pc{background:#16304A;border:1px solid #24466A;border-radius:20px;overflow:hidden}
+.pc .im{position:relative}
+.pc img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.pc .n{position:absolute;left:12px;top:12px;width:32px;height:32px;border-radius:50%;background:var(--amber);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center}
+.pc .t{padding:18px 20px 22px}
+.pc h3{font-size:19px;margin-bottom:6px}
+.pc p{margin:0;color:#B9C7D6;line-height:1.5;font-size:15px}
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+.qa{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.qa b{display:block;font-size:17px;margin-bottom:8px}
+.qa p{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+
+/* final */
+.final{position:relative;border-radius:28px;overflow:hidden;color:#fff;background:var(--deep)}
+.final video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.final::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,34,54,.96),rgba(15,34,54,.78) 60%,rgba(15,34,54,.45))}
+.final .in{position:relative;z-index:1;padding:60px;display:flex;align-items:center;gap:40px}
+.final p{color:#D5DFEA;font-size:18px;margin:0 0 26px}
+.final .qb{margin-left:auto;background:#fff;border-radius:18px;padding:14px}
+.final .qb img{width:130px;height:130px}
+footer{padding:36px 0 50px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:underline}
+
+/* phones and tablets */
+@media (max-width:900px){
+  .c{padding:0 18px}
+  .links,nav .btn{display:none}
+  .lang{margin-left:auto}
+  .hero::before{background:linear-gradient(180deg,rgba(15,34,54,.95) 0%,rgba(15,34,54,.88) 55%,rgba(15,34,54,.62) 100%)}
+  .hero-grid{grid-template-columns:1fr;padding-top:14px;gap:10px}
+  h1{font-size:54px}
+  .lead{font-size:16.5px}
+  .cta .btn{flex:1;padding:0 12px}
+  .qrline{display:none}
+  .ticks{gap:8px 16px;font-size:14px}
+  .phone{transform:scale(.8);transform-origin:top center;margin-bottom:-160px}
+  section{padding:64px 0}
+  h2{font-size:36px}
+  .sub{font-size:16px;margin-bottom:28px}
+  .steps{grid-template-columns:1fr;gap:12px}
+  .step{padding:20px}
+  .jg{grid-template-columns:1fr 1fr;gap:12px}
+  .jg .big{grid-column:1/-1}
+  .card .t{padding:12px 14px 16px}
+  .card .t b{font-size:15px}
+  .card .t span{font-size:13.5px}
+  .rg,.faq{grid-template-columns:1fr}
+  .rg{gap:28px}
+  .paper{padding:20px}
+  .pg{grid-template-columns:1fr;gap:14px}
+  .final .in{flex-direction:column;align-items:stretch;padding:34px 24px}
+  .final .qb{display:none}
+  footer{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<header class="hero"><div class="c">
+  <nav>
+    <a class="brand" href="./"><img src="icon-192.png" alt="">FotoObra</a>
+    <div class="links"><a href="#how" data-t="navHow"></a><a href="#sample" data-t="navSample"></a><a href="#faq" data-t="navFaq"></a></div>
+    <div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="pt">PT</button><button data-lang="ru">RU</button><button data-lang="uk">UA</button></div>
+    <a class="btn amber sm" href="app/" data-t="openApp"></a>
+  </nav>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow" data-t="eyebrow"></div>
+      <h1 data-t="h1"></h1>
+      <p class="lead" data-t="lead"></p>
+      <div class="cta"><a class="btn amber" href="app/" data-t="start"></a><a class="btn ghost" href="#sample" data-t="seeSample"></a></div>
+      <div class="ticks"><span data-t="t1"></span><span data-t="t2"></span><span data-t="t3"></span></div>
+      <div class="qrline"><div class="q"><img src="assets/qr-app.svg" alt=""></div><div><b data-t="qrTitle"></b><small data-t="qrSub"></small></div></div>
+    </div>
+    <div><div class="phone" aria-hidden="true"><div class="screen">
+      <div class="at"><div class="bk"></div><div><b data-t="mockJob"></b><small data-t="mockSub"></small></div></div>
+      <div class="feed">
+        <div class="day" data-t="today"></div>
+        <div class="fg"><div class="ph"><img src="assets/showroom.jpg" alt=""><i>16:40</i><p data-t="mockCap1"></p></div><div class="ph"><img src="assets/showroom-poster.jpg" alt="" style="object-position:50% 75%"><i>16:32</i><p data-t="mockCap2"></p></div></div>
+        <div class="day" style="margin-top:12px" data-t="yesterday"></div>
+        <div class="fg"><div class="ph"><img src="assets/install.jpg" alt=""><i>11:25</i><p data-t="mockCap3"></p></div></div>
+      </div>
+      <div class="ab"><div class="a" data-t="mockShoot"></div><div class="n" data-t="mockReport"></div></div>
+    </div></div></div>
+  </div>
+</div></header>
+
+<section id="how" style="padding-top:130px"><div class="c">
+  <div class="kicker" data-t="howK"></div>
+  <h2 data-t="howH"></h2>
+  <p class="sub" data-t="howSub"></p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div><h3 data-t="s1h"></h3><p data-t="s1p"></p></div></div>
+    <div class="step"><div class="n">2</div><div><h3 data-t="s2h"></h3><p data-t="s2p"></p></div></div>
+    <div class="step"><div class="n">3</div><div><h3 data-t="s3h"></h3><p data-t="s3p"></p></div></div>
+  </div>
+</div></section>
+
+<section class="jobs"><div class="c">
+  <div class="kicker" data-t="jobsK"></div>
+  <h2 data-t="jobsH"></h2>
+  <p class="sub" data-t="jobsSub"></p>
+  <div class="jg">
+    <div class="card big">
+      <div class="pair">
+        <div class="im"><img src="assets/install.jpg" alt=""><span class="tag" data-t="tagWork"></span></div>
+        <div class="im"><img src="assets/showroom.jpg" alt=""><span class="tag d" data-t="tagDone"></span></div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="t"><b data-t="j1h"></b><span data-t="j1p"></span></div>
+    </div>
+    <div class="card"><div class="im"><img src="assets/demolition.jpg" alt=""><span class="tag" data-t="tagDemo"></span></div><div class="t"><b data-t="j2h"></b><span data-t="j2p"></span></div></div>
+    <div class="card"><div class="im"><img src="assets/kitchen.jpg" alt="" style="object-position:30% 50%"><span class="tag d" data-t="tagHand"></span></div><div class="t"><b data-t="j3h"></b><span data-t="j3p"></span></div></div>
+  </div>
+</div></section>
+
+<section id="sample"><div class="c rg">
+  <a class="paper" id="reportLink" href="assets/sample-report-en.pdf" target="_blank" rel="noopener"><img id="reportImg" src="assets/sample-report-en.jpg" alt=""></a>
+  <div>
+    <div class="kicker" data-t="repK"></div>
+    <h2 data-t="repH"></h2>
+    <p class="sub" style="margin-bottom:24px" data-t="repSub"></p>
+    <ul class="list"><li data-t="r1"></li><li data-t="r2"></li><li data-t="r3"></li><li>English, Português, Русский, Українська</li></ul>
+    <a class="btn navy" id="reportBtn" href="assets/sample-report-en.pdf" target="_blank" rel="noopener" data-t="openPdf"></a>
+  </div>
+</div></section>
+
+<section class="shots"><div class="c">
+  <div class="kicker" data-t="phK"></div>
+  <h2 data-t="phH"></h2>
+  <p class="sub" data-t="phSub"></p>
+  <div class="pg">
+    <div class="pc"><div class="im"><img src="assets/measure.jpg" alt="" loading="lazy"><span class="n">1</span></div><div class="t"><h3 data-t="p1h"></h3><p data-t="p1p"></p></div></div>
+    <div class="pc"><div class="im"><img src="assets/hidden.jpg" alt="" loading="lazy"><span class="n">2</span></div><div class="t"><h3 data-t="p2h"></h3><p data-t="p2p"></p></div></div>
+    <div class="pc"><div class="im"><img src="assets/door.jpg" alt="" loading="lazy" style="object-position:50% 30%"><span class="n">3</span></div><div class="t"><h3 data-t="p3h"></h3><p data-t="p3p"></p></div></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="c">
+  <div class="kicker" data-t="faqK"></div>
+  <h2 style="margin-bottom:30px" data-t="faqH"></h2>
+  <div class="faq">
+    <div class="qa"><b data-t="q1"></b><p data-t="a1"></p></div>
+    <div class="qa"><b data-t="q2"></b><p data-t="a2"></p></div>
+    <div class="qa"><b data-t="q3"></b><p data-t="a3"></p></div>
+    <div class="qa"><b data-t="q4"></b><p data-t="a4"></p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="c">
+  <div class="final">
+    <video autoplay muted loop playsinline preload="metadata" poster="assets/showroom-poster.jpg"><source src="assets/showroom.mp4" type="video/mp4"></video>
+    <div class="in"><div><h2 data-t="finH"></h2><p data-t="finP"></p><a class="btn amber" href="app/" data-t="finBtn"></a></div><div class="qb"><img src="assets/qr-app.svg" alt=""></div></div>
+  </div>
+  <footer><span data-t="foot1"></span><span><span data-t="foot2"></span> · <a href="https://github.com/davydmedvedchuk/fotoobra">GitHub</a></span></footer>
+</div></section>
+
+<script>
+const T = {
+  en: {
+    navHow: 'How it works', navSample: 'Sample report', navFaq: 'FAQ', openApp: 'Open the app',
+    eyebrow: 'For builders and renovation crews', h1: 'Shoot. Say it. <span>Send it.</span>',
+    lead: 'Photos sorted by job and date. A PDF with your logo goes to the client on WhatsApp while you’re still on site.',
+    start: 'Start for free', seeSample: 'See a sample report', t1: 'No sign-up', t2: 'Works offline', t3: 'Photos stay on your phone',
+    qrTitle: 'Open it on your phone', qrSub: 'Point your camera at the code',
+    mockJob: 'Showroom kitchen', mockSub: 'Lisbon · 3 photos', today: 'Today', yesterday: 'Yesterday',
+    mockCap1: 'Kitchen finished, LED lighting connected', mockCap2: 'Worktop and hob fitted', mockCap3: 'Fronts fitted, worktop tomorrow', mockShoot: 'Photo', mockReport: 'Report',
+    howK: 'How it works', howH: 'Three taps. That’s it.', howSub: 'Work photos no longer get lost among personal ones. Each one lands in its job, with a date and a caption.',
+    s1h: 'Create a job', s1p: 'Name, address, client. Once per site.', s2h: 'Shoot and say it', s2p: 'Camera, then a caption by voice. No typing with dirty hands.', s3h: 'Send it', s3p: 'A day, a week or any dates. Straight to WhatsApp or e-mail.',
+    jobsK: 'Real jobs', jobsH: 'Any job. Any stage.', jobsSub: 'Photos from different jobs in Lisbon, the way they look in the app.',
+    tagWork: 'In progress', tagDone: 'Done', tagDemo: 'Demolition', tagHand: 'Handover',
+    j1h: 'Showroom kitchen', j1p: 'From fitting the fronts to the finished kitchen with LED lighting.', j2h: 'Apartment', j2p: 'Opening made, temporary beam in place.', j3h: 'Apartment', j3p: 'Kitchen units and appliances installed.',
+    repK: 'Sample report', repH: 'This is what the client gets.', repSub: 'A real report made in the app from the photos above. No edits.',
+    r1: 'Your logo, company name and contacts', r2: 'Photos by date, with captions', r3: 'A short summary for the period', openPdf: 'Open the sample PDF',
+    phK: 'Photos on site', phH: 'Every photo has a job.', phSub: 'Shoot the way you like. Every photo lands in its job with a date and a caption, so in the report it all adds up.', p1h: 'To do the job right', p1p: 'Sizes, marks, levels. Snap it instead of writing it on the wall.', p2h: 'So nothing gets forgotten', p2p: 'Pipes, manifolds and cables before the wall is closed. In a year you will still know where they run.', p3h: 'To report. Good or bad.', p3p: 'If it’s in the photo, there’s nothing to argue about. A gap over the frame, someone else’s poor work.',
+    faqK: 'Good to know', faqH: 'Questions',
+    q1: 'Where are my photos stored?', a1: 'Only on your phone. They are never uploaded anywhere.', q2: 'How much does it cost?', a2: 'Nothing. No account, no subscription.',
+    q3: 'Do I need internet?', a3: 'No. You only need it to send the PDF to your client.', q4: 'How do I move to a new phone?', a4: 'Settings → Make a copy, then Restore on the new phone.',
+    finH: 'Your next job. Your first report.', finP: 'Open it on your phone and add it to your Home Screen. Ten seconds.', finBtn: 'Open FotoObra',
+    foot1: 'FotoObra · photo reports for construction sites', foot2: 'Free · No account · Offline'
+  },
+  pt: {
+    navHow: 'Como funciona', navSample: 'Relatório de exemplo', navFaq: 'Perguntas', openApp: 'Abrir a app',
+    eyebrow: 'Para construtores e equipas de remodelação', h1: 'Fotografe. Diga. <span>Envie.</span>',
+    lead: 'As fotos ficam arrumadas por obra e por data. O PDF com o seu logótipo segue para o cliente pelo WhatsApp ainda na obra.',
+    start: 'Começar grátis', seeSample: 'Ver um exemplo', t1: 'Sem registo', t2: 'Funciona sem internet', t3: 'As fotos ficam no seu telemóvel',
+    qrTitle: 'Abra no telemóvel', qrSub: 'Aponte a câmara para o código',
+    mockJob: 'Cozinha de showroom', mockSub: 'Lisboa · 3 fotos', today: 'Hoje', yesterday: 'Ontem',
+    mockCap1: 'Cozinha pronta, iluminação LED ligada', mockCap2: 'Tampo e placa montados', mockCap3: 'Frentes montadas, tampo amanhã', mockShoot: 'Foto', mockReport: 'Relatório',
+    howK: 'Como funciona', howH: 'Três toques. Mais nada.', howSub: 'As fotos da obra já não se perdem entre as pessoais. Cada uma fica na sua obra, com data e legenda.',
+    s1h: 'Crie a obra', s1p: 'Nome, morada, cliente. Uma vez por obra.', s2h: 'Fotografe e diga', s2p: 'Câmara e legenda por voz. Sem escrever com as mãos sujas.', s3h: 'Envie', s3p: 'Um dia, uma semana ou quaisquer datas. Direto para o WhatsApp ou e-mail.',
+    jobsK: 'Obras reais', jobsH: 'Qualquer obra. Qualquer fase.', jobsSub: 'Fotos de várias obras em Lisboa, tal como aparecem na app.',
+    tagWork: 'Em obra', tagDone: 'Pronto', tagDemo: 'Demolição', tagHand: 'Entrega',
+    j1h: 'Cozinha de showroom', j1p: 'Da montagem das frentes à cozinha pronta com iluminação LED.', j2h: 'Apartamento', j2p: 'Vão aberto, viga provisória colocada.', j3h: 'Apartamento', j3p: 'Móveis de cozinha e eletrodomésticos instalados.',
+    repK: 'Relatório de exemplo', repH: 'É isto que o cliente recebe.', repSub: 'Um relatório real feito na app com as fotos acima. Sem retoques.',
+    r1: 'O seu logótipo, nome da empresa e contactos', r2: 'Fotos por data, com legendas', r3: 'Um resumo curto do período', openPdf: 'Abrir o PDF de exemplo',
+    phK: 'Fotos em obra', phH: 'Cada foto tem a sua função.', phSub: 'Fotografe como quiser. Cada foto fica na sua obra, com data e legenda, e no relatório tudo bate certo.', p1h: 'Para fazer bem o trabalho', p1p: 'Medidas, marcações, níveis. Uma foto em vez de escrever na parede.', p2h: 'Para não esquecer', p2p: 'Canos, coletores e cabos antes de fechar a parede. Daqui a um ano ainda sabe por onde passam.', p3h: 'Para prestar contas. Bom ou mau.', p3p: 'Se está na foto, não há discussão. Uma folga sobre o aro, um trabalho mal feito por outros.',
+    faqK: 'Bom saber', faqH: 'Perguntas',
+    q1: 'Onde ficam as fotos?', a1: 'Só no seu telemóvel. Nunca são enviadas para lado nenhum.', q2: 'Quanto custa?', a2: 'Nada. Sem conta e sem subscrição.',
+    q3: 'Preciso de internet?', a3: 'Não. Só precisa dela para enviar o PDF ao cliente.', q4: 'Como passo tudo para outro telemóvel?', a4: 'Definições → Fazer cópia e, no telemóvel novo, Restaurar.',
+    finH: 'Próxima obra. Primeiro relatório.', finP: 'Abra no telemóvel e adicione ao ecrã principal. Dez segundos.', finBtn: 'Abrir o FotoObra',
+    foot1: 'FotoObra · relatórios fotográficos de obra', foot2: 'Grátis · Sem conta · Sem internet'
+  },
+  ru: {
+    navHow: 'Как работает', navSample: 'Пример отчёта', navFaq: 'Вопросы', openApp: 'Открыть приложение',
+    eyebrow: 'Для строителей и ремонтных бригад', h1: 'Снял. Сказал. <span>Отправил.</span>',
+    lead: 'Фото сами раскладываются по объектам и датам. PDF с твоим логотипом уходит клиенту в WhatsApp, пока ты ещё на объекте.',
+    start: 'Начать бесплатно', seeSample: 'Пример отчёта', t1: 'Без регистрации', t2: 'Работает без интернета', t3: 'Фото только у тебя',
+    qrTitle: 'Открой на телефоне', qrSub: 'Наведи камеру на код',
+    mockJob: 'Кухня в шоуруме', mockSub: 'Лиссабон · 3 фото', today: 'Сегодня', yesterday: 'Вчера',
+    mockCap1: 'Кухня готова, подсветка подключена', mockCap2: 'Столешница и варочная панель на месте', mockCap3: 'Фасады выставлены, столешница завтра', mockShoot: 'Снять', mockReport: 'Отчёт',
+    howK: 'Как это работает', howH: 'Три нажатия. И всё.', howSub: 'Рабочие фото больше не теряются среди личных. Каждое ложится в свой объект, с датой и подписью.',
+    s1h: 'Создай объект', s1p: 'Название, адрес, клиент. Один раз на стройку.', s2h: 'Сними и скажи', s2p: 'Камера, потом подпись голосом. Не надо печатать грязными руками.', s3h: 'Отправь', s3p: 'За день, неделю или любые даты. Сразу в WhatsApp или на почту.',
+    jobsK: 'Реальные объекты', jobsH: 'Любой объект. Любой этап.', jobsSub: 'Фото с разных объектов в Лиссабоне — так, как они выглядят в приложении.',
+    tagWork: 'В работе', tagDone: 'Готово', tagDemo: 'Демонтаж', tagHand: 'Сдача',
+    j1h: 'Кухня в шоуруме', j1p: 'От монтажа фасадов до готовой кухни с LED-подсветкой.', j2h: 'Квартира', j2p: 'Проём открыт, стоит временная балка.', j3h: 'Квартира', j3p: 'Кухонный блок и техника установлены.',
+    repK: 'Пример отчёта', repH: 'Вот что получит клиент.', repSub: 'Настоящий отчёт из приложения, собранный из фото выше. Без правок.',
+    r1: 'Твой логотип, название фирмы и контакты', r2: 'Фото по датам, с подписями', r3: 'Краткий итог за период', openPdf: 'Открыть пример PDF',
+    phK: 'Фото на объекте', phH: 'У каждого фото своя задача.', phSub: 'Снимай как удобно. Каждое фото ложится в свой объект, с датой и подписью, и в отчёте всё сходится.', p1h: 'Чтобы сделать работу правильно', p1p: 'Размеры, разметка, уровни. Сфотографировать вместо того, чтобы писать на стене.', p2h: 'Чтобы не забыть', p2p: 'Трубы, коллекторы и кабели до того, как закрыли стену. Через год будешь знать, где что идёт.', p3h: 'Чтобы отчитаться. За хорошее и плохое.', p3p: 'Если это на фото — спорить не о чем. Щель над коробкой, чужая плохая работа.',
+    faqK: 'Полезно знать', faqH: 'Вопросы',
+    q1: 'Где хранятся фото?', a1: 'Только на твоём телефоне. Никуда не загружаются.', q2: 'Сколько стоит?', a2: 'Бесплатно. Без аккаунта и без подписки.',
+    q3: 'Нужен интернет?', a3: 'Нет. Только чтобы отправить PDF клиенту.', q4: 'Как перенести на новый телефон?', a4: 'Настройки → «Сделать копию», на новом телефоне — «Восстановить».',
+    finH: 'Следующий объект. Первый отчёт.', finP: 'Открой на телефоне и добавь на экран «Домой». Десять секунд.', finBtn: 'Открыть FotoObra',
+    foot1: 'FotoObra · фотоотчёты для стройки', foot2: 'Бесплатно · Без аккаунта · Офлайн'
+  },
+  uk: {
+    navHow: 'Як працює', navSample: 'Приклад звіту', navFaq: 'Питання', openApp: 'Відкрити застосунок',
+    eyebrow: 'Для будівельників і ремонтних бригад', h1: 'Зняв. Сказав. <span>Надіслав.</span>',
+    lead: 'Фото самі розкладаються по об’єктах і датах. PDF з твоїм логотипом іде клієнту у WhatsApp, поки ти ще на об’єкті.',
+    start: 'Почати безкоштовно', seeSample: 'Приклад звіту', t1: 'Без реєстрації', t2: 'Працює без інтернету', t3: 'Фото лише в тебе',
+    qrTitle: 'Відкрий на телефоні', qrSub: 'Наведи камеру на код',
+    mockJob: 'Кухня в шоурумі', mockSub: 'Лісабон · 3 фото', today: 'Сьогодні', yesterday: 'Вчора',
+    mockCap1: 'Кухня готова, підсвітку підключено', mockCap2: 'Стільниця й варильна панель на місці', mockCap3: 'Фасади виставлено, стільниця завтра', mockShoot: 'Зняти', mockReport: 'Звіт',
+    howK: 'Як це працює', howH: 'Три натискання. І все.', howSub: 'Робочі фото більше не губляться серед особистих. Кожне лягає у свій об’єкт, з датою й підписом.',
+    s1h: 'Створи об’єкт', s1p: 'Назва, адреса, клієнт. Один раз на будову.', s2h: 'Зніми й скажи', s2p: 'Камера, потім підпис голосом. Не треба друкувати брудними руками.', s3h: 'Надішли', s3p: 'За день, тиждень або будь-які дати. Одразу у WhatsApp чи на пошту.',
+    jobsK: 'Реальні об’єкти', jobsH: 'Будь-який об’єкт. Будь-який етап.', jobsSub: 'Фото з різних об’єктів у Лісабоні — такі, як вони виглядають у застосунку.',
+    tagWork: 'У роботі', tagDone: 'Готово', tagDemo: 'Демонтаж', tagHand: 'Здача',
+    j1h: 'Кухня в шоурумі', j1p: 'Від монтажу фасадів до готової кухні з LED-підсвіткою.', j2h: 'Квартира', j2p: 'Проріз відкрито, стоїть тимчасова балка.', j3h: 'Квартира', j3p: 'Кухонний блок і техніку встановлено.',
+    repK: 'Приклад звіту', repH: 'Ось що отримає клієнт.', repSub: 'Справжній звіт із застосунку, зібраний із фото вище. Без правок.',
+    r1: 'Твій логотип, назва фірми й контакти', r2: 'Фото за датами, з підписами', r3: 'Короткий підсумок за період', openPdf: 'Відкрити приклад PDF',
+    phK: 'Фото на об’єкті', phH: 'Кожне фото має своє завдання.', phSub: 'Знімай як зручно. Кожне фото лягає у свій об’єкт, з датою й підписом, і у звіті все сходиться.', p1h: 'Щоб зробити роботу правильно', p1p: 'Розміри, розмітка, рівні. Сфотографувати замість того, щоб писати на стіні.', p2h: 'Щоб не забути', p2p: 'Труби, колектори й кабелі до того, як закрили стіну. Через рік знатимеш, де що йде.', p3h: 'Щоб звітувати. За добре й погане.', p3p: 'Якщо це на фото — сперечатися нема про що. Щілина над коробкою, чужа погана робота.',
+    faqK: 'Корисно знати', faqH: 'Питання',
+    q1: 'Де зберігаються фото?', a1: 'Лише на твоєму телефоні. Нікуди не завантажуються.', q2: 'Скільки коштує?', a2: 'Безкоштовно. Без акаунта й без підписки.',
+    q3: 'Потрібен інтернет?', a3: 'Ні. Лише щоб надіслати PDF клієнту.', q4: 'Як перенести на новий телефон?', a4: 'Налаштування → «Зробити копію», на новому телефоні — «Відновити».',
+    finH: 'Наступний об’єкт. Перший звіт.', finP: 'Відкрий на телефоні й додай на екран «Додому». Десять секунд.', finBtn: 'Відкрити FotoObra',
+    foot1: 'FotoObra · фотозвіти для будівництва', foot2: 'Безкоштовно · Без акаунта · Офлайн'
+  }
+};
+function setLang(lang) {
+  if (!T[lang]) lang = 'en';
+  const d = T[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = d[el.dataset.t] ?? T.en[el.dataset.t]; });
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  const pdf = `assets/sample-report-${lang}.pdf`;
+  document.getElementById('reportLink').href = document.getElementById('reportBtn').href = pdf;
+  document.getElementById('reportImg').src = `assets/sample-report-${lang}.jpg`;
+  try { localStorage.setItem('fotoobra-site-lang', lang); } catch (e) {}
+}
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('[data-lang]'); if (b) setLang(b.dataset.lang); });
+let start = new URLSearchParams(location.search).get('lang');
+if (!start) { try { start = localStorage.getItem('fotoobra-site-lang'); } catch (e) {} }
+setLang(start || 'en');
+</script>
+</body>
+</html>
