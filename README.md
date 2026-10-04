@@ -4,7 +4,7 @@ Photo reports for construction sites. Take a photo, say what was done, send a PD
 
 No account. No subscription. Works offline.
 
-**[Website](https://davydmedvedchuk.github.io/fotoobra/)** · **[Open the app →](https://davydmedvedchuk.github.io/fotoobra/app/)** · **[Sample report (PDF)](https://davydmedvedchuk.github.io/fotoobra/assets/sample-report-en.pdf)**
+**[Open the app →](https://davydmedvedchuk.github.io/fotoobra/)**
 
 ![FotoObra screens and a sample PDF report](docs/banner.png)
 
@@ -18,12 +18,10 @@ FotoObra keeps photos by job site and turns them into a clean PDF in a couple of
 
 - **Job sites.** Name, address, client.
 - **Photos by day.** Straight from the camera or several at once from the gallery.
-- **Voice captions.** Tap the mic and say what was done. English, Portuguese, Russian or Ukrainian.
-- **PDF report.** Today, last 7 days, all, or custom dates. Tap a photo to leave it out. Your logo and company name in the header. Report language: EN, PT, RU or UA. Portrait photos keep their shape.
+- **Voice captions.** Tap the mic and say what was done. Russian, Portuguese or Ukrainian.
+- **PDF report.** Today, last 7 days, all, or custom dates. Tap a photo to leave it out. Your logo and company name in the header. Report language: PT, RU or UA.
 - **Send.** Share the PDF straight to WhatsApp, email or Drive.
 - **Backup.** One file with everything. Restore on a new phone.
-- **Four languages.** The app and the website speak English, Portuguese, Russian and Ukrainian. English by default.
-- **Help inside.** A sample report, photo tips and FAQ.
 
 | Job sites | Photo feed | Report |
 |---|---|---|
@@ -31,7 +29,7 @@ FotoObra keeps photos by job site and turns them into a clean PDF in a couple of
 
 ## How it works
 
-Two HTML files: the website (`index.html`) and the app (`app/index.html`). No framework, no backend, no external libraries.
+One HTML file. No framework, no backend, no external libraries.
 
 - **Storage:** IndexedDB. Photos never leave the phone.
 - **Photos:** resized on device to 1600 px, plus a small thumbnail for the feed.
@@ -42,7 +40,7 @@ Two HTML files: the website (`index.html`) and the app (`app/index.html`). No fr
 
 ## Install on your phone
 
-1. Open the app link above.
+1. Open the link above.
 2. **iPhone:** Safari → Share → Add to Home Screen.
    **Android:** Chrome → ⋮ → Add to Home screen.
 3. Always open it from the icon.
