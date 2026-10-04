@@ -1,725 +1,375 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#EFEBE4">
-<meta name="color-scheme" content="light">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="FotoObra">
+<meta name="theme-color" content="#17324D">
+<meta name="description" content="Photo reports for construction sites. Take a photo, say what was done, send a PDF to your client on WhatsApp. Free, no account, works offline.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
-<title>FotoObra</title>
+<title>FotoObra: photo reports from the job site</title>
+<script>
+/* The installed app opens this page: send it straight to the app. */
+if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) location.replace('app/');
+</script>
 <style>
-:root{--bg:#EFEBE4;--card:#FFFFFF;--ink:#1B1A17;--muted:#5E5A52;--line:#D9D3C8;--accent:#C2410C;--soft:#F3E6DA;--edge:#B5AD9E}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-text-size-adjust:100%}
-button{font:inherit;color:inherit;cursor:pointer}
-svg{flex-shrink:0}
-.top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;max-width:760px;margin:0 auto}
-.grow{flex:1;min-width:0}
-.logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#22476B,#0F2236);color:#E3E6EA;display:flex;align-items:center;justify-content:center}
-.icon-btn{width:44px;height:44px;border-radius:12px;border:none;background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.title{font-weight:800;font-size:22px;letter-spacing:-.3px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sub{display:block;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.wrap{padding:4px 16px calc(120px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto}
-.proj{display:flex;gap:14px;align-items:center;width:100%;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;text-align:left}
-.proj img,.noimg{width:64px;height:64px;border-radius:12px;object-fit:cover;flex-shrink:0;background:#CFC8BB;display:flex;align-items:center;justify-content:center;color:#fff}
-.pname{display:block;font-size:17px;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.empty{text-align:center;padding:48px 16px;color:var(--muted);line-height:1.5}
-.empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
-.bar-in{display:flex;gap:10px;max-width:728px;margin:0 auto}
-.btn{height:52px;border-radius:14px;border:none;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;flex:1;white-space:nowrap}
-.btn.primary{background:var(--accent);color:#fff}
-.btn.dark{background:var(--ink);color:#fff}
-.btn.ghost{background:transparent;border:1.5px solid var(--edge)}
-.btn.danger{background:transparent;border:1.5px solid #DC2626;color:#B91C1C}
-.btn.sq{flex:0 0 52px;padding:0}
-.btn:disabled{opacity:.5}
-.group-label{font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.ph{position:relative;display:flex;flex-direction:column;padding:0;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.ph img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#CFC8BB}
-.ph .cap{padding:8px 10px 0;margin-bottom:10px;font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.ph .cap.none{color:var(--muted)}
-.time{position:absolute;left:8px;top:8px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(27,26,23,.75);color:#fff}
-.pick .tick{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
-.pick.off img{opacity:.35}
-.pick.off .tick{background:rgba(255,255,255,.92);color:transparent;border-color:var(--edge)}
-.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-label{font-size:13px;font-weight:600;color:var(--muted)}
-input[type=text],input[type=date],textarea,select{font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%;-webkit-appearance:none;appearance:none}
-textarea{min-height:92px;resize:vertical;line-height:1.4}
-.row{display:flex;gap:8px;align-items:flex-start}
-.row>.field{flex:1}
-.mic{width:52px;height:52px;border:1.5px solid var(--edge);background:var(--card)}
-.mic.rec{background:#DC2626;border-color:#DC2626;color:#fff}
-.hint{font-size:13px;color:var(--muted);margin:0;line-height:1.4}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.chip{height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--edge);background:transparent;font-size:14px;font-weight:600}
-.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
-.preview-img{width:100%;max-height:52vh;object-fit:contain;border-radius:14px;background:#2B2926;display:block;margin-bottom:16px}
-.done{margin-top:16px;padding:14px;border-radius:14px;background:#E7F5E4;font-weight:600;display:flex;gap:8px;align-items:center}
-.section{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
-h2{font-size:18px;margin:0 0 10px}
-.logo-prev{max-height:64px;max-width:220px;display:block;margin:4px 0 10px;background:#fff;border-radius:8px;padding:6px;border:1px solid var(--line)}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.btn-row .btn{flex:1 1 150px}
-.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
-.toast.show{opacity:1}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.45;font-size:14px}
+:root{--navy:#17324D;--deep:#0F2236;--navy2:#22476B;--amber:#FFB400;--bg:#F5F6F8;--ink:#14202B;--muted:#5B6672;--line:#E1E5EA;--soft:#C9D6E3}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.c{max-width:1180px;margin:0 auto;padding:0 40px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 24px;border-radius:14px;font-weight:700;font-size:16px;white-space:nowrap}
+.btn.amber{background:var(--amber);color:var(--ink)}
+.btn.ghost{border:1.5px solid rgba(255,255,255,.45);color:#fff}
+.btn.navy{background:var(--navy);color:#fff}
+.btn.sm{height:40px;padding:0 16px;font-size:14px;border-radius:11px}
+.kicker{font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#A87500;margin-bottom:12px}
+h1,h2,h3{margin:0}
+h2{font-size:40px;letter-spacing:-1px;line-height:1.1;margin-bottom:14px}
+.sub{font-size:18px;color:var(--muted);margin:0 0 44px;max-width:640px;line-height:1.5}
+section{padding:100px 0}
+
+/* hero */
+.hero{position:relative;color:#fff;background:var(--deep) url(assets/kitchen.jpg) center 40%/cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,34,54,.97) 0%,rgba(15,34,54,.9) 42%,rgba(15,34,54,.4) 75%,rgba(15,34,54,.25) 100%)}
+.hero>.c{position:relative}
+nav{display:flex;align-items:center;gap:26px;padding:20px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+.brand img{width:34px;height:34px;border-radius:9px}
+.links{display:flex;gap:24px;margin-left:auto;font-size:15px;color:#D5DFEA}
+.links a:hover{color:#fff}
+.lang{display:flex;gap:2px;background:rgba(255,255,255,.1);border-radius:10px;padding:3px}
+.lang button{font:inherit;font-size:13px;font-weight:700;color:#D5DFEA;background:none;border:0;border-radius:8px;padding:6px 9px;cursor:pointer}
+.lang button[aria-pressed=true]{background:#fff;color:var(--ink)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:end;padding:44px 0 0}
+.eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--amber);background:rgba(255,180,0,.14);padding:6px 12px;border-radius:999px;margin-bottom:20px}
+h1{font-size:58px;line-height:1.04;letter-spacing:-1.6px;margin-bottom:20px;font-weight:800}
+h1 span{color:var(--amber)}
+.lead{font-size:19px;line-height:1.5;color:#D5DFEA;margin:0 0 30px;max-width:520px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.ticks{display:flex;gap:10px 22px;flex-wrap:wrap;font-size:15px;color:#D5DFEA;margin-bottom:34px}
+.ticks span::before{content:"✓";color:var(--amber);font-weight:800;margin-right:7px}
+.qrline{display:flex;align-items:center;gap:14px;padding-bottom:64px}
+.qrline .q{background:#fff;border-radius:12px;padding:8px}
+.qrline img{width:72px;height:72px}
+.qrline b{display:block;font-size:15px}
+.qrline small{color:#AFC0D2;font-size:13px}
+
+/* phone with the app */
+.phone{width:300px;height:600px;margin:0 auto -60px;background:#0A0F15;border-radius:46px;padding:12px;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 0 0 2px #2A3440;position:relative;z-index:2}
+.screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#F4F5F7;color:var(--ink);position:relative}
+.at{background:var(--navy);color:#fff;padding:36px 14px 12px;display:flex;align-items:center;gap:10px}
+.at .bk{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.14)}
+.at b{display:block;font-size:16px}
+.at small{font-size:11px;color:var(--soft)}
+.feed{padding:10px 12px}
+.day{font-size:10.5px;font-weight:800;letter-spacing:.7px;color:var(--navy2);margin:4px 0 8px;text-transform:uppercase}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ph{background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden;position:relative}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ph i{position:absolute;left:6px;top:6px;font-style:normal;font-size:9px;font-weight:700;color:#fff;background:rgba(23,50,77,.85);padding:1px 5px;border-radius:4px}
+.ph p{margin:0;padding:6px 7px 8px;font-size:10px;line-height:1.3}
+.ab{position:absolute;left:0;right:0;bottom:0;display:flex;gap:6px;padding:10px 12px 18px;background:#F4F5F7;border-top:1px solid var(--line)}
+.ab div{flex:1;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.ab .a{background:var(--amber)}
+.ab .n{background:var(--navy);color:#fff}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
+.step .n{flex:0 0 44px;height:44px;border-radius:50%;background:var(--navy);color:var(--amber);font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center}
+.step h3{margin:6px 0 6px;font-size:20px}
+.step p{margin:0;color:var(--muted);line-height:1.5}
+
+/* real jobs */
+.jobs{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.jg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.card .im{position:relative}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;position:relative}
+.pair .arrow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.tag{position:absolute;left:12px;top:12px;font-size:12px;font-weight:800;background:var(--amber);color:var(--ink);padding:3px 9px;border-radius:7px}
+.tag.d{background:var(--navy);color:#fff}
+.card .t{padding:16px 18px 20px}
+.card .t b{display:block;font-size:16px;margin-bottom:4px}
+.card .t span{color:var(--muted);font-size:14.5px;line-height:1.45}
+
+/* sample report */
+.rg{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center}
+.paper{background:#E9EDF2;border-radius:24px;padding:36px;display:flex;justify-content:center}
+.paper img{width:100%;max-width:420px;border-radius:6px;box-shadow:0 30px 60px rgba(15,34,54,.25)}
+.list{list-style:none;padding:0;margin:0 0 30px}
+.list li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:16px}
+.list li::before{content:"";flex:0 0 22px;height:22px;border-radius:50%;background:var(--amber) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12l4 4 8-9' fill='none' stroke='%2314202B' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat}
+
+/* why */
+.why{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--deep);border-radius:28px;overflow:hidden;color:#fff}
+.why img{width:100%;height:100%;object-fit:cover;min-height:400px}
+.why .t{padding:56px;display:flex;flex-direction:column;justify-content:center}
+.why blockquote{margin:0 0 26px;font-size:24px;line-height:1.45;font-weight:500}
+.why blockquote::before{content:"“";display:block;font-size:70px;line-height:.6;color:var(--amber);font-weight:800;margin-bottom:10px}
+.who b{display:block;font-size:17px}
+.who span{color:#AFC0D2;font-size:14px}
+
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+.qa{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.qa b{display:block;font-size:17px;margin-bottom:8px}
+.qa p{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+
+/* final */
+.final{position:relative;border-radius:28px;overflow:hidden;color:#fff;background:var(--deep)}
+.final video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.final::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,34,54,.96),rgba(15,34,54,.78) 60%,rgba(15,34,54,.45))}
+.final .in{position:relative;z-index:1;padding:60px;display:flex;align-items:center;gap:40px}
+.final p{color:#D5DFEA;font-size:18px;margin:0 0 26px}
+.final .qb{margin-left:auto;background:#fff;border-radius:18px;padding:14px}
+.final .qb img{width:130px;height:130px}
+footer{padding:36px 0 50px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:underline}
+
+/* phones and tablets */
+@media (max-width:900px){
+  .c{padding:0 18px}
+  .links,nav .btn{display:none}
+  .lang{margin-left:auto}
+  .hero::before{background:linear-gradient(180deg,rgba(15,34,54,.95) 0%,rgba(15,34,54,.88) 55%,rgba(15,34,54,.62) 100%)}
+  .hero-grid{grid-template-columns:1fr;padding-top:14px;gap:10px}
+  h1{font-size:38px;letter-spacing:-.9px}
+  .lead{font-size:16.5px}
+  .cta .btn{flex:1;padding:0 12px}
+  .qrline{display:none}
+  .ticks{gap:8px 16px;font-size:14px}
+  .phone{transform:scale(.8);transform-origin:top center;margin-bottom:-160px}
+  section{padding:64px 0}
+  h2{font-size:30px}
+  .sub{font-size:16px;margin-bottom:28px}
+  .steps{grid-template-columns:1fr;gap:12px}
+  .step{padding:20px}
+  .jg{grid-template-columns:1fr 1fr;gap:12px}
+  .jg .big{grid-column:1/-1}
+  .card .t{padding:12px 14px 16px}
+  .card .t b{font-size:15px}
+  .card .t span{font-size:13.5px}
+  .rg,.why,.faq{grid-template-columns:1fr}
+  .rg{gap:28px}
+  .paper{padding:20px}
+  .why img{min-height:240px;height:240px}
+  .why .t{padding:28px 24px}
+  .why blockquote{font-size:19px}
+  .final .in{flex-direction:column;align-items:stretch;padding:34px 24px}
+  .final .qb{display:none}
+  footer{flex-direction:column;gap:6px}
+}
 </style>
 </head>
 <body>
-<div id="app"></div>
-<input type="file" id="camIn" accept="image/*" capture="environment" hidden>
-<input type="file" id="galIn" accept="image/*" multiple hidden>
-<input type="file" id="logoIn" accept="image/*" hidden>
-<input type="file" id="backupIn" accept=".json,application/json" hidden>
-<script>
-'use strict';
-/* ---------- helpers ---------- */
-const $ = s => document.querySelector(s);
-const app = $('#app');
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-const pad = n => String(n).padStart(2, '0');
-const dayKey = ts => { const d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
-const fmtDate = ts => { const d = new Date(ts); return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear(); };
-const fmtTime = ts => { const d = new Date(ts); return pad(d.getHours()) + ':' + pad(d.getMinutes()); };
-const startOfDay = ts => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
-const DAY = 86400000;
-function relDay(ts) {
-  const t = startOfDay(Date.now()), d = startOfDay(ts);
-  if (d === t) return 'сегодня';
-  if (d === t - DAY) return 'вчера';
-  return fmtDate(ts);
-}
-const mb = n => (n / 1048576).toFixed(n < 10485760 ? 1 : 0) + ' МБ';
-const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9А-Яа-яЁёІіЇїЄєҐґ]+/g, '_').replace(/^_|_$/g, '').slice(0, 40) || 'obra';
-
-const I = (d, w = 20) => `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
-const ICON = {
-  camera: I('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
-  gallery: I('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/>'),
-  back: I('<path d="M15 6l-6 6 6 6"/>'),
-  close: I('<path d="M6 6l12 12M18 6L6 18"/>'),
-  gear: I('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'),
-  file: I('<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/>'),
-  mic: I('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/>', 22),
-  plus: I('<path d="M12 5v14M5 12h14"/>'),
-  pencil: I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
-  trash: I('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'),
-  check: I('<path d="M5 12l5 5 9-10"/>', 16),
-  share: I('<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/>'),
-  download: I('<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>'),
-  home: I('<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/>', 24),
-  chev: I('<path d="M9 6l6 6-6 6"/>', 18)
-};
-
-let toastT;
-function toast(msg) {
-  let t = $('.toast');
-  if (!t) { t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2600);
-}
-
-/* ---------- storage (IndexedDB, only on this phone) ---------- */
-let dbp;
-function db() {
-  if (!dbp) dbp = new Promise((res, rej) => {
-    const r = indexedDB.open('fotoobra', 1);
-    r.onupgradeneeded = () => {
-      const d = r.result;
-      d.createObjectStore('projects', { keyPath: 'id' });
-      d.createObjectStore('photos', { keyPath: 'id' }).createIndex('projectId', 'projectId');
-      d.createObjectStore('blobs', { keyPath: 'id' });
-      d.createObjectStore('kv', { keyPath: 'k' });
-    };
-    r.onsuccess = () => res(r.result);
-    r.onerror = () => rej(r.error);
-  });
-  return dbp;
-}
-async function tx(stores, mode, fn) {
-  const d = await db();
-  return new Promise((res, rej) => {
-    const t = d.transaction(stores, mode);
-    let out;
-    const r = fn(t);
-    if (r && 'onsuccess' in r) r.onsuccess = () => { out = r.result; };
-    t.oncomplete = () => res(out);
-    t.onerror = () => rej(t.error);
-    t.onabort = () => rej(t.error || new Error('abort'));
-  });
-}
-const getAll = s => tx(s, 'readonly', t => t.objectStore(s).getAll());
-const get = (s, k) => tx(s, 'readonly', t => t.objectStore(s).get(k));
-const put = (s, v) => tx(s, 'readwrite', t => t.objectStore(s).put(v));
-const byProject = pid => tx('photos', 'readonly', t => t.objectStore('photos').index('projectId').getAll(pid));
-
-const DEFAULTS = { k: 'settings', company: '', line2: '', person: '', logo: null, pdfLang: 'pt', voiceLang: 'ru-RU' };
-let settings = { ...DEFAULTS };
-
-const urlCache = new Map();
-function thumbUrl(ph) {
-  if (!urlCache.has(ph.id)) urlCache.set(ph.id, URL.createObjectURL(new Blob([ph.thumb.buf], { type: ph.thumb.type })));
-  return urlCache.get(ph.id);
-}
-function dropUrl(id) { if (urlCache.has(id)) { URL.revokeObjectURL(urlCache.get(id)); urlCache.delete(id); } }
-
-/* ---------- images ---------- */
-async function loadImg(blob) {
-  const url = URL.createObjectURL(blob);
-  const img = new Image();
-  img.src = url;
-  try { await img.decode(); } catch (e) { await new Promise((ok, bad) => { img.onload = ok; img.onerror = bad; }); }
-  URL.revokeObjectURL(url);
-  return img;
-}
-async function resize(img, max, q, type = 'image/jpeg') {
-  let w = img.naturalWidth, h = img.naturalHeight;
-  const k = Math.min(1, max / Math.max(w, h));
-  w = Math.round(w * k); h = Math.round(h * k);
-  const c = document.createElement('canvas'); c.width = w; c.height = h;
-  const x = c.getContext('2d');
-  if (type === 'image/jpeg') { x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); }
-  x.drawImage(img, 0, 0, w, h);
-  const b = await new Promise(r => c.toBlob(r, type, q));
-  return { buf: await b.arrayBuffer(), type, w, h };
-}
-
-/* ---------- voice ---------- */
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let rec = null;
-const micBtn = id => SR ? `<button class="icon-btn mic" data-act="mic" data-for="${id}" aria-label="Надиктовать">${ICON.mic}</button>` : '';
-const micHint = () => SR ? 'Нажми микрофон и скажи, что сделано.' : 'Можно надиктовать через микрофон на клавиатуре.';
-function stopMic() { if (rec) { try { rec.stop(); } catch (e) {} } }
-function toggleMic(btn) {
-  if (rec) { stopMic(); return; }
-  const ta = document.getElementById(btn.dataset.for);
-  const base = ta.value.trim() ? ta.value.trim() + ' ' : '';
-  let fin = '';
-  rec = new SR();
-  rec.lang = settings.voiceLang; rec.interimResults = true; rec.continuous = false;
-  rec.onresult = e => {
-    let interim = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const r = e.results[i];
-      if (r.isFinal) fin += r[0].transcript; else interim += r[0].transcript;
-    }
-    ta.value = base + fin + interim;
-    ta.dispatchEvent(new Event('input', { bubbles: true }));
-  };
-  rec.onerror = e => { if (e.error !== 'aborted' && e.error !== 'no-speech') toast('Микрофон: ' + e.error); };
-  rec.onend = () => { rec = null; btn.classList.remove('rec'); };
-  btn.classList.add('rec');
-  try { rec.start(); } catch (e) { rec = null; btn.classList.remove('rec'); toast('Микрофон недоступен'); }
-}
-
-/* ---------- navigation ---------- */
-const S = { view: 'home', pid: null, photoId: null, queue: [], qi: 0, report: null, backupFile: null };
-const VIEWS = {};
-async function render(v) { stopMic(); S.view = v; await VIEWS[v](); }
-function go(v, p = {}) {
-  Object.assign(S, p);
-  history.pushState({ v, pid: S.pid, photoId: S.photoId }, '');
-  window.scrollTo(0, 0);
-  render(v);
-}
-function replace(v, p = {}) {
-  Object.assign(S, p);
-  history.replaceState({ v, pid: S.pid, photoId: S.photoId }, '');
-  window.scrollTo(0, 0);
-  render(v);
-}
-window.addEventListener('popstate', e => {
-  const st = e.state || { v: 'home' };
-  S.pid = st.pid ?? null; S.photoId = st.photoId ?? null;
-  render(st.v);
-});
-const topBar = (title, sub, left = 'back', right = '') => `
-<header class="top">
-  ${left === 'back' ? `<button class="icon-btn" data-act="back" aria-label="Назад">${ICON.back}</button>` : left === 'close' ? `<button class="icon-btn" data-act="back" aria-label="Отмена">${ICON.close}</button>` : left}
-  <div class="grow"><div class="title">${esc(title)}</div>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}</div>${right}
-</header>`;
-const bar = inner => `<div class="bar"><div class="bar-in" id="barIn">${inner}</div></div>`;
-
-/* ---------- views ---------- */
-VIEWS.home = async () => {
-  const [projects, photos] = await Promise.all([getAll('projects'), getAll('photos')]);
-  const st = {};
-  for (const ph of photos) {
-    const s = st[ph.projectId] || (st[ph.projectId] = { n: 0, last: 0, thumb: null });
-    s.n++; if (ph.ts >= s.last) { s.last = ph.ts; s.thumb = ph; }
-  }
-  projects.sort((a, b) => (st[b.id]?.last || b.created) - (st[a.id]?.last || a.created));
-  app.innerHTML = topBar('FotoObra', '', `<div class="logo">${ICON.camera}</div>`, `<button class="icon-btn" data-act="settings" aria-label="Настройки">${ICON.gear}</button>`) + `
-<main class="wrap">
-${projects.length ? projects.map(p => {
-    const s = st[p.id];
-    return `<button class="proj" data-act="open" data-id="${p.id}">
-      ${s ? `<img src="${thumbUrl(s.thumb)}" alt="">` : `<span class="noimg">${ICON.home}</span>`}
-      <span class="grow"><span class="pname">${esc(p.name)}</span>${p.addr ? `<span class="sub">${esc(p.addr)}</span>` : ''}<span class="sub">${s ? s.n + ' фото · ' + relDay(s.last) : 'Пока без фото'}</span></span>${ICON.chev}</button>`;
-  }).join('') : `<div class="empty"><b>Пока нет объектов</b>Создай первый объект, и фотографируй работу по нему.</div>`}
-</main>` + bar(`<button class="btn primary" data-act="newProject">${ICON.plus} Новый объект</button>`);
-};
-
-VIEWS.projectForm = async () => {
-  const p = S.pid ? await get('projects', S.pid) : null;
-  app.innerHTML = topBar(p ? 'Изменить объект' : 'Новый объект', '', 'close') + `
-<main class="wrap">
-  <div class="field"><label for="pfName">Название</label><input type="text" id="pfName" value="${esc(p?.name)}" placeholder="Например: Moradia Estoril" autocomplete="off"></div>
-  <div class="field"><label for="pfAddr">Адрес</label><input type="text" id="pfAddr" value="${esc(p?.addr)}" placeholder="Улица, город" autocomplete="off"></div>
-  <div class="field"><label for="pfClient">Клиент</label><input type="text" id="pfClient" value="${esc(p?.client)}" placeholder="Имя или компания" autocomplete="off"></div>
-  ${p ? `<div class="section"><button class="btn danger" data-act="deleteProject">${ICON.trash} Удалить объект и все фото</button></div>` : ''}
-</main>` + bar(`<button class="btn primary" data-act="saveProject">${ICON.check} Сохранить</button>`);
-  if (!p) setTimeout(() => $('#pfName')?.focus(), 50);
-};
-
-VIEWS.project = async () => {
-  const p = await get('projects', S.pid);
-  if (!p) return replace('home', { pid: null });
-  const photos = (await byProject(p.id)).sort((a, b) => b.ts - a.ts);
-  const groups = [];
-  for (const ph of photos) {
-    const k = dayKey(ph.ts);
-    if (!groups.length || groups[groups.length - 1].k !== k) groups.push({ k, ts: ph.ts, items: [] });
-    groups[groups.length - 1].items.push(ph);
-  }
-  const label = ts => { const r = relDay(ts); return r === 'сегодня' ? 'Сегодня' : r === 'вчера' ? 'Вчера' : r; };
-  app.innerHTML = topBar(p.name, [p.addr, photos.length + ' фото'].filter(Boolean).join(' · '), 'back', `<button class="icon-btn" data-act="editProject" aria-label="Изменить объект">${ICON.pencil}</button>`) + `
-<main class="wrap">
-${photos.length ? groups.map(g => `<div class="group-label">${esc(label(g.ts))}</div><div class="grid">${g.items.map(ph => `
-  <button class="ph" data-act="photo" data-id="${ph.id}"><img src="${thumbUrl(ph)}" alt="" loading="lazy"><span class="time">${fmtTime(ph.ts)}</span>
-  <span class="cap ${ph.caption ? '' : 'none'}">${esc(ph.caption || 'Без подписи')}</span></button>`).join('')}</div>`).join('')
-    : `<div class="empty"><b>Фото пока нет</b>Нажми «Снять», сфотографируй работу и надиктуй, что сделано.</div>`}
-</main>` + bar(`
-  <button class="btn primary" data-act="cam">${ICON.camera} Снять</button>
-  <button class="btn ghost sq" data-act="gal" aria-label="Добавить из галереи">${ICON.gallery}</button>
-  <button class="btn dark" data-act="report">${ICON.file} Отчёт</button>`);
-};
-
-VIEWS.add = async () => {
-  const f = S.queue[S.qi];
-  if (!f) return replace('project');
-  if (S.addUrl) URL.revokeObjectURL(S.addUrl);
-  S.addUrl = URL.createObjectURL(f);
-  const many = S.queue.length > 1;
-  app.innerHTML = topBar('Новое фото', many ? `${S.qi + 1} из ${S.queue.length}` : '', 'close') + `
-<main class="wrap">
-  <img class="preview-img" src="${S.addUrl}" alt="Снятое фото">
-  <div class="row"><div class="field"><label for="cap">Подпись</label><textarea id="cap" placeholder="Что сделано? Например: штукатурка во 2-й комнате готова"></textarea></div>${SR ? `<div style="padding-top:25px">${micBtn('cap')}</div>` : ''}</div>
-  <p class="hint">${micHint()}</p>
-</main>` + bar(`${many ? `<button class="btn ghost" data-act="skip">Пропустить</button>` : ''}<button class="btn primary" data-act="savePhoto">${ICON.check} Сохранить</button>`);
-};
-
-VIEWS.photo = async () => {
-  const ph = await get('photos', S.photoId);
-  if (!ph) return replace('project');
-  const full = await get('blobs', ph.id);
-  if (S.viewUrl) URL.revokeObjectURL(S.viewUrl);
-  S.viewUrl = full ? URL.createObjectURL(new Blob([full.buf], { type: full.type })) : thumbUrl(ph);
-  app.innerHTML = topBar(fmtDate(ph.ts) + ' · ' + fmtTime(ph.ts), '') + `
-<main class="wrap">
-  <img class="preview-img" src="${S.viewUrl}" alt="Фото">
-  <div class="row"><div class="field"><label for="cap">Подпись</label><textarea id="cap">${esc(ph.caption)}</textarea></div>${SR ? `<div style="padding-top:25px">${micBtn('cap')}</div>` : ''}</div>
-  <p class="hint">${micHint()}</p>
-</main>` + bar(`<button class="btn danger sq" data-act="deletePhoto" aria-label="Удалить фото">${ICON.trash}</button><button class="btn primary" data-act="updatePhoto">${ICON.check} Сохранить</button>`);
-};
-
-function inRange(ts, R) {
-  const t0 = startOfDay(Date.now());
-  if (R.range === 'today') return ts >= t0;
-  if (R.range === 'week') return ts >= t0 - 6 * DAY;
-  if (R.range === 'custom') {
-    const a = R.from ? new Date(R.from + 'T00:00').getTime() : 0;
-    const b = R.to ? new Date(R.to + 'T00:00').getTime() + DAY : Infinity;
-    return ts >= a && ts < b;
-  }
-  return true;
-}
-function reportBar() {
-  const R = S.report;
-  if (R.pdf) {
-    const canShare = navigator.canShare && navigator.canShare({ files: [R.pdf] });
-    return `${canShare ? `<button class="btn dark" data-act="sharePdf">${ICON.share} Отправить</button>` : ''}<button class="btn ghost" data-act="dlPdf">${ICON.download} Скачать</button>`;
-  }
-  return `<button class="btn primary" data-act="makePdf" ${R.selCount ? '' : 'disabled'}>${ICON.file} Создать PDF</button>`;
-}
-VIEWS.report = async () => {
-  const p = await get('projects', S.pid);
-  if (!p) return replace('home');
-  if (!S.report || S.report.pid !== p.id) S.report = { pid: p.id, range: 'today', from: dayKey(Date.now() - 6 * DAY), to: dayKey(Date.now()), excluded: new Set(), summary: '', pdf: null };
-  const R = S.report;
-  const all = (await byProject(p.id)).sort((a, b) => a.ts - b.ts);
-  const list = all.filter(x => inRange(x.ts, R));
-  R.selCount = list.filter(x => !R.excluded.has(x.id)).length;
-  const chip = (id, t) => `<button class="chip ${R.range === id ? 'on' : ''}" data-act="range" data-range="${id}" aria-pressed="${R.range === id}">${t}</button>`;
-  app.innerHTML = topBar('Отчёт', p.name) + `
-<main class="wrap">
-  <div class="chips">${chip('today', 'Сегодня')}${chip('week', '7 дней')}${chip('all', 'Всё')}${chip('custom', 'Даты')}</div>
-  ${R.range === 'custom' ? `<div class="row"><div class="field"><label for="dFrom">С</label><input type="date" id="dFrom" value="${R.from}"></div><div class="field"><label for="dTo">По</label><input type="date" id="dTo" value="${R.to}"></div></div>` : ''}
-  <p class="hint" style="margin-bottom:12px">${list.length ? `В отчёте ${R.selCount} из ${list.length} фото. Нажми на фото, чтобы убрать или вернуть.` : 'За этот период фото нет.'}</p>
-  <div class="grid">${list.map(x => {
-    const off = R.excluded.has(x.id);
-    return `<button class="ph pick ${off ? 'off' : ''}" data-act="pick" data-id="${x.id}" aria-pressed="${!off}"><img src="${thumbUrl(x)}" alt="" loading="lazy"><span class="time">${fmtDate(x.ts).slice(0, 5)} ${fmtTime(x.ts)}</span><span class="tick">${ICON.check}</span><span class="cap ${x.caption ? '' : 'none'}">${esc(x.caption || 'Без подписи')}</span></button>`;
-  }).join('')}</div>
-  <div class="row" style="margin-top:18px"><div class="field"><label for="summary">Кратко за период (по желанию)</label><textarea id="summary" placeholder="Например: закончили штукатурку, завтра начинаем плитку">${esc(R.summary)}</textarea></div>${SR ? `<div style="padding-top:25px">${micBtn('summary')}</div>` : ''}</div>
-  ${R.pdf ? `<div class="done">${ICON.check} PDF готов: ${R.pdfPages} стр., ${mb(R.pdf.size)}</div>` : ''}
-</main>` + bar(reportBar());
-};
-
-VIEWS.settings = async () => {
-  const s = settings;
-  let logoUrl = '';
-  if (s.logo) { if (S.logoUrl) URL.revokeObjectURL(S.logoUrl); S.logoUrl = logoUrl = URL.createObjectURL(new Blob([s.logo.buf], { type: s.logo.type })); }
-  let usage = '';
-  try { if (navigator.storage?.estimate) { const e = await navigator.storage.estimate(); usage = 'Занято на телефоне: ' + mb(e.usage || 0) + '.'; } } catch (e) {}
-  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  const opt = (v, cur, t) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${t}</option>`;
-  app.innerHTML = topBar('Настройки', '') + `
-<main class="wrap">
-  ${standalone ? '' : `<div class="card"><b>Установи на экран «Домой».</b> iPhone: Safari → «Поделиться» → «На экран Домой». Android: Chrome → меню ⋮ → «Добавить на гл. экран». Открывай приложение с иконки — так фото надёжнее сохраняются.</div>`}
-  <h2>Для PDF-отчёта</h2>
-  <div class="field"><label for="sCompany">Компания</label><input type="text" id="sCompany" value="${esc(s.company)}" placeholder="Название фирмы"></div>
-  <div class="field"><label for="sLine2">Вторая строка</label><input type="text" id="sLine2" value="${esc(s.line2)}" placeholder="NIF, телефон, e-mail"></div>
-  <div class="field"><label for="sPerson">Ответственный</label><input type="text" id="sPerson" value="${esc(s.person)}" placeholder="Твоё имя"></div>
-  <div class="field"><label>Логотип</label>${logoUrl ? `<img class="logo-prev" src="${logoUrl}" alt="Логотип">` : ''}
-    <div class="btn-row"><button class="btn ghost" data-act="logo">${ICON.gallery} ${s.logo ? 'Заменить' : 'Загрузить'}</button>${s.logo ? `<button class="btn ghost" data-act="logoDel">${ICON.trash} Убрать</button>` : ''}</div></div>
-  <div class="row"><div class="field"><label for="sPdfLang">Язык отчёта</label><select id="sPdfLang">${opt('pt', s.pdfLang, 'Português')}${opt('ru', s.pdfLang, 'Русский')}${opt('uk', s.pdfLang, 'Українська')}</select></div>
-  <div class="field"><label for="sVoice">Язык диктовки</label><select id="sVoice">${opt('ru-RU', s.voiceLang, 'Русский')}${opt('pt-PT', s.voiceLang, 'Português')}${opt('uk-UA', s.voiceLang, 'Українська')}</select></div></div>
-  <button class="btn primary" data-act="saveSettings" style="width:100%">${ICON.check} Сохранить настройки</button>
-
-  <div class="section">
-    <h2>Резервная копия</h2>
-    <p class="hint" style="margin-bottom:12px">Всё хранится только в этом телефоне. Раз в неделю делай копию и сохраняй её в Google Drive или на компьютер. ${usage}</p>
-    <div class="btn-row"><button class="btn dark" data-act="backup">${ICON.download} Сделать копию</button><button class="btn ghost" data-act="restore">${ICON.share} Восстановить</button></div>
-    ${S.backupFile ? `<div class="done">${ICON.check} Копия готова, ${mb(S.backupFile.size)}</div><div class="btn-row" style="margin-top:10px">${navigator.canShare && navigator.canShare({ files: [S.backupFile] }) ? `<button class="btn dark" data-act="shareBackup">${ICON.share} Отправить / сохранить</button>` : ''}<button class="btn ghost" data-act="dlBackup">${ICON.download} Скачать</button></div>` : ''}
+<header class="hero"><div class="c">
+  <nav>
+    <a class="brand" href="./"><img src="icon-192.png" alt="">FotoObra</a>
+    <div class="links"><a href="#how" data-t="navHow"></a><a href="#sample" data-t="navSample"></a><a href="#faq" data-t="navFaq"></a></div>
+    <div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="pt">PT</button><button data-lang="ru">RU</button><button data-lang="uk">UA</button></div>
+    <a class="btn amber sm" href="app/" data-t="openApp"></a>
+  </nav>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow" data-t="eyebrow"></div>
+      <h1 data-t="h1"></h1>
+      <p class="lead" data-t="lead"></p>
+      <div class="cta"><a class="btn amber" href="app/" data-t="start"></a><a class="btn ghost" href="#sample" data-t="seeSample"></a></div>
+      <div class="ticks"><span data-t="t1"></span><span data-t="t2"></span><span data-t="t3"></span></div>
+      <div class="qrline"><div class="q"><img src="assets/qr-app.svg" alt=""></div><div><b data-t="qrTitle"></b><small data-t="qrSub"></small></div></div>
+    </div>
+    <div><div class="phone" aria-hidden="true"><div class="screen">
+      <div class="at"><div class="bk"></div><div><b data-t="mockJob"></b><small data-t="mockSub"></small></div></div>
+      <div class="feed">
+        <div class="day" data-t="today"></div>
+        <div class="fg"><div class="ph"><img src="assets/showroom.jpg" alt=""><i>16:40</i><p data-t="mockCap1"></p></div><div class="ph"><img src="assets/showroom-poster.jpg" alt="" style="object-position:50% 75%"><i>16:32</i><p data-t="mockCap2"></p></div></div>
+        <div class="day" style="margin-top:12px" data-t="yesterday"></div>
+        <div class="fg"><div class="ph"><img src="assets/install.jpg" alt=""><i>11:25</i><p data-t="mockCap3"></p></div></div>
+      </div>
+      <div class="ab"><div class="a" data-t="mockShoot"></div><div class="n" data-t="mockReport"></div></div>
+    </div></div></div>
   </div>
-  <p class="hint" style="margin-top:24px">FotoObra 1.0 · работает без интернета, без аккаунта и без подписки.</p>
-</main>`;
-};
+</div></header>
 
-/* ---------- PDF (drawn on canvas, packed without libraries) ---------- */
-const LBL = {
-  pt: { title: 'Relatório de obra', client: 'Cliente', period: 'Período', person: 'Responsável', date: 'Data', summary: 'Resumo', page: 'Página', of: 'de', file: 'Relatorio' },
-  ru: { title: 'Отчёт по объекту', client: 'Клиент', period: 'Период', person: 'Ответственный', date: 'Дата', summary: 'Кратко', page: 'Страница', of: 'из', file: 'Otchet' },
-  uk: { title: 'Звіт по об’єкту', client: 'Клієнт', period: 'Період', person: 'Відповідальний', date: 'Дата', summary: 'Коротко', page: 'Сторінка', of: 'з', file: 'Zvit' }
-};
-function buildPdf(pages) {
-  const enc = new TextEncoder(), parts = [], offs = [];
-  let len = 0;
-  const push = x => { const b = typeof x === 'string' ? enc.encode(x) : new Uint8Array(x); parts.push(b); len += b.length; };
-  const obj = (id, body) => { offs[id] = len; push(id + ' 0 obj\n'); body(); push('\nendobj\n'); };
-  const PW = 595.28, PH = 841.89, n = pages.length;
-  push('%PDF-1.4\n%âãÏÓ\n');
-  obj(1, () => push('<< /Type /Catalog /Pages 2 0 R >>'));
-  obj(2, () => push(`<< /Type /Pages /Kids [${pages.map((_, i) => (3 + 3 * i) + ' 0 R').join(' ')}] /Count ${n} >>`));
-  pages.forEach((p, i) => {
-    const pid = 3 + 3 * i, cid = pid + 1, iid = pid + 2;
-    obj(pid, () => push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 ${iid} 0 R >> >> /Contents ${cid} 0 R >>`));
-    const cs = `q ${PW} 0 0 ${PH} 0 0 cm /Im0 Do Q`;
-    obj(cid, () => { push(`<< /Length ${cs.length} >>\nstream\n`); push(cs); push('\nendstream'); });
-    obj(iid, () => { push(`<< /Type /XObject /Subtype /Image /Width ${p.w} /Height ${p.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${p.buf.byteLength} >>\nstream\n`); push(p.buf); push('\nendstream'); });
-  });
-  const xref = len, total = 3 + 3 * n;
-  let x = `xref\n0 ${total}\n0000000000 65535 f \n`;
-  for (let i = 1; i < total; i++) x += String(offs[i]).padStart(10, '0') + ' 00000 n \n';
-  push(x);
-  push(`trailer\n<< /Size ${total} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
-  return new Blob(parts, { type: 'application/pdf' });
-}
-async function makeReportPdf(project, photos, summary) {
-  const L = LBL[settings.pdfLang] || LBL.pt;
-  const W = 1240, H = 1754, M = 90, ACC = '#C2410C', INK = '#1B1A17', MUT = '#5E5A52';
-  const F = (px, w = 400) => `${w} ${px}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`;
-  const pages = [];
-  let c, x, y;
-  const newPage = () => {
-    c = document.createElement('canvas'); c.width = W; c.height = H;
-    x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.textBaseline = 'alphabetic';
-    pages.push(c); y = M;
-    if (pages.length > 1) { x.fillStyle = MUT; x.font = F(22); x.fillText(clip(project.name + ' · ' + L.title, W - 2 * M), M, y + 22); y += 56; }
-  };
-  const clip = (t, maxW) => { t = String(t); if (x.measureText(t).width <= maxW) return t; while (t.length && x.measureText(t + '…').width > maxW) t = t.slice(0, -1); return t + '…'; };
-  const wrap = (text, maxW, maxLines) => {
-    const out = [];
-    for (const para of String(text).split(/\n/)) {
-      let line = '';
-      for (const w of para.split(/\s+/).filter(Boolean)) {
-        const t = line ? line + ' ' + w : w;
-        if (x.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t;
-      }
-      if (line) out.push(line);
-    }
-    if (maxLines && out.length > maxLines) { const o = out.slice(0, maxLines); o[maxLines - 1] = clip(o[maxLines - 1] + '…', maxW); return o; }
-    return out.map(l => clip(l, maxW));
-  };
-  newPage();
-  /* header */
-  let hx = M;
-  if (settings.logo) {
-    try {
-      const lg = await loadImg(new Blob([settings.logo.buf], { type: settings.logo.type }));
-      const s = Math.min(96 / lg.naturalHeight, 240 / lg.naturalWidth);
-      const lw = lg.naturalWidth * s, lh = lg.naturalHeight * s;
-      x.drawImage(lg, hx, y + (96 - lh) / 2, lw, lh); hx += lw + 26;
-    } catch (e) {}
-  }
-  const dateTxt = fmtDate(Date.now());
-  x.font = F(28, 600); const dw = x.measureText(dateTxt).width;
-  x.fillStyle = INK; x.font = F(30, 600); x.fillText(clip(settings.company || '', W - M - hx - dw - 40), hx, y + 42);
-  x.fillStyle = MUT; x.font = F(22); x.fillText(clip(settings.line2 || '', W - M - hx - dw - 40), hx, y + 78);
-  x.textAlign = 'right'; x.fillStyle = MUT; x.font = F(22); x.fillText(L.date, W - M, y + 38);
-  x.fillStyle = INK; x.font = F(28, 600); x.fillText(dateTxt, W - M, y + 76); x.textAlign = 'left';
-  y += 118; x.fillStyle = ACC; x.fillRect(M, y, W - 2 * M, 5); y += 50;
-  x.fillStyle = INK; x.font = F(58, 800); x.fillText(L.title, M, y + 52); y += 84;
-  x.fillStyle = '#3D3A34'; x.font = F(28); x.fillText(clip([project.name, project.addr].filter(Boolean).join(' · '), W - 2 * M), M, y + 28); y += 58;
-  /* info boxes */
-  const t0 = Math.min(...photos.map(p => p.ts)), t1 = Math.max(...photos.map(p => p.ts));
-  const period = dayKey(t0) === dayKey(t1) ? fmtDate(t0) : fmtDate(t0) + ' – ' + fmtDate(t1);
-  const boxes = [[L.client, project.client || '—'], [L.period, period], [L.person, settings.person || '—']];
-  const bw = (W - 2 * M - 2 * 24) / 3;
-  boxes.forEach(([k, v], i) => {
-    const bx = M + i * (bw + 24);
-    x.fillStyle = '#F5F2EC'; x.fillRect(bx, y, bw, 104);
-    x.fillStyle = MUT; x.font = F(20); x.fillText(k, bx + 22, y + 38);
-    x.fillStyle = INK; x.font = F(26, 600); x.fillText(clip(v, bw - 44), bx + 22, y + 78);
-  });
-  y += 104 + 44;
-  /* summary */
-  if (summary.trim()) {
-    x.fillStyle = MUT; x.font = F(20, 600); x.fillText(L.summary.toUpperCase(), M, y + 20); y += 40;
-    x.fillStyle = INK; x.font = F(26);
-    for (const line of wrap(summary.trim(), W - 2 * M, 8)) { x.fillText(line, M, y + 28); y += 40; }
-    y += 30;
-  }
-  /* photos, 2 per row */
-  const gap = 36, cw = (W - 2 * M - gap) / 2, ih = Math.round(cw * 0.66), capLines = 3, cellH = ih + 24 + capLines * 32 + 20;
-  const bottom = H - M - 40;
-  let col = 0;
-  for (const ph of photos) {
-    if (col === 0 && y + cellH > bottom) newPage();
-    const cx = M + col * (cw + gap);
-    x.fillStyle = '#F2EFEA'; x.fillRect(cx, y, cw, ih);
-    try {
-      const full = await get('blobs', ph.id);
-      const img = await loadImg(new Blob([full ? full.buf : ph.thumb.buf], { type: 'image/jpeg' }));
-      const s = Math.min(cw / img.naturalWidth, ih / img.naturalHeight);
-      const w = img.naturalWidth * s, h = img.naturalHeight * s;
-      x.drawImage(img, cx + (cw - w) / 2, y + (ih - h) / 2, w, h);
-    } catch (e) {}
-    let ty = y + ih + 34;
-    x.font = F(22, 700); x.fillStyle = INK;
-    const stamp = fmtDate(ph.ts) + ' ' + fmtTime(ph.ts);
-    x.fillText(stamp, cx, ty);
-    x.font = F(22); x.fillStyle = '#3D3A34';
-    for (const line of wrap(ph.caption || '', cw, capLines)) { ty += 32; x.fillText(line, cx, ty); }
-    col++; if (col === 2) { col = 0; y += cellH; }
-  }
-  /* footers */
-  pages.forEach((pg, i) => {
-    const g = pg.getContext('2d');
-    g.fillStyle = '#E5E0D6'; g.fillRect(M, H - M + 6, W - 2 * M, 2);
-    g.fillStyle = MUT; g.font = F(20);
-    g.fillText(settings.company || 'FotoObra', M, H - M + 40);
-    g.textAlign = 'right'; g.fillText(`${L.page} ${i + 1} ${L.of} ${pages.length}`, W - M, H - M + 40); g.textAlign = 'left';
-  });
-  const jpgs = [];
-  for (const pg of pages) {
-    const b = await new Promise(r => pg.toBlob(r, 'image/jpeg', 0.86));
-    jpgs.push({ buf: await b.arrayBuffer(), w: W, h: H });
-    pg.width = pg.height = 1;
-  }
-  const name = `${L.file}_${slug(project.name)}_${dayKey(Date.now())}.pdf`;
-  return { file: new File([buildPdf(jpgs)], name, { type: 'application/pdf' }), pages: pages.length };
-}
+<section id="how" style="padding-top:130px"><div class="c">
+  <div class="kicker" data-t="howK"></div>
+  <h2 data-t="howH"></h2>
+  <p class="sub" data-t="howSub"></p>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div><h3 data-t="s1h"></h3><p data-t="s1p"></p></div></div>
+    <div class="step"><div class="n">2</div><div><h3 data-t="s2h"></h3><p data-t="s2p"></p></div></div>
+    <div class="step"><div class="n">3</div><div><h3 data-t="s3h"></h3><p data-t="s3p"></p></div></div>
+  </div>
+</div></section>
 
-function download(file) {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(file); a.download = file.name;
-  document.body.appendChild(a); a.click();
-  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 5000);
-}
-async function shareFile(file, title) {
-  try { await navigator.share({ files: [file], title }); }
-  catch (e) { if (e.name !== 'AbortError') download(file); }
-}
+<section class="jobs"><div class="c">
+  <div class="kicker" data-t="jobsK"></div>
+  <h2 data-t="jobsH"></h2>
+  <p class="sub" data-t="jobsSub"></p>
+  <div class="jg">
+    <div class="card big">
+      <div class="pair">
+        <div class="im"><img src="assets/install.jpg" alt=""><span class="tag" data-t="tagWork"></span></div>
+        <div class="im"><img src="assets/showroom.jpg" alt=""><span class="tag d" data-t="tagDone"></span></div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="t"><b data-t="j1h"></b><span data-t="j1p"></span></div>
+    </div>
+    <div class="card"><div class="im"><img src="assets/demolition.jpg" alt=""><span class="tag" data-t="tagDemo"></span></div><div class="t"><b data-t="j2h"></b><span data-t="j2p"></span></div></div>
+    <div class="card"><div class="im"><img src="assets/kitchen.jpg" alt="" style="object-position:30% 50%"><span class="tag d" data-t="tagHand"></span></div><div class="t"><b data-t="j3h"></b><span data-t="j3p"></span></div></div>
+  </div>
+</div></section>
 
-/* ---------- backup ---------- */
-function toB64(buf) {
-  const u = new Uint8Array(buf); let s = '';
-  for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000));
-  return btoa(s);
-}
-function fromB64(b) { const s = atob(b); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; }
-const packBin = o => o && o.buf ? { type: o.type, w: o.w, h: o.h, b64: toB64(o.buf) } : o;
-const unpackBin = o => o && o.b64 ? { type: o.type, w: o.w, h: o.h, buf: fromB64(o.b64) } : o;
-async function makeBackup() {
-  const [projects, photos, blobs, kv] = await Promise.all([getAll('projects'), getAll('photos'), getAll('blobs'), getAll('kv')]);
-  const parts = ['{"app":"fotoobra","v":1,"at":' + JSON.stringify(new Date().toISOString()),
-    ',"projects":' + JSON.stringify(projects),
-    ',"photos":' + JSON.stringify(photos.map(p => ({ ...p, thumb: packBin(p.thumb) }))),
-    ',"kv":' + JSON.stringify(kv.map(k => ({ ...k, logo: packBin(k.logo) }))), ',"blobs":['];
-  blobs.forEach((b, i) => parts.push((i ? ',' : '') + JSON.stringify({ id: b.id, ...packBin(b) })));
-  parts.push(']}');
-  return new File(parts, `fotoobra-backup-${dayKey(Date.now())}.json`, { type: 'application/json' });
-}
-async function restoreBackup(file) {
-  let data;
-  try { data = JSON.parse(await file.text()); } catch (e) { return toast('Это не файл копии FotoObra'); }
-  if (data.app !== 'fotoobra') return toast('Это не файл копии FotoObra');
-  if (!confirm(`Восстановить ${data.projects.length} объектов и ${data.photos.length} фото? Совпадающие записи будут заменены.`)) return;
-  await tx(['projects', 'photos', 'blobs', 'kv'], 'readwrite', t => {
-    data.projects.forEach(p => t.objectStore('projects').put(p));
-    data.photos.forEach(p => t.objectStore('photos').put({ ...p, thumb: unpackBin(p.thumb) }));
-    data.blobs.forEach(b => { const u = unpackBin(b); t.objectStore('blobs').put({ id: b.id, buf: u.buf, type: u.type, w: u.w, h: u.h }); });
-    data.kv.forEach(k => t.objectStore('kv').put({ ...k, logo: unpackBin(k.logo) }));
-  });
-  settings = { ...DEFAULTS, ...((await get('kv', 'settings')) || {}) };
-  toast('Копия восстановлена');
-  replace('home');
-}
+<section id="sample"><div class="c rg">
+  <a class="paper" id="reportLink" href="assets/sample-report-en.pdf" target="_blank" rel="noopener"><img id="reportImg" src="assets/sample-report-en.jpg" alt=""></a>
+  <div>
+    <div class="kicker" data-t="repK"></div>
+    <h2 data-t="repH"></h2>
+    <p class="sub" style="margin-bottom:24px" data-t="repSub"></p>
+    <ul class="list"><li data-t="r1"></li><li data-t="r2"></li><li data-t="r3"></li><li>English, Português, Русский, Українська</li></ul>
+    <a class="btn navy" id="reportBtn" href="assets/sample-report-en.pdf" target="_blank" rel="noopener" data-t="openPdf"></a>
+  </div>
+</div></section>
 
-/* ---------- actions ---------- */
-function readSettingsFields() {
-  if (!$('#sCompany')) return;
-  settings.company = $('#sCompany').value.trim();
-  settings.line2 = $('#sLine2').value.trim();
-  settings.person = $('#sPerson').value.trim();
-  settings.pdfLang = $('#sPdfLang').value;
-  settings.voiceLang = $('#sVoice').value;
-}
-async function busy(btn, text, fn) {
-  const old = btn.innerHTML; btn.disabled = true; btn.textContent = text;
-  try { await fn(); } catch (e) { console.error(e); toast('Ошибка: ' + (e.message || e)); btn.disabled = false; btn.innerHTML = old; }
-}
-const ACT = {
-  back: () => history.back(),
-  settings: () => go('settings'),
-  open: b => go('project', { pid: b.dataset.id }),
-  newProject: () => go('projectForm', { pid: null }),
-  editProject: () => go('projectForm'),
-  saveProject: async () => {
-    const name = $('#pfName').value.trim();
-    if (!name) { $('#pfName').focus(); return toast('Напиши название объекта'); }
-    const old = S.pid ? await get('projects', S.pid) : null;
-    const p = { ...(old || { id: uid(), created: Date.now() }), name, addr: $('#pfAddr').value.trim(), client: $('#pfClient').value.trim() };
-    await put('projects', p);
-    if (old) history.back(); else replace('project', { pid: p.id });
+<section style="padding-top:0"><div class="c">
+  <div class="why"><img src="assets/workshop.jpg" alt="" loading="lazy"><div class="t">
+    <div class="kicker" style="color:var(--amber)" data-t="whyK"></div>
+    <blockquote data-t="whyQ"></blockquote>
+    <div class="who"><b>Davyd Medvedchuk</b><span data-t="whyWho"></span></div>
+  </div></div>
+</div></section>
+
+<section id="faq" style="padding-top:0"><div class="c">
+  <div class="kicker" data-t="faqK"></div>
+  <h2 style="margin-bottom:30px" data-t="faqH"></h2>
+  <div class="faq">
+    <div class="qa"><b data-t="q1"></b><p data-t="a1"></p></div>
+    <div class="qa"><b data-t="q2"></b><p data-t="a2"></p></div>
+    <div class="qa"><b data-t="q3"></b><p data-t="a3"></p></div>
+    <div class="qa"><b data-t="q4"></b><p data-t="a4"></p></div>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="c">
+  <div class="final">
+    <video autoplay muted loop playsinline preload="metadata" poster="assets/showroom-poster.jpg"><source src="assets/showroom.mp4" type="video/mp4"></video>
+    <div class="in"><div><h2 data-t="finH"></h2><p data-t="finP"></p><a class="btn amber" href="app/" data-t="finBtn"></a></div><div class="qb"><img src="assets/qr-app.svg" alt=""></div></div>
+  </div>
+  <footer><span data-t="foot1"></span><span><span data-t="foot2"></span> · <a href="https://github.com/davydmedvedchuk/fotoobra">GitHub</a></span></footer>
+</div></section>
+
+<script>
+const T = {
+  en: {
+    navHow: 'How it works', navSample: 'Sample report', navFaq: 'FAQ', openApp: 'Open the app',
+    eyebrow: 'For builders and renovation crews', h1: 'Photo reports for your client, <span>straight from the site</span>',
+    lead: 'Take a photo, say what was done, and send your client a clean PDF on WhatsApp. With your logo.',
+    start: 'Start for free', seeSample: 'See a sample report', t1: 'No sign-up', t2: 'Works offline', t3: 'Photos stay on your phone',
+    qrTitle: 'Open it on your phone', qrSub: 'Point your camera at the code',
+    mockJob: 'Showroom kitchen', mockSub: 'Lisbon · 3 photos', today: 'Today', yesterday: 'Yesterday',
+    mockCap1: 'Kitchen finished, LED lighting connected', mockCap2: 'Worktop and hob fitted', mockCap3: 'Fronts fitted, worktop tomorrow', mockShoot: 'Photo', mockReport: 'Report',
+    howK: 'How it works', howH: 'Three steps instead of an evening in the gallery', howSub: 'Work photos no longer get lost among personal ones. Each one sits in its job, with a date and a caption.',
+    s1h: 'Create a job', s1p: 'Name, address and client. Once per site.', s2h: 'Shoot and dictate', s2p: 'Photo from the camera, caption by voice. Dirty hands, no typing.', s3h: 'Send the PDF', s3p: 'For a day, a week or any dates. Straight to WhatsApp or e-mail.',
+    jobsK: 'Real jobs', jobsH: 'Any job, any stage', jobsSub: 'Photos from different jobs in Lisbon, the way they look in the app.',
+    tagWork: 'In progress', tagDone: 'Done', tagDemo: 'Demolition', tagHand: 'Handover',
+    j1h: 'Showroom kitchen', j1p: 'From fitting the fronts to the finished kitchen with LED lighting.', j2h: 'Apartment', j2p: 'Opening made, temporary beam in place.', j3h: 'Apartment', j3p: 'Kitchen units and appliances installed.',
+    repK: 'Sample report', repH: 'This is what your client gets', repSub: 'A real report made in the app from the photos above. No edits.',
+    r1: 'Your logo, company name and contacts', r2: 'Photos by date, with captions', r3: 'A short summary for the period', openPdf: 'Open the sample PDF',
+    whyK: 'Why I built it', whyQ: 'I work on building sites in Lisbon. Every day there are dozens of photos: before, during, after. I built FotoObra for myself, so the report goes to the client straight from the site.', whyWho: 'Builder in Lisbon, author of FotoObra',
+    faqK: 'Questions', faqH: 'Frequently asked',
+    q1: 'Where are my photos stored?', a1: 'Only on your phone. They are never uploaded anywhere.', q2: 'How much does it cost?', a2: 'Nothing. No account, no subscription.',
+    q3: 'Do I need internet?', a3: 'No. You only need it to send the PDF to your client.', q4: 'How do I move to a new phone?', a4: 'Settings → Make a copy, then Restore on the new phone.',
+    finH: 'Try it on your next job', finP: 'Takes 10 seconds: open it on your phone and add it to your Home Screen.', finBtn: 'Open FotoObra',
+    foot1: 'FotoObra · made on building sites in Lisbon', foot2: 'Free · No account · Offline'
   },
-  deleteProject: async () => {
-    const p = await get('projects', S.pid);
-    if (!confirm(`Удалить «${p.name}» и все его фото? Это нельзя отменить.`)) return;
-    const photos = await byProject(p.id);
-    await tx(['projects', 'photos', 'blobs'], 'readwrite', t => {
-      photos.forEach(ph => { t.objectStore('photos').delete(ph.id); t.objectStore('blobs').delete(ph.id); dropUrl(ph.id); });
-      t.objectStore('projects').delete(p.id);
-    });
-    toast('Объект удалён');
-    replace('home', { pid: null });
+  pt: {
+    navHow: 'Como funciona', navSample: 'Relatório de exemplo', navFaq: 'Perguntas', openApp: 'Abrir a app',
+    eyebrow: 'Para construtores e equipas de remodelação', h1: 'Relatórios fotográficos para o cliente, <span>direto da obra</span>',
+    lead: 'Tire uma foto, diga o que foi feito e envie ao cliente um PDF limpo pelo WhatsApp. Com o seu logótipo.',
+    start: 'Começar grátis', seeSample: 'Ver um exemplo', t1: 'Sem registo', t2: 'Funciona sem internet', t3: 'As fotos ficam no seu telemóvel',
+    qrTitle: 'Abra no telemóvel', qrSub: 'Aponte a câmara para o código',
+    mockJob: 'Cozinha de showroom', mockSub: 'Lisboa · 3 fotos', today: 'Hoje', yesterday: 'Ontem',
+    mockCap1: 'Cozinha pronta, iluminação LED ligada', mockCap2: 'Tampo e placa montados', mockCap3: 'Frentes montadas, tampo amanhã', mockShoot: 'Foto', mockReport: 'Relatório',
+    howK: 'Como funciona', howH: 'Três passos em vez de uma noite na galeria', howSub: 'As fotos da obra já não se perdem entre as pessoais. Cada uma fica na sua obra, com data e legenda.',
+    s1h: 'Crie uma obra', s1p: 'Nome, morada e cliente. Uma vez por obra.', s2h: 'Fotografe e dite', s2p: 'Foto da câmara, legenda por voz. Mãos sujas, sem escrever.', s3h: 'Envie o PDF', s3p: 'De um dia, de uma semana ou de quaisquer datas. Direto para o WhatsApp ou e-mail.',
+    jobsK: 'Obras reais', jobsH: 'Qualquer obra, qualquer fase', jobsSub: 'Fotos de várias obras em Lisboa, tal como aparecem na app.',
+    tagWork: 'Em obra', tagDone: 'Pronto', tagDemo: 'Demolição', tagHand: 'Entrega',
+    j1h: 'Cozinha de showroom', j1p: 'Da montagem das frentes à cozinha pronta com iluminação LED.', j2h: 'Apartamento', j2p: 'Vão aberto, viga provisória colocada.', j3h: 'Apartamento', j3p: 'Móveis de cozinha e eletrodomésticos instalados.',
+    repK: 'Relatório de exemplo', repH: 'É isto que o cliente recebe', repSub: 'Um relatório real feito na app com as fotos acima. Sem retoques.',
+    r1: 'O seu logótipo, nome da empresa e contactos', r2: 'Fotos por data, com legendas', r3: 'Um resumo curto do período', openPdf: 'Abrir o PDF de exemplo',
+    whyK: 'Porque o fiz', whyQ: 'Trabalho em obras em Lisboa. Todos os dias são dezenas de fotos: antes, durante, depois. Fiz o FotoObra para mim, para que o relatório siga para o cliente diretamente da obra.', whyWho: 'Construtor em Lisboa, autor do FotoObra',
+    faqK: 'Perguntas', faqH: 'Perguntas frequentes',
+    q1: 'Onde ficam as fotos?', a1: 'Só no seu telemóvel. Nunca são enviadas para lado nenhum.', q2: 'Quanto custa?', a2: 'Nada. Sem conta e sem subscrição.',
+    q3: 'Preciso de internet?', a3: 'Não. Só precisa dela para enviar o PDF ao cliente.', q4: 'Como passo tudo para outro telemóvel?', a4: 'Definições → Fazer cópia e, no telemóvel novo, Restaurar.',
+    finH: 'Experimente na próxima obra', finP: 'Leva 10 segundos: abra no telemóvel e adicione ao ecrã principal.', finBtn: 'Abrir o FotoObra',
+    foot1: 'FotoObra · feito em obras de Lisboa', foot2: 'Grátis · Sem conta · Sem internet'
   },
-  cam: () => $('#camIn').click(),
-  gal: () => $('#galIn').click(),
-  photo: b => go('photo', { photoId: b.dataset.id }),
-  report: () => { S.report = null; go('report'); },
-  mic: b => toggleMic(b),
-  skip: () => { S.qi++; S.qi < S.queue.length ? render('add') : history.back(); },
-  savePhoto: b => busy(b, 'Сохраняю…', async () => {
-    stopMic();
-    const f = S.queue[S.qi];
-    const img = await loadImg(f);
-    const full = await resize(img, 1600, 0.82);
-    const thumb = await resize(img, 480, 0.72);
-    const id = uid();
-    const ts = f.lastModified && f.lastModified <= Date.now() ? f.lastModified : Date.now();
-    await tx(['photos', 'blobs'], 'readwrite', t => {
-      t.objectStore('photos').put({ id, projectId: S.pid, ts, caption: $('#cap').value.trim(), thumb });
-      t.objectStore('blobs').put({ id, ...full });
-    });
-    try { navigator.storage?.persist?.(); } catch (e) {}
-    S.qi++;
-    if (S.qi < S.queue.length) { toast('Сохранено'); render('add'); }
-    else { S.queue = []; toast('Фото сохранено'); history.back(); }
-  }),
-  updatePhoto: async () => {
-    stopMic();
-    const ph = await get('photos', S.photoId);
-    ph.caption = $('#cap').value.trim();
-    await put('photos', ph);
-    toast('Сохранено'); history.back();
+  ru: {
+    navHow: 'Как работает', navSample: 'Пример отчёта', navFaq: 'Вопросы', openApp: 'Открыть приложение',
+    eyebrow: 'Для строителей и ремонтных бригад', h1: 'Фотоотчёт клиенту <span>прямо с объекта</span>',
+    lead: 'Сфотографируй работу, надиктуй, что сделано, и отправь клиенту аккуратный PDF в WhatsApp. С твоим логотипом.',
+    start: 'Начать бесплатно', seeSample: 'Пример отчёта', t1: 'Без регистрации', t2: 'Работает без интернета', t3: 'Фото только у тебя',
+    qrTitle: 'Открой на телефоне', qrSub: 'Наведи камеру на код',
+    mockJob: 'Кухня в шоуруме', mockSub: 'Лиссабон · 3 фото', today: 'Сегодня', yesterday: 'Вчера',
+    mockCap1: 'Кухня готова, подсветка подключена', mockCap2: 'Столешница и варочная панель на месте', mockCap3: 'Фасады выставлены, столешница завтра', mockShoot: 'Снять', mockReport: 'Отчёт',
+    howK: 'Как это работает', howH: 'Три шага вместо вечера в галерее', howSub: 'Рабочие фото больше не теряются среди личных. Каждое лежит в своём объекте, с датой и подписью.',
+    s1h: 'Создай объект', s1p: 'Название, адрес и клиент. Один раз на всю стройку.', s2h: 'Снимай и диктуй', s2p: 'Фото с камеры, подпись голосом. Руки грязные — печатать не надо.', s3h: 'Отправь PDF', s3p: 'За день, неделю или любые даты. Сразу в WhatsApp или на почту.',
+    jobsK: 'Реальные объекты', jobsH: 'Любой объект, любой этап', jobsSub: 'Фото с разных объектов в Лиссабоне — так, как они выглядят в приложении.',
+    tagWork: 'В работе', tagDone: 'Готово', tagDemo: 'Демонтаж', tagHand: 'Сдача',
+    j1h: 'Кухня в шоуруме', j1p: 'От монтажа фасадов до готовой кухни с LED-подсветкой.', j2h: 'Квартира', j2p: 'Проём открыт, стоит временная балка.', j3h: 'Квартира', j3p: 'Кухонный блок и техника установлены.',
+    repK: 'Пример отчёта', repH: 'Клиент получает вот такой PDF', repSub: 'Настоящий отчёт из приложения, собранный из фото выше. Без правок.',
+    r1: 'Твой логотип, название фирмы и контакты', r2: 'Фото по датам, с подписями', r3: 'Краткий итог за период', openPdf: 'Открыть пример PDF',
+    whyK: 'Почему я это сделал', whyQ: 'Я работаю на стройках в Лиссабоне. Каждый день — десятки фото: до, во время, после. FotoObra я сделал для себя, чтобы отчёт уходил клиенту прямо с объекта.', whyWho: 'Строитель в Лиссабоне, автор FotoObra',
+    faqK: 'Вопросы', faqH: 'Часто спрашивают',
+    q1: 'Где хранятся фото?', a1: 'Только на твоём телефоне. Никуда не загружаются.', q2: 'Сколько стоит?', a2: 'Бесплатно. Без аккаунта и без подписки.',
+    q3: 'Нужен интернет?', a3: 'Нет. Только чтобы отправить PDF клиенту.', q4: 'Как перенести на новый телефон?', a4: 'Настройки → «Сделать копию», на новом телефоне — «Восстановить».',
+    finH: 'Попробуй на следующем объекте', finP: 'Установка за 10 секунд: открой на телефоне и добавь на экран «Домой».', finBtn: 'Открыть FotoObra',
+    foot1: 'FotoObra · сделано на стройках Лиссабона', foot2: 'Бесплатно · Без аккаунта · Офлайн'
   },
-  deletePhoto: async () => {
-    if (!confirm('Удалить это фото?')) return;
-    const id = S.photoId;
-    await tx(['photos', 'blobs'], 'readwrite', t => { t.objectStore('photos').delete(id); t.objectStore('blobs').delete(id); });
-    dropUrl(id); toast('Фото удалено'); history.back();
-  },
-  range: b => { const R = S.report; R.range = b.dataset.range; R.pdf = null; render('report'); },
-  pick: b => { const R = S.report, id = b.dataset.id; R.excluded.has(id) ? R.excluded.delete(id) : R.excluded.add(id); R.pdf = null; render('report'); },
-  makePdf: b => busy(b, 'Создаю PDF…', async () => {
-    stopMic();
-    const R = S.report;
-    const p = await get('projects', S.pid);
-    const list = (await byProject(p.id)).sort((a, c) => a.ts - c.ts).filter(x => inRange(x.ts, R) && !R.excluded.has(x.id));
-    if (!list.length) return toast('Нет фото для отчёта');
-    const out = await makeReportPdf(p, list, R.summary);
-    R.pdf = out.file; R.pdfPages = out.pages;
-    const y = window.scrollY; await render('report'); window.scrollTo(0, y);
-  }),
-  sharePdf: async () => { const p = await get('projects', S.pid); shareFile(S.report.pdf, p.name); },
-  dlPdf: () => download(S.report.pdf),
-  logo: () => { readSettingsFields(); $('#logoIn').click(); },
-  logoDel: async () => { readSettingsFields(); settings.logo = null; await put('kv', settings); render('settings'); },
-  saveSettings: async () => { readSettingsFields(); await put('kv', settings); toast('Настройки сохранены'); },
-  backup: b => busy(b, 'Готовлю копию…', async () => { S.backupFile = await makeBackup(); readSettingsFields(); await render('settings'); window.scrollTo(0, document.body.scrollHeight); }),
-  shareBackup: () => shareFile(S.backupFile, 'FotoObra — резервная копия'),
-  dlBackup: () => download(S.backupFile),
-  restore: () => $('#backupIn').click()
-};
-app.addEventListener('click', e => {
-  const b = e.target.closest('[data-act]');
-  if (b && !b.disabled && ACT[b.dataset.act]) ACT[b.dataset.act](b, e);
-});
-app.addEventListener('input', e => {
-  if (e.target.id === 'summary' && S.report) {
-    S.report.summary = e.target.value;
-    if (S.report.pdf) { S.report.pdf = null; $('.done')?.remove(); $('#barIn').innerHTML = reportBar(); }
+  uk: {
+    navHow: 'Як працює', navSample: 'Приклад звіту', navFaq: 'Питання', openApp: 'Відкрити застосунок',
+    eyebrow: 'Для будівельників і ремонтних бригад', h1: 'Фотозвіт клієнту <span>просто з об’єкта</span>',
+    lead: 'Сфотографуй роботу, надиктуй, що зроблено, і надішли клієнту охайний PDF у WhatsApp. З твоїм логотипом.',
+    start: 'Почати безкоштовно', seeSample: 'Приклад звіту', t1: 'Без реєстрації', t2: 'Працює без інтернету', t3: 'Фото лише в тебе',
+    qrTitle: 'Відкрий на телефоні', qrSub: 'Наведи камеру на код',
+    mockJob: 'Кухня в шоурумі', mockSub: 'Лісабон · 3 фото', today: 'Сьогодні', yesterday: 'Вчора',
+    mockCap1: 'Кухня готова, підсвітку підключено', mockCap2: 'Стільниця й варильна панель на місці', mockCap3: 'Фасади виставлено, стільниця завтра', mockShoot: 'Зняти', mockReport: 'Звіт',
+    howK: 'Як це працює', howH: 'Три кроки замість вечора в галереї', howSub: 'Робочі фото більше не губляться серед особистих. Кожне лежить у своєму об’єкті, з датою й підписом.',
+    s1h: 'Створи об’єкт', s1p: 'Назва, адреса й клієнт. Один раз на все будівництво.', s2h: 'Знімай і диктуй', s2p: 'Фото з камери, підпис голосом. Руки брудні — друкувати не треба.', s3h: 'Надішли PDF', s3p: 'За день, тиждень або будь-які дати. Одразу у WhatsApp чи на пошту.',
+    jobsK: 'Реальні об’єкти', jobsH: 'Будь-який об’єкт, будь-який етап', jobsSub: 'Фото з різних об’єктів у Лісабоні — такі, як вони виглядають у застосунку.',
+    tagWork: 'У роботі', tagDone: 'Готово', tagDemo: 'Демонтаж', tagHand: 'Здача',
+    j1h: 'Кухня в шоурумі', j1p: 'Від монтажу фасадів до готової кухні з LED-підсвіткою.', j2h: 'Квартира', j2p: 'Проріз відкрито, стоїть тимчасова балка.', j3h: 'Квартира', j3p: 'Кухонний блок і техніку встановлено.',
+    repK: 'Приклад звіту', repH: 'Клієнт отримує ось такий PDF', repSub: 'Справжній звіт із застосунку, зібраний із фото вище. Без правок.',
+    r1: 'Твій логотип, назва фірми й контакти', r2: 'Фото за датами, з підписами', r3: 'Короткий підсумок за період', openPdf: 'Відкрити приклад PDF',
+    whyK: 'Чому я це зробив', whyQ: 'Я працюю на будовах у Лісабоні. Щодня — десятки фото: до, під час, після. FotoObra я зробив для себе, щоб звіт ішов клієнту просто з об’єкта.', whyWho: 'Будівельник у Лісабоні, автор FotoObra',
+    faqK: 'Питання', faqH: 'Часто питають',
+    q1: 'Де зберігаються фото?', a1: 'Лише на твоєму телефоні. Нікуди не завантажуються.', q2: 'Скільки коштує?', a2: 'Безкоштовно. Без акаунта й без підписки.',
+    q3: 'Потрібен інтернет?', a3: 'Ні. Лише щоб надіслати PDF клієнту.', q4: 'Як перенести на новий телефон?', a4: 'Налаштування → «Зробити копію», на новому телефоні — «Відновити».',
+    finH: 'Спробуй на наступному об’єкті', finP: 'Встановлення за 10 секунд: відкрий на телефоні й додай на екран «Додому».', finBtn: 'Відкрити FotoObra',
+    foot1: 'FotoObra · зроблено на будовах Лісабона', foot2: 'Безкоштовно · Без акаунта · Офлайн'
   }
-});
-app.addEventListener('change', e => {
-  if ((e.target.id === 'dFrom' || e.target.id === 'dTo') && S.report) {
-    S.report[e.target.id === 'dFrom' ? 'from' : 'to'] = e.target.value; S.report.pdf = null; render('report');
-  }
-});
-const onFiles = input => {
-  const files = [...input.files]; input.value = '';
-  if (files.length) go('add', { queue: files, qi: 0 });
 };
-$('#camIn').addEventListener('change', e => onFiles(e.target));
-$('#galIn').addEventListener('change', e => onFiles(e.target));
-$('#logoIn').addEventListener('change', async e => {
-  const f = e.target.files[0]; e.target.value = '';
-  if (!f) return;
-  try { settings.logo = await resize(await loadImg(f), 480, 0.92, 'image/png'); await put('kv', settings); render('settings'); }
-  catch (err) { toast('Не получилось открыть картинку'); }
-});
-$('#backupIn').addEventListener('change', e => { const f = e.target.files[0]; e.target.value = ''; if (f) restoreBackup(f); });
-
-/* ---------- start ---------- */
-(async () => {
-  try { settings = { ...DEFAULTS, ...((await get('kv', 'settings')) || {}) }; } catch (e) {}
-  history.replaceState({ v: 'home' }, '');
-  render('home');
-  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
-})();
+function setLang(lang) {
+  if (!T[lang]) lang = 'en';
+  const d = T[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = d[el.dataset.t] ?? T.en[el.dataset.t]; });
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === lang));
+  const pdf = `assets/sample-report-${lang}.pdf`;
+  document.getElementById('reportLink').href = document.getElementById('reportBtn').href = pdf;
+  document.getElementById('reportImg').src = `assets/sample-report-${lang}.jpg`;
+  try { localStorage.setItem('fotoobra-site-lang', lang); } catch (e) {}
+}
+document.querySelector('.lang').addEventListener('click', e => { const b = e.target.closest('[data-lang]'); if (b) setLang(b.dataset.lang); });
+let start = new URLSearchParams(location.search).get('lang');
+if (!start) { try { start = localStorage.getItem('fotoobra-site-lang'); } catch (e) {} }
+setLang(start || 'en');
 </script>
 </body>
 </html>

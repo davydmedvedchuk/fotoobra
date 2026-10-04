@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17324D">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FotoObra">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../icon-180.png">
+<link rel="icon" href="../icon-192.png">
+<title>FotoObra</title>
+<style>
+:root{--bg:#F4F5F7;--card:#FFFFFF;--ink:#14202B;--muted:#5B6672;--line:#DFE3E8;--brand:#17324D;--brand2:#22476B;--accent:#FFB400;--accent-ink:#14202B;--soft:#FFF4D6;--sky:#E6EEF6;--edge:#AEB6C0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+svg{flex-shrink:0}
+.top{position:sticky;top:0;z-index:5;background:var(--brand);color:#fff;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;margin-bottom:12px}
+.top-in{display:flex;align-items:center;gap:10px;max-width:728px;margin:0 auto}
+.top .icon-btn{background:rgba(255,255,255,.12);color:#fff}
+.top .sub{color:#C9D6E3}
+.grow{flex:1;min-width:0}
+.logo{width:36px;height:36px;border-radius:9px;display:block}
+.icon-btn{width:44px;height:44px;border-radius:12px;border:none;background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.title{font-weight:800;font-size:22px;letter-spacing:-.3px;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub{display:block;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wrap{padding:4px 16px calc(120px + env(safe-area-inset-bottom));max-width:760px;margin:0 auto}
+.proj{display:flex;gap:14px;align-items:center;width:100%;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;text-align:left}
+.proj img,.noimg{width:64px;height:64px;border-radius:12px;object-fit:cover;flex-shrink:0;background:var(--sky);display:flex;align-items:center;justify-content:center;color:var(--brand2)}
+.pname{display:block;font-size:17px;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{text-align:center;padding:48px 16px;color:var(--muted);line-height:1.5}
+.empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bar-in{display:flex;gap:10px;max-width:728px;margin:0 auto}
+.btn{height:52px;border-radius:14px;border:none;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;flex:1;white-space:nowrap;text-decoration:none}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.dark{background:var(--brand);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid var(--edge)}
+.btn.danger{background:transparent;border:1.5px solid #DC2626;color:#B91C1C}
+.btn.sq{flex:0 0 52px;padding:0}
+.btn:disabled{opacity:.5}
+.group-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--brand2);margin:18px 0 10px}
+.group-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.ph{position:relative;display:flex;flex-direction:column;padding:0;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--sky)}
+.ph .cap{padding:8px 10px 0;margin-bottom:10px;font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ph .cap.none{color:var(--muted)}
+.time{position:absolute;left:8px;top:8px;font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(23,50,77,.85);color:#fff}
+.pick .tick{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.pick.off img{opacity:.35}
+.pick.off .tick{background:rgba(255,255,255,.92);color:transparent;border-color:var(--edge)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+label{font-size:13px;font-weight:600;color:var(--muted)}
+input[type=text],input[type=date],textarea,select{font:inherit;font-size:16px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%;-webkit-appearance:none;appearance:none}
+textarea{min-height:92px;resize:vertical;line-height:1.4}
+.row{display:flex;gap:8px;align-items:flex-start}
+.row>.field{flex:1}
+.mic{width:52px;height:52px;border:1.5px solid var(--edge);background:var(--card)}
+.mic.rec{background:#DC2626;border-color:#DC2626;color:#fff}
+.hint{font-size:13px;color:var(--muted);margin:0;line-height:1.4}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--edge);background:transparent;font-size:14px;font-weight:600}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.preview-img{width:100%;max-height:52vh;object-fit:contain;border-radius:14px;background:#1C2630;display:block;margin-bottom:16px}
+.done{margin-top:16px;padding:14px;border-radius:14px;background:#E7F5E4;font-weight:600;display:flex;gap:8px;align-items:center}
+.section{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+h2{font-size:18px;margin:0 0 10px}
+.logo-prev{max-height:64px;max-width:220px;display:block;margin:4px 0 10px;background:#fff;border-radius:8px;padding:6px;border:1px solid var(--line)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.btn-row .btn{flex:1 1 150px}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.45;font-size:14px}
+.card.note{background:var(--soft);border-color:#F2DA94}
+.welcome{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px}
+.welcome h3{margin:0 0 4px;font-size:20px}
+.welcome>p{margin:0 0 10px;color:var(--muted);font-size:14px}
+.ws{display:flex;gap:12px;align-items:center;padding:11px 0;font-size:15px;border-top:1px solid var(--line)}
+.ws i{font-style:normal;flex:0 0 28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.sample-btns{display:flex;gap:8px;margin-top:12px}
+.sample-btns .btn{height:46px;font-size:15px}
+.sample-btns .btn.sq{flex:0 0 46px}
+.linkrow{display:flex;justify-content:space-between;align-items:center;width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:15px;font-weight:600;text-align:left;text-decoration:none;margin-bottom:10px}
+.linkrow svg{color:var(--brand2)}
+details.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:8px;font-size:14px;line-height:1.45}
+details.qa summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:700;font-size:15px;display:flex;gap:10px;align-items:center}
+details.qa summary::-webkit-details-marker{display:none}
+details.qa summary::after{content:"+";margin-left:auto;font-size:20px;font-weight:500;color:var(--brand2)}
+details.qa[open] summary::after{content:"–"}
+details.qa .a{padding:0 14px 14px;color:#3D4650}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<input type="file" id="camIn" accept="image/*" capture="environment" hidden>
+<input type="file" id="galIn" accept="image/*" multiple hidden>
+<input type="file" id="logoIn" accept="image/*" hidden>
+<input type="file" id="backupIn" accept=".json,application/json" hidden>
+<script>
+'use strict';
+/* ---------- interface text ---------- */
+const STR = {
+  en: {
+    today: 'today', yesterday: 'yesterday', Today: 'Today', Yesterday: 'Yesterday', MB: 'MB',
+    dictate: 'Dictate', micHint: 'Tap the mic and say what was done.', micHintKb: 'You can dictate with the mic on your keyboard.',
+    micErr: 'Microphone: {0}', micNone: 'Microphone unavailable', back: 'Back', cancel: 'Cancel', settings: 'Settings',
+    myJobs: 'My jobs', nPhotos: '{0} photos', noPhotosYet: 'No photos yet',
+    welcome: 'Welcome', welcomeSub: 'Your first report takes a couple of minutes.',
+    step1: 'Create a job', step2: 'Take photos and dictate what was done', step3: 'Send your client a PDF',
+    seeSample: 'See a sample report', helpRow: 'Photo tips and FAQ', newJob: 'New job',
+    editJob: 'Edit job', name: 'Name', namePh: 'e.g. Moradia Estoril', address: 'Address', addressPh: 'Street, city',
+    client: 'Client', clientPh: 'Name or company', deleteJob: 'Delete job and all photos', save: 'Save',
+    emptyJob: 'Tap “Photo”, shoot the work and dictate what was done.', shoot: 'Photo', fromGallery: 'Add from gallery', report: 'Report',
+    noCaption: 'No caption', newPhoto: 'New photo', nOfM: '{0} of {1}', photo: 'Photo', caption: 'Caption',
+    captionPh: 'What was done? e.g. plaster in room 2 finished', skip: 'Skip', deletePhoto: 'Delete photo',
+    rToday: 'Today', rWeek: '7 days', rAll: 'All', rDates: 'Dates', from: 'From', to: 'To',
+    inReport: 'In the report: {0} of {1} photos. Tap a photo to leave it out or add it back.', noPeriod: 'No photos for this period.',
+    summary: 'Summary for the period (optional)', summaryPh: 'e.g. plaster done, tiling starts tomorrow',
+    pdfReady: 'PDF ready: {0} pages, {1}', send: 'Send', download: 'Download', makePdf: 'Create PDF',
+    install: '<b>Add it to your Home Screen.</b> iPhone: Safari → Share → Add to Home Screen. Android: Chrome → ⋮ → Add to Home screen. Open the app from the icon: photos are kept more reliably.',
+    appLang: 'App language', forPdf: 'PDF report', company: 'Company', companyPh: 'Company name', line2: 'Second line', line2Ph: 'VAT no., phone, e-mail',
+    person: 'Responsible', personPh: 'Your name', logo: 'Logo', replace: 'Replace', upload: 'Upload', remove: 'Remove',
+    pdfLang: 'Report language', voiceLang: 'Dictation language', saveSettings: 'Save settings',
+    help: 'Help', tips: 'Photo tips', faq: 'FAQ', about: 'About FotoObra',
+    backup: 'Backup', backupHint: 'Everything is stored only on this phone. Once a week, make a copy and keep it in Google Drive or on a computer.', used: 'Used on this phone: {0}.',
+    makeCopy: 'Make a copy', restore: 'Restore', copyReady: 'Copy ready, {0}', sendSave: 'Send / save',
+    footer: 'FotoObra 1.1 · works offline, no account, no subscription.',
+    notBackup: 'This is not a FotoObra backup file', confirmRestore: 'Restore {0} jobs and {1} photos? Matching records will be replaced.', restored: 'Backup restored',
+    error: 'Error: {0}', needName: 'Enter the job name', confirmDelJob: 'Delete “{0}” and all its photos? This cannot be undone.', jobDeleted: 'Job deleted',
+    saving: 'Saving…', saved: 'Saved', photoSaved: 'Photo saved', confirmDelPhoto: 'Delete this photo?', photoDeleted: 'Photo deleted',
+    creatingPdf: 'Creating PDF…', noReportPhotos: 'No photos for the report', settingsSaved: 'Settings saved', preparingCopy: 'Preparing copy…',
+    backupTitle: 'FotoObra backup', badImage: 'Could not open the image', creatingSample: 'Creating sample…', openPdf: 'Open PDF', dlSample: 'Download sample'
+  },
+  pt: {
+    today: 'hoje', yesterday: 'ontem', Today: 'Hoje', Yesterday: 'Ontem', MB: 'MB',
+    dictate: 'Ditar', micHint: 'Toque no microfone e diga o que foi feito.', micHintKb: 'Pode ditar com o microfone do teclado.',
+    micErr: 'Microfone: {0}', micNone: 'Microfone indisponível', back: 'Voltar', cancel: 'Cancelar', settings: 'Definições',
+    myJobs: 'As minhas obras', nPhotos: '{0} fotos', noPhotosYet: 'Ainda sem fotos',
+    welcome: 'Bem-vindo', welcomeSub: 'O primeiro relatório faz-se em dois minutos.',
+    step1: 'Crie uma obra', step2: 'Tire fotos e dite o que foi feito', step3: 'Envie o PDF ao cliente',
+    seeSample: 'Ver um relatório de exemplo', helpRow: 'Dicas de fotografia e perguntas', newJob: 'Nova obra',
+    editJob: 'Editar obra', name: 'Nome', namePh: 'Ex.: Moradia Estoril', address: 'Morada', addressPh: 'Rua, localidade',
+    client: 'Cliente', clientPh: 'Nome ou empresa', deleteJob: 'Apagar a obra e todas as fotos', save: 'Guardar',
+    emptyJob: 'Toque em «Foto», fotografe o trabalho e dite o que foi feito.', shoot: 'Foto', fromGallery: 'Adicionar da galeria', report: 'Relatório',
+    noCaption: 'Sem legenda', newPhoto: 'Nova foto', nOfM: '{0} de {1}', photo: 'Foto', caption: 'Legenda',
+    captionPh: 'O que foi feito? Ex.: reboco do quarto 2 concluído', skip: 'Saltar', deletePhoto: 'Apagar foto',
+    rToday: 'Hoje', rWeek: '7 dias', rAll: 'Tudo', rDates: 'Datas', from: 'De', to: 'Até',
+    inReport: 'No relatório: {0} de {1} fotos. Toque numa foto para a retirar ou repor.', noPeriod: 'Sem fotos neste período.',
+    summary: 'Resumo do período (opcional)', summaryPh: 'Ex.: reboco concluído, amanhã começa o azulejo',
+    pdfReady: 'PDF pronto: {0} pág., {1}', send: 'Enviar', download: 'Descarregar', makePdf: 'Criar PDF',
+    install: '<b>Adicione ao ecrã principal.</b> iPhone: Safari → Partilhar → Adicionar ao ecrã principal. Android: Chrome → ⋮ → Adicionar ao ecrã principal. Abra a app pelo ícone: as fotos ficam guardadas com mais segurança.',
+    appLang: 'Idioma da app', forPdf: 'Relatório PDF', company: 'Empresa', companyPh: 'Nome da empresa', line2: 'Segunda linha', line2Ph: 'NIF, telefone, e-mail',
+    person: 'Responsável', personPh: 'O seu nome', logo: 'Logótipo', replace: 'Substituir', upload: 'Carregar', remove: 'Remover',
+    pdfLang: 'Idioma do relatório', voiceLang: 'Idioma do ditado', saveSettings: 'Guardar definições',
+    help: 'Ajuda', tips: 'Dicas de fotografia', faq: 'Perguntas frequentes', about: 'Sobre o FotoObra',
+    backup: 'Cópia de segurança', backupHint: 'Tudo fica guardado só neste telemóvel. Uma vez por semana, faça uma cópia e guarde-a no Google Drive ou no computador.', used: 'Ocupado neste telemóvel: {0}.',
+    makeCopy: 'Fazer cópia', restore: 'Restaurar', copyReady: 'Cópia pronta, {0}', sendSave: 'Enviar / guardar',
+    footer: 'FotoObra 1.1 · funciona sem internet, sem conta e sem subscrição.',
+    notBackup: 'Este ficheiro não é uma cópia do FotoObra', confirmRestore: 'Restaurar {0} obras e {1} fotos? Os registos iguais serão substituídos.', restored: 'Cópia restaurada',
+    error: 'Erro: {0}', needName: 'Escreva o nome da obra', confirmDelJob: 'Apagar «{0}» e todas as fotos? Não é possível desfazer.', jobDeleted: 'Obra apagada',
+    saving: 'A guardar…', saved: 'Guardado', photoSaved: 'Foto guardada', confirmDelPhoto: 'Apagar esta foto?', photoDeleted: 'Foto apagada',
+    creatingPdf: 'A criar PDF…', noReportPhotos: 'Sem fotos para o relatório', settingsSaved: 'Definições guardadas', preparingCopy: 'A preparar cópia…',
+    backupTitle: 'Cópia do FotoObra', badImage: 'Não foi possível abrir a imagem', creatingSample: 'A criar exemplo…', openPdf: 'Abrir PDF', dlSample: 'Descarregar exemplo'
+  },
+  ru: {
+    today: 'сегодня', yesterday: 'вчера', Today: 'Сегодня', Yesterday: 'Вчера', MB: 'МБ',
+    dictate: 'Надиктовать', micHint: 'Нажми микрофон и скажи, что сделано.', micHintKb: 'Можно надиктовать через микрофон на клавиатуре.',
+    micErr: 'Микрофон: {0}', micNone: 'Микрофон недоступен', back: 'Назад', cancel: 'Отмена', settings: 'Настройки',
+    myJobs: 'Мои объекты', nPhotos: '{0} фото', noPhotosYet: 'Пока без фото',
+    welcome: 'Добро пожаловать', welcomeSub: 'Первый отчёт — за пару минут.',
+    step1: 'Создай объект', step2: 'Снимай и диктуй, что сделано', step3: 'Отправь клиенту PDF',
+    seeSample: 'Посмотреть пример отчёта', helpRow: 'Советы по съёмке и вопросы', newJob: 'Новый объект',
+    editJob: 'Изменить объект', name: 'Название', namePh: 'Например: Moradia Estoril', address: 'Адрес', addressPh: 'Улица, город',
+    client: 'Клиент', clientPh: 'Имя или компания', deleteJob: 'Удалить объект и все фото', save: 'Сохранить',
+    emptyJob: 'Нажми «Снять», сфотографируй работу и надиктуй, что сделано.', shoot: 'Снять', fromGallery: 'Добавить из галереи', report: 'Отчёт',
+    noCaption: 'Без подписи', newPhoto: 'Новое фото', nOfM: '{0} из {1}', photo: 'Фото', caption: 'Подпись',
+    captionPh: 'Что сделано? Например: штукатурка во 2-й комнате готова', skip: 'Пропустить', deletePhoto: 'Удалить фото',
+    rToday: 'Сегодня', rWeek: '7 дней', rAll: 'Всё', rDates: 'Даты', from: 'С', to: 'По',
+    inReport: 'В отчёте {0} из {1} фото. Нажми на фото, чтобы убрать или вернуть.', noPeriod: 'За этот период фото нет.',
+    summary: 'Кратко за период (по желанию)', summaryPh: 'Например: закончили штукатурку, завтра начинаем плитку',
+    pdfReady: 'PDF готов: {0} стр., {1}', send: 'Отправить', download: 'Скачать', makePdf: 'Создать PDF',
+    install: '<b>Установи на экран «Домой».</b> iPhone: Safari → «Поделиться» → «На экран Домой». Android: Chrome → меню ⋮ → «Добавить на гл. экран». Открывай приложение с иконки — так фото надёжнее сохраняются.',
+    appLang: 'Язык приложения', forPdf: 'PDF-отчёт', company: 'Компания', companyPh: 'Название фирмы', line2: 'Вторая строка', line2Ph: 'NIF, телефон, e-mail',
+    person: 'Ответственный', personPh: 'Твоё имя', logo: 'Логотип', replace: 'Заменить', upload: 'Загрузить', remove: 'Убрать',
+    pdfLang: 'Язык отчёта', voiceLang: 'Язык диктовки', saveSettings: 'Сохранить настройки',
+    help: 'Помощь', tips: 'Советы по съёмке', faq: 'Вопросы и ответы', about: 'О FotoObra',
+    backup: 'Резервная копия', backupHint: 'Всё хранится только в этом телефоне. Раз в неделю делай копию и сохраняй её в Google Drive или на компьютер.', used: 'Занято на телефоне: {0}.',
+    makeCopy: 'Сделать копию', restore: 'Восстановить', copyReady: 'Копия готова, {0}', sendSave: 'Отправить / сохранить',
+    footer: 'FotoObra 1.1 · работает без интернета, без аккаунта и без подписки.',
+    notBackup: 'Это не файл копии FotoObra', confirmRestore: 'Восстановить {0} объектов и {1} фото? Совпадающие записи будут заменены.', restored: 'Копия восстановлена',
+    error: 'Ошибка: {0}', needName: 'Напиши название объекта', confirmDelJob: 'Удалить «{0}» и все его фото? Это нельзя отменить.', jobDeleted: 'Объект удалён',
+    saving: 'Сохраняю…', saved: 'Сохранено', photoSaved: 'Фото сохранено', confirmDelPhoto: 'Удалить это фото?', photoDeleted: 'Фото удалено',
+    creatingPdf: 'Создаю PDF…', noReportPhotos: 'Нет фото для отчёта', settingsSaved: 'Настройки сохранены', preparingCopy: 'Готовлю копию…',
+    backupTitle: 'FotoObra — резервная копия', badImage: 'Не получилось открыть картинку', creatingSample: 'Создаю пример…', openPdf: 'Открыть PDF', dlSample: 'Скачать пример'
+  },
+  uk: {
+    today: 'сьогодні', yesterday: 'вчора', Today: 'Сьогодні', Yesterday: 'Вчора', MB: 'МБ',
+    dictate: 'Надиктувати', micHint: 'Натисни мікрофон і скажи, що зроблено.', micHintKb: 'Можна надиктувати через мікрофон на клавіатурі.',
+    micErr: 'Мікрофон: {0}', micNone: 'Мікрофон недоступний', back: 'Назад', cancel: 'Скасувати', settings: 'Налаштування',
+    myJobs: 'Мої об’єкти', nPhotos: '{0} фото', noPhotosYet: 'Поки без фото',
+    welcome: 'Ласкаво просимо', welcomeSub: 'Перший звіт — за пару хвилин.',
+    step1: 'Створи об’єкт', step2: 'Знімай і диктуй, що зроблено', step3: 'Надішли клієнту PDF',
+    seeSample: 'Переглянути приклад звіту', helpRow: 'Поради зі зйомки та питання', newJob: 'Новий об’єкт',
+    editJob: 'Змінити об’єкт', name: 'Назва', namePh: 'Наприклад: Moradia Estoril', address: 'Адреса', addressPh: 'Вулиця, місто',
+    client: 'Клієнт', clientPh: 'Ім’я або компанія', deleteJob: 'Видалити об’єкт і всі фото', save: 'Зберегти',
+    emptyJob: 'Натисни «Зняти», сфотографуй роботу й надиктуй, що зроблено.', shoot: 'Зняти', fromGallery: 'Додати з галереї', report: 'Звіт',
+    noCaption: 'Без підпису', newPhoto: 'Нове фото', nOfM: '{0} з {1}', photo: 'Фото', caption: 'Підпис',
+    captionPh: 'Що зроблено? Наприклад: штукатурка в 2-й кімнаті готова', skip: 'Пропустити', deletePhoto: 'Видалити фото',
+    rToday: 'Сьогодні', rWeek: '7 днів', rAll: 'Усе', rDates: 'Дати', from: 'З', to: 'По',
+    inReport: 'У звіті {0} з {1} фото. Натисни на фото, щоб прибрати або повернути.', noPeriod: 'За цей період фото немає.',
+    summary: 'Коротко за період (за бажанням)', summaryPh: 'Наприклад: закінчили штукатурку, завтра починаємо плитку',
+    pdfReady: 'PDF готовий: {0} стор., {1}', send: 'Надіслати', download: 'Завантажити', makePdf: 'Створити PDF',
+    install: '<b>Встанови на екран «Додому».</b> iPhone: Safari → «Поділитися» → «На екран Додому». Android: Chrome → меню ⋮ → «Додати на головний екран». Відкривай застосунок з іконки — так фото надійніше зберігаються.',
+    appLang: 'Мова застосунку', forPdf: 'PDF-звіт', company: 'Компанія', companyPh: 'Назва фірми', line2: 'Другий рядок', line2Ph: 'NIF, телефон, e-mail',
+    person: 'Відповідальний', personPh: 'Твоє ім’я', logo: 'Логотип', replace: 'Замінити', upload: 'Завантажити', remove: 'Прибрати',
+    pdfLang: 'Мова звіту', voiceLang: 'Мова диктування', saveSettings: 'Зберегти налаштування',
+    help: 'Допомога', tips: 'Поради зі зйомки', faq: 'Питання та відповіді', about: 'Про FotoObra',
+    backup: 'Резервна копія', backupHint: 'Усе зберігається лише в цьому телефоні. Раз на тиждень роби копію й зберігай її в Google Drive або на комп’ютері.', used: 'Зайнято на телефоні: {0}.',
+    makeCopy: 'Зробити копію', restore: 'Відновити', copyReady: 'Копія готова, {0}', sendSave: 'Надіслати / зберегти',
+    footer: 'FotoObra 1.1 · працює без інтернету, без акаунта й без підписки.',
+    notBackup: 'Це не файл копії FotoObra', confirmRestore: 'Відновити {0} об’єктів і {1} фото? Однакові записи буде замінено.', restored: 'Копію відновлено',
+    error: 'Помилка: {0}', needName: 'Напиши назву об’єкта', confirmDelJob: 'Видалити «{0}» і всі його фото? Це не можна скасувати.', jobDeleted: 'Об’єкт видалено',
+    saving: 'Зберігаю…', saved: 'Збережено', photoSaved: 'Фото збережено', confirmDelPhoto: 'Видалити це фото?', photoDeleted: 'Фото видалено',
+    creatingPdf: 'Створюю PDF…', noReportPhotos: 'Немає фото для звіту', settingsSaved: 'Налаштування збережено', preparingCopy: 'Готую копію…',
+    backupTitle: 'FotoObra — резервна копія', badImage: 'Не вдалося відкрити зображення', creatingSample: 'Створюю приклад…', openPdf: 'Відкрити PDF', dlSample: 'Завантажити приклад'
+  }
+};
+const TIPS = {
+  en: [['Same spot every time', 'Shoot the same place from the same angle before, during and after. The client sees the difference at once.'], ['Wide shot + detail', 'First the whole room or wall, then a close-up of the joint, corner or socket.'], ['Hidden work before it is covered', 'Pipes, wiring and waterproofing: shoot them before they are closed. Put a tape measure in for scale.'], ['Light', 'Turn on the lights, do not shoot into a window, wipe the dust off the lens.'], ['Hold the phone sideways', 'Landscape photos look better in the PDF and on the client’s screen.'], ['Caption: what, where, how much', 'For example: “1st floor, bathroom: wall tiles, 14 m²”. Easy to dictate.']],
+  pt: [['Sempre do mesmo sítio', 'Fotografe o mesmo local do mesmo ângulo antes, durante e depois. O cliente vê logo a diferença.'], ['Plano geral + pormenor', 'Primeiro a divisão ou parede inteira, depois o pormenor: junta, canto, tomada.'], ['Trabalhos ocultos antes de fechar', 'Canos, cabos e impermeabilização: fotografe antes de fechar. Ponha uma fita métrica para dar escala.'], ['Luz', 'Acenda as luzes, não fotografe contra a janela, limpe o pó da lente.'], ['Telemóvel na horizontal', 'Fotos na horizontal ficam melhor no PDF e no ecrã do cliente.'], ['Legenda: o quê, onde, quanto', 'Por exemplo: «1.º andar, casa de banho: azulejo nas paredes, 14 m²». Fácil de ditar.']],
+  ru: [['Одна точка — до, во время, после', 'Снимай одно и то же место с одного ракурса на каждом этапе. Клиент сразу видит разницу.'], ['Общий план + деталь', 'Сначала вся комната или стена, потом крупно узел: стык, угол, розетку.'], ['Скрытые работы — до закрытия', 'Трубы, проводку, гидроизоляцию снимай, пока их не закрыли. Положи рулетку для масштаба.'], ['Свет', 'Включи свет в помещении, не снимай против окна. Протри объектив от пыли.'], ['Держи телефон горизонтально', 'Такие фото лучше смотрятся в PDF и на экране у клиента.'], ['Подпись: что, где, сколько', 'Например: «2-й этаж, ванная: плитка на стенах, 14 м²». Удобно надиктовать голосом.']],
+  uk: [['Одна точка — до, під час, після', 'Знімай одне й те саме місце з одного ракурсу на кожному етапі. Клієнт одразу бачить різницю.'], ['Загальний план + деталь', 'Спочатку вся кімната чи стіна, потім крупно вузол: стик, кут, розетку.'], ['Приховані роботи — до закриття', 'Труби, проводку, гідроізоляцію знімай, поки їх не закрили. Поклади рулетку для масштабу.'], ['Світло', 'Увімкни світло, не знімай проти вікна. Протри об’єктив від пилу.'], ['Тримай телефон горизонтально', 'Такі фото краще виглядають у PDF і на екрані клієнта.'], ['Підпис: що, де, скільки', 'Наприклад: «2-й поверх, ванна: плитка на стінах, 14 м²». Зручно надиктувати голосом.']]
+};
+const FAQ = {
+  en: [['Where are my photos stored?', 'Only on your phone. They are never uploaded anywhere, and nobody else can see them.'], ['Do I need internet?', 'No. After the first visit the app works offline. You only need internet to send the PDF.'], ['How much does it cost?', 'Nothing. No account, no subscription.'], ['How do I send a report?', 'Job → Report → choose the period → Create PDF → Send. WhatsApp, e-mail or Drive will open.'], ['How do I move to a new phone?', 'Settings → Make a copy. Save the file to Drive, then tap Restore on the new phone.'], ['Can I add my logo?', 'Yes. Settings → Logo. It appears in the header of every report next to your company name.']],
+  pt: [['Onde ficam as fotos?', 'Só no seu telemóvel. Nunca são enviadas para lado nenhum e mais ninguém as vê.'], ['Preciso de internet?', 'Não. Depois da primeira visita a app funciona sem internet. Só precisa dela para enviar o PDF.'], ['Quanto custa?', 'Nada. Sem conta e sem subscrição.'], ['Como envio um relatório?', 'Obra → Relatório → escolha o período → Criar PDF → Enviar. Abre o WhatsApp, o e-mail ou o Drive.'], ['Como passo tudo para outro telemóvel?', 'Definições → Fazer cópia. Guarde o ficheiro no Drive e, no telemóvel novo, toque em Restaurar.'], ['Posso pôr o meu logótipo?', 'Sim. Definições → Logótipo. Aparece no cabeçalho de cada relatório, junto ao nome da empresa.']],
+  ru: [['Где хранятся фото?', 'Только на твоём телефоне. Никуда не загружаются, никто, кроме тебя, их не видит.'], ['Нужен интернет?', 'Нет. После первого открытия приложение работает офлайн. Интернет нужен только чтобы отправить PDF.'], ['Сколько это стоит?', 'Бесплатно. Без аккаунта и без подписки.'], ['Как отправить отчёт клиенту?', 'Объект → «Отчёт» → выбери период → «Создать PDF» → «Отправить». Откроется WhatsApp, почта или Drive.'], ['Как перенести всё на новый телефон?', 'Настройки → «Сделать копию». Сохрани файл в Drive, на новом телефоне — «Восстановить».'], ['Можно поставить свой логотип?', 'Да. Настройки → «Логотип». Он будет в шапке каждого отчёта вместе с названием фирмы.']],
+  uk: [['Де зберігаються фото?', 'Лише на твоєму телефоні. Нікуди не завантажуються, ніхто, крім тебе, їх не бачить.'], ['Потрібен інтернет?', 'Ні. Після першого відкриття застосунок працює офлайн. Інтернет потрібен лише, щоб надіслати PDF.'], ['Скільки це коштує?', 'Безкоштовно. Без акаунта й без підписки.'], ['Як надіслати звіт клієнту?', 'Об’єкт → «Звіт» → обери період → «Створити PDF» → «Надіслати». Відкриється WhatsApp, пошта або Drive.'], ['Як перенести все на новий телефон?', 'Налаштування → «Зробити копію». Збережи файл у Drive, на новому телефоні — «Відновити».'], ['Можна додати свій логотип?', 'Так. Налаштування → «Логотип». Він буде в шапці кожного звіту разом із назвою фірми.']]
+};
+const LANGS = [['en', 'English'], ['pt', 'Português'], ['ru', 'Русский'], ['uk', 'Українська']];
+const t = (k, ...a) => { let s = (STR[settings.uiLang] || STR.en)[k] ?? STR.en[k] ?? k; a.forEach((v, i) => { s = s.replace('{' + i + '}', v); }); return s; };
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const pad = n => String(n).padStart(2, '0');
+const dayKey = ts => { const d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+const fmtDate = ts => { const d = new Date(ts); return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear(); };
+const fmtTime = ts => { const d = new Date(ts); return pad(d.getHours()) + ':' + pad(d.getMinutes()); };
+const startOfDay = ts => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
+const DAY = 86400000;
+function relDay(ts) {
+  const td = startOfDay(Date.now()), d = startOfDay(ts);
+  if (d === td) return t('today');
+  if (d === td - DAY) return t('yesterday');
+  return fmtDate(ts);
+}
+const mb = n => (n / 1048576).toFixed(n < 10485760 ? 1 : 0) + ' ' + t('MB');
+const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9А-Яа-яЁёІіЇїЄєҐґ]+/g, '_').replace(/^_|_$/g, '').slice(0, 40) || 'obra';
+
+const I = (d, w = 20) => `<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICON = {
+  camera: I('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
+  gallery: I('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-8 8"/>'),
+  back: I('<path d="M15 6l-6 6 6 6"/>'),
+  close: I('<path d="M6 6l12 12M18 6L6 18"/>'),
+  gear: I('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'),
+  file: I('<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/>'),
+  mic: I('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/>', 22),
+  plus: I('<path d="M12 5v14M5 12h14"/>'),
+  pencil: I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
+  trash: I('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'),
+  check: I('<path d="M5 12l5 5 9-10"/>', 16),
+  share: I('<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v7h14v-7"/>'),
+  download: I('<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>'),
+  home: I('<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/>', 24),
+  chev: I('<path d="M9 6l6 6-6 6"/>', 18)
+};
+
+let toastT;
+function toast(msg) {
+  let el = $('.toast');
+  if (!el) { el = document.createElement('div'); el.className = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+/* ---------- storage (IndexedDB, only on this phone) ---------- */
+let dbp;
+function db() {
+  if (!dbp) dbp = new Promise((res, rej) => {
+    const r = indexedDB.open('fotoobra', 1);
+    r.onupgradeneeded = () => {
+      const d = r.result;
+      d.createObjectStore('projects', { keyPath: 'id' });
+      d.createObjectStore('photos', { keyPath: 'id' }).createIndex('projectId', 'projectId');
+      d.createObjectStore('blobs', { keyPath: 'id' });
+      d.createObjectStore('kv', { keyPath: 'k' });
+    };
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => rej(r.error);
+  });
+  return dbp;
+}
+async function tx(stores, mode, fn) {
+  const d = await db();
+  return new Promise((res, rej) => {
+    const tr = d.transaction(stores, mode);
+    let out;
+    const r = fn(tr);
+    if (r && 'onsuccess' in r) r.onsuccess = () => { out = r.result; };
+    tr.oncomplete = () => res(out);
+    tr.onerror = () => rej(tr.error);
+    tr.onabort = () => rej(tr.error || new Error('abort'));
+  });
+}
+const getAll = s => tx(s, 'readonly', tr => tr.objectStore(s).getAll());
+const get = (s, k) => tx(s, 'readonly', tr => tr.objectStore(s).get(k));
+const put = (s, v) => tx(s, 'readwrite', tr => tr.objectStore(s).put(v));
+const byProject = pid => tx('photos', 'readonly', tr => tr.objectStore('photos').index('projectId').getAll(pid));
+
+const DEFAULTS = { k: 'settings', company: '', line2: '', person: '', logo: null, uiLang: 'en', pdfLang: 'en', voiceLang: 'en-GB' };
+let settings = { ...DEFAULTS };
+
+const urlCache = new Map();
+function thumbUrl(ph) {
+  if (!urlCache.has(ph.id)) urlCache.set(ph.id, URL.createObjectURL(new Blob([ph.thumb.buf], { type: ph.thumb.type })));
+  return urlCache.get(ph.id);
+}
+function dropUrl(id) { if (urlCache.has(id)) { URL.revokeObjectURL(urlCache.get(id)); urlCache.delete(id); } }
+
+/* ---------- images ---------- */
+async function loadImg(blob) {
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.src = url;
+  try { await img.decode(); } catch (e) { await new Promise((ok, bad) => { img.onload = ok; img.onerror = bad; }); }
+  URL.revokeObjectURL(url);
+  return img;
+}
+async function resize(img, max, q, type = 'image/jpeg') {
+  let w = img.naturalWidth, h = img.naturalHeight;
+  const k = Math.min(1, max / Math.max(w, h));
+  w = Math.round(w * k); h = Math.round(h * k);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const x = c.getContext('2d');
+  if (type === 'image/jpeg') { x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); }
+  x.drawImage(img, 0, 0, w, h);
+  const b = await new Promise(r => c.toBlob(r, type, q));
+  return { buf: await b.arrayBuffer(), type, w, h };
+}
+
+/* ---------- voice ---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null;
+const micBtn = id => SR ? `<button class="icon-btn mic" data-act="mic" data-for="${id}" aria-label="${esc(t('dictate'))}">${ICON.mic}</button>` : '';
+const micHint = () => SR ? t('micHint') : t('micHintKb');
+function stopMic() { if (rec) { try { rec.stop(); } catch (e) {} } }
+function toggleMic(btn) {
+  if (rec) { stopMic(); return; }
+  const ta = document.getElementById(btn.dataset.for);
+  const base = ta.value.trim() ? ta.value.trim() + ' ' : '';
+  let fin = '';
+  rec = new SR();
+  rec.lang = settings.voiceLang; rec.interimResults = true; rec.continuous = false;
+  rec.onresult = e => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const r = e.results[i];
+      if (r.isFinal) fin += r[0].transcript; else interim += r[0].transcript;
+    }
+    ta.value = base + fin + interim;
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+  };
+  rec.onerror = e => { if (e.error !== 'aborted' && e.error !== 'no-speech') toast(t('micErr', e.error)); };
+  rec.onend = () => { rec = null; btn.classList.remove('rec'); };
+  btn.classList.add('rec');
+  try { rec.start(); } catch (e) { rec = null; btn.classList.remove('rec'); toast(t('micNone')); }
+}
+
+/* ---------- navigation ---------- */
+const S = { view: 'home', pid: null, photoId: null, queue: [], qi: 0, report: null, backupFile: null };
+const VIEWS = {};
+async function render(v) { stopMic(); S.view = v; document.documentElement.lang = settings.uiLang; await VIEWS[v](); }
+function go(v, p = {}) {
+  Object.assign(S, p);
+  history.pushState({ v, pid: S.pid, photoId: S.photoId }, '');
+  window.scrollTo(0, 0);
+  render(v);
+}
+function replace(v, p = {}) {
+  Object.assign(S, p);
+  history.replaceState({ v, pid: S.pid, photoId: S.photoId }, '');
+  window.scrollTo(0, 0);
+  render(v);
+}
+window.addEventListener('popstate', e => {
+  const st = e.state || { v: 'home' };
+  S.pid = st.pid ?? null; S.photoId = st.photoId ?? null;
+  render(st.v);
+});
+const topBar = (title, sub, left = 'back', right = '') => `
+<header class="top"><div class="top-in">
+  ${left === 'back' ? `<button class="icon-btn" data-act="back" aria-label="${esc(t('back'))}">${ICON.back}</button>` : left === 'close' ? `<button class="icon-btn" data-act="back" aria-label="${esc(t('cancel'))}">${ICON.close}</button>` : left}
+  <div class="grow"><div class="title">${esc(title)}</div>${sub ? `<span class="sub">${esc(sub)}</span>` : ''}</div>${right}
+</div></header>`;
+const bar = inner => `<div class="bar"><div class="bar-in" id="barIn">${inner}</div></div>`;
+const sampleBox = () => `<div class="sample-btns" id="sampleBtns">${S.sampleUrl ? sampleLinks() : `<button class="btn dark" data-act="sample">${ICON.file} ${esc(t('seeSample'))}</button>`}</div>`;
+const sampleLinks = () => `<a class="btn dark" href="${S.sampleUrl}" target="_blank" rel="noopener">${ICON.file} ${esc(t('openPdf'))}</a><button class="btn ghost sq" data-act="dlSample" aria-label="${esc(t('dlSample'))}">${ICON.download}</button>`;
+
+/* ---------- views ---------- */
+VIEWS.home = async () => {
+  const [projects, photos] = await Promise.all([getAll('projects'), getAll('photos')]);
+  const st = {};
+  for (const ph of photos) {
+    const s = st[ph.projectId] || (st[ph.projectId] = { n: 0, last: 0, thumb: null });
+    s.n++; if (ph.ts >= s.last) { s.last = ph.ts; s.thumb = ph; }
+  }
+  projects.sort((a, b) => (st[b.id]?.last || b.created) - (st[a.id]?.last || a.created));
+  app.innerHTML = topBar('FotoObra', '', `<img class="logo" src="../icon-192.png" alt="">`, `<button class="icon-btn" data-act="settings" aria-label="${esc(t('settings'))}">${ICON.gear}</button>`) + `
+<main class="wrap">
+${projects.length ? `<div class="group-label">${esc(t('myJobs'))}</div>` + projects.map(p => {
+    const s = st[p.id];
+    return `<button class="proj" data-act="open" data-id="${p.id}">
+      ${s ? `<img src="${thumbUrl(s.thumb)}" alt="">` : `<span class="noimg">${ICON.home}</span>`}
+      <span class="grow"><span class="pname">${esc(p.name)}</span>${p.addr ? `<span class="sub">${esc(p.addr)}</span>` : ''}<span class="sub">${s ? esc(t('nPhotos', s.n)) + ' · ' + relDay(s.last) : esc(t('noPhotosYet'))}</span></span>${ICON.chev}</button>`;
+  }).join('') : `<div class="welcome"><h3>${esc(t('welcome'))}</h3><p>${esc(t('welcomeSub'))}</p>
+    ${[t('step1'), t('step2'), t('step3')].map((s, i) => `<div class="ws"><i>${i + 1}</i>${esc(s)}</div>`).join('')}
+    ${sampleBox()}</div>
+  <button class="linkrow" data-act="help">${esc(t('helpRow'))}${ICON.chev}</button>`}
+</main>` + bar(`<button class="btn primary" data-act="newProject">${ICON.plus} ${esc(t('newJob'))}</button>`);
+};
+
+VIEWS.help = async () => {
+  const L = settings.uiLang;
+  app.innerHTML = topBar(t('help'), '') + `
+<main class="wrap">
+  ${sampleBox()}
+  <div class="group-label">${esc(t('tips'))}</div>
+  ${(TIPS[L] || TIPS.en).map(([q, a], i) => `<details class="qa" ${i ? '' : 'open'}><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('')}
+  <div class="group-label">${esc(t('faq'))}</div>
+  ${(FAQ[L] || FAQ.en).map(([q, a]) => `<details class="qa"><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('')}
+  <a class="linkrow" href="../" style="margin-top:18px">${esc(t('about'))}${ICON.chev}</a>
+</main>`;
+};
+
+VIEWS.projectForm = async () => {
+  const p = S.pid ? await get('projects', S.pid) : null;
+  app.innerHTML = topBar(p ? t('editJob') : t('newJob'), '', 'close') + `
+<main class="wrap">
+  <div class="field"><label for="pfName">${esc(t('name'))}</label><input type="text" id="pfName" value="${esc(p?.name)}" placeholder="${esc(t('namePh'))}" autocomplete="off"></div>
+  <div class="field"><label for="pfAddr">${esc(t('address'))}</label><input type="text" id="pfAddr" value="${esc(p?.addr)}" placeholder="${esc(t('addressPh'))}" autocomplete="off"></div>
+  <div class="field"><label for="pfClient">${esc(t('client'))}</label><input type="text" id="pfClient" value="${esc(p?.client)}" placeholder="${esc(t('clientPh'))}" autocomplete="off"></div>
+  ${p ? `<div class="section"><button class="btn danger" data-act="deleteProject">${ICON.trash} ${esc(t('deleteJob'))}</button></div>` : ''}
+</main>` + bar(`<button class="btn primary" data-act="saveProject">${ICON.check} ${esc(t('save'))}</button>`);
+  if (!p) setTimeout(() => $('#pfName')?.focus(), 50);
+};
+
+VIEWS.project = async () => {
+  const p = await get('projects', S.pid);
+  if (!p) return replace('home', { pid: null });
+  const photos = (await byProject(p.id)).sort((a, b) => b.ts - a.ts);
+  const groups = [];
+  for (const ph of photos) {
+    const k = dayKey(ph.ts);
+    if (!groups.length || groups[groups.length - 1].k !== k) groups.push({ k, ts: ph.ts, items: [] });
+    groups[groups.length - 1].items.push(ph);
+  }
+  const label = ts => { const td = startOfDay(Date.now()), d = startOfDay(ts); return d === td ? t('Today') : d === td - DAY ? t('Yesterday') : fmtDate(ts); };
+  app.innerHTML = topBar(p.name, [p.addr, t('nPhotos', photos.length)].filter(Boolean).join(' · '), 'back', `<button class="icon-btn" data-act="editProject" aria-label="${esc(t('editJob'))}">${ICON.pencil}</button>`) + `
+<main class="wrap">
+${photos.length ? groups.map(g => `<div class="group-label">${esc(label(g.ts))}</div><div class="grid">${g.items.map(ph => `
+  <button class="ph" data-act="photo" data-id="${ph.id}"><img src="${thumbUrl(ph)}" alt="" loading="lazy"><span class="time">${fmtTime(ph.ts)}</span>
+  <span class="cap ${ph.caption ? '' : 'none'}">${esc(ph.caption || t('noCaption'))}</span></button>`).join('')}</div>`).join('')
+    : `<div class="empty"><b>${esc(t('noPhotosYet'))}</b>${esc(t('emptyJob'))}</div>`}
+</main>` + bar(`
+  <button class="btn primary" data-act="cam">${ICON.camera} ${esc(t('shoot'))}</button>
+  <button class="btn ghost sq" data-act="gal" aria-label="${esc(t('fromGallery'))}">${ICON.gallery}</button>
+  <button class="btn dark" data-act="report">${ICON.file} ${esc(t('report'))}</button>`);
+};
+
+VIEWS.add = async () => {
+  const f = S.queue[S.qi];
+  if (!f) return replace('project');
+  if (S.addUrl) URL.revokeObjectURL(S.addUrl);
+  S.addUrl = URL.createObjectURL(f);
+  const many = S.queue.length > 1;
+  app.innerHTML = topBar(t('newPhoto'), many ? t('nOfM', S.qi + 1, S.queue.length) : '', 'close') + `
+<main class="wrap">
+  <img class="preview-img" src="${S.addUrl}" alt="${esc(t('photo'))}">
+  <div class="row"><div class="field"><label for="cap">${esc(t('caption'))}</label><textarea id="cap" placeholder="${esc(t('captionPh'))}"></textarea></div>${SR ? `<div style="padding-top:25px">${micBtn('cap')}</div>` : ''}</div>
+  <p class="hint">${esc(micHint())}</p>
+</main>` + bar(`${many ? `<button class="btn ghost" data-act="skip">${esc(t('skip'))}</button>` : ''}<button class="btn primary" data-act="savePhoto">${ICON.check} ${esc(t('save'))}</button>`);
+};
+
+VIEWS.photo = async () => {
+  const ph = await get('photos', S.photoId);
+  if (!ph) return replace('project');
+  const full = await get('blobs', ph.id);
+  if (S.viewUrl) URL.revokeObjectURL(S.viewUrl);
+  S.viewUrl = full ? URL.createObjectURL(new Blob([full.buf], { type: full.type })) : thumbUrl(ph);
+  app.innerHTML = topBar(fmtDate(ph.ts) + ' · ' + fmtTime(ph.ts), '') + `
+<main class="wrap">
+  <img class="preview-img" src="${S.viewUrl}" alt="${esc(t('photo'))}">
+  <div class="row"><div class="field"><label for="cap">${esc(t('caption'))}</label><textarea id="cap">${esc(ph.caption)}</textarea></div>${SR ? `<div style="padding-top:25px">${micBtn('cap')}</div>` : ''}</div>
+  <p class="hint">${esc(micHint())}</p>
+</main>` + bar(`<button class="btn danger sq" data-act="deletePhoto" aria-label="${esc(t('deletePhoto'))}">${ICON.trash}</button><button class="btn primary" data-act="updatePhoto">${ICON.check} ${esc(t('save'))}</button>`);
+};
+
+function inRange(ts, R) {
+  const t0 = startOfDay(Date.now());
+  if (R.range === 'today') return ts >= t0;
+  if (R.range === 'week') return ts >= t0 - 6 * DAY;
+  if (R.range === 'custom') {
+    const a = R.from ? new Date(R.from + 'T00:00').getTime() : 0;
+    const b = R.to ? new Date(R.to + 'T00:00').getTime() + DAY : Infinity;
+    return ts >= a && ts < b;
+  }
+  return true;
+}
+function reportBar() {
+  const R = S.report;
+  if (R.pdf) {
+    const canShare = navigator.canShare && navigator.canShare({ files: [R.pdf] });
+    return `${canShare ? `<button class="btn dark" data-act="sharePdf">${ICON.share} ${esc(t('send'))}</button>` : ''}<button class="btn ghost" data-act="dlPdf">${ICON.download} ${esc(t('download'))}</button>`;
+  }
+  return `<button class="btn primary" data-act="makePdf" ${R.selCount ? '' : 'disabled'}>${ICON.file} ${esc(t('makePdf'))}</button>`;
+}
+VIEWS.report = async () => {
+  const p = await get('projects', S.pid);
+  if (!p) return replace('home');
+  if (!S.report || S.report.pid !== p.id) S.report = { pid: p.id, range: 'today', from: dayKey(Date.now() - 6 * DAY), to: dayKey(Date.now()), excluded: new Set(), summary: '', pdf: null };
+  const R = S.report;
+  const all = (await byProject(p.id)).sort((a, b) => a.ts - b.ts);
+  const list = all.filter(x => inRange(x.ts, R));
+  R.selCount = list.filter(x => !R.excluded.has(x.id)).length;
+  const chip = (id, label) => `<button class="chip ${R.range === id ? 'on' : ''}" data-act="range" data-range="${id}" aria-pressed="${R.range === id}">${esc(label)}</button>`;
+  app.innerHTML = topBar(t('report'), p.name) + `
+<main class="wrap">
+  <div class="chips">${chip('today', t('rToday'))}${chip('week', t('rWeek'))}${chip('all', t('rAll'))}${chip('custom', t('rDates'))}</div>
+  ${R.range === 'custom' ? `<div class="row"><div class="field"><label for="dFrom">${esc(t('from'))}</label><input type="date" id="dFrom" value="${R.from}"></div><div class="field"><label for="dTo">${esc(t('to'))}</label><input type="date" id="dTo" value="${R.to}"></div></div>` : ''}
+  <p class="hint" style="margin-bottom:12px">${esc(list.length ? t('inReport', R.selCount, list.length) : t('noPeriod'))}</p>
+  <div class="grid">${list.map(x => {
+    const off = R.excluded.has(x.id);
+    return `<button class="ph pick ${off ? 'off' : ''}" data-act="pick" data-id="${x.id}" aria-pressed="${!off}"><img src="${thumbUrl(x)}" alt="" loading="lazy"><span class="time">${fmtDate(x.ts).slice(0, 5)} ${fmtTime(x.ts)}</span><span class="tick">${ICON.check}</span><span class="cap ${x.caption ? '' : 'none'}">${esc(x.caption || t('noCaption'))}</span></button>`;
+  }).join('')}</div>
+  <div class="row" style="margin-top:18px"><div class="field"><label for="summary">${esc(t('summary'))}</label><textarea id="summary" placeholder="${esc(t('summaryPh'))}">${esc(R.summary)}</textarea></div>${SR ? `<div style="padding-top:25px">${micBtn('summary')}</div>` : ''}</div>
+  ${R.pdf ? `<div class="done">${ICON.check} ${esc(t('pdfReady', R.pdfPages, mb(R.pdf.size)))}</div>` : ''}
+</main>` + bar(reportBar());
+};
+
+VIEWS.settings = async () => {
+  const s = settings;
+  let logoUrl = '';
+  if (s.logo) { if (S.logoUrl) URL.revokeObjectURL(S.logoUrl); S.logoUrl = logoUrl = URL.createObjectURL(new Blob([s.logo.buf], { type: s.logo.type })); }
+  let usage = '';
+  try { if (navigator.storage?.estimate) { const e = await navigator.storage.estimate(); usage = ' ' + t('used', mb(e.usage || 0)); } } catch (e) {}
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  const opt = (v, cur, label) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${label}</option>`;
+  app.innerHTML = topBar(t('settings'), '') + `
+<main class="wrap">
+  ${standalone ? '' : `<div class="card note">${t('install')}</div>`}
+  <div class="field"><label for="sUiLang">${esc(t('appLang'))}</label><select id="sUiLang">${LANGS.map(([v, n]) => opt(v, s.uiLang, n)).join('')}</select></div>
+  <button class="linkrow" data-act="help">${esc(t('help'))}${ICON.chev}</button>
+  <div class="section">
+  <h2>${esc(t('forPdf'))}</h2>
+  <div class="field"><label for="sCompany">${esc(t('company'))}</label><input type="text" id="sCompany" value="${esc(s.company)}" placeholder="${esc(t('companyPh'))}"></div>
+  <div class="field"><label for="sLine2">${esc(t('line2'))}</label><input type="text" id="sLine2" value="${esc(s.line2)}" placeholder="${esc(t('line2Ph'))}"></div>
+  <div class="field"><label for="sPerson">${esc(t('person'))}</label><input type="text" id="sPerson" value="${esc(s.person)}" placeholder="${esc(t('personPh'))}"></div>
+  <div class="field"><label>${esc(t('logo'))}</label>${logoUrl ? `<img class="logo-prev" src="${logoUrl}" alt="">` : ''}
+    <div class="btn-row"><button class="btn ghost" data-act="logo">${ICON.gallery} ${esc(s.logo ? t('replace') : t('upload'))}</button>${s.logo ? `<button class="btn ghost" data-act="logoDel">${ICON.trash} ${esc(t('remove'))}</button>` : ''}</div></div>
+  <div class="row"><div class="field"><label for="sPdfLang">${esc(t('pdfLang'))}</label><select id="sPdfLang">${opt('en', s.pdfLang, 'English')}${opt('pt', s.pdfLang, 'Português')}${opt('ru', s.pdfLang, 'Русский')}${opt('uk', s.pdfLang, 'Українська')}</select></div>
+  <div class="field"><label for="sVoice">${esc(t('voiceLang'))}</label><select id="sVoice">${opt('en-GB', s.voiceLang, 'English')}${opt('pt-PT', s.voiceLang, 'Português')}${opt('ru-RU', s.voiceLang, 'Русский')}${opt('uk-UA', s.voiceLang, 'Українська')}</select></div></div>
+  <button class="btn primary" data-act="saveSettings" style="width:100%">${ICON.check} ${esc(t('saveSettings'))}</button>
+  </div>
+
+  <div class="section">
+    <h2>${esc(t('backup'))}</h2>
+    <p class="hint" style="margin-bottom:12px">${esc(t('backupHint') + usage)}</p>
+    <div class="btn-row"><button class="btn dark" data-act="backup">${ICON.download} ${esc(t('makeCopy'))}</button><button class="btn ghost" data-act="restore">${ICON.share} ${esc(t('restore'))}</button></div>
+    ${S.backupFile ? `<div class="done">${ICON.check} ${esc(t('copyReady', mb(S.backupFile.size)))}</div><div class="btn-row" style="margin-top:10px">${navigator.canShare && navigator.canShare({ files: [S.backupFile] }) ? `<button class="btn dark" data-act="shareBackup">${ICON.share} ${esc(t('sendSave'))}</button>` : ''}<button class="btn ghost" data-act="dlBackup">${ICON.download} ${esc(t('download'))}</button></div>` : ''}
+  </div>
+  <p class="hint" style="margin-top:24px">${esc(t('footer'))} <a href="../">${esc(t('about'))}</a></p>
+</main>`;
+};
+
+/* ---------- PDF (drawn on canvas, packed without libraries) ---------- */
+const LBL = {
+  pt: { title: 'Relatório de obra', client: 'Cliente', period: 'Período', person: 'Responsável', date: 'Data', summary: 'Resumo', page: 'Página', of: 'de', file: 'Relatorio' },
+  ru: { title: 'Отчёт по объекту', client: 'Клиент', period: 'Период', person: 'Ответственный', date: 'Дата', summary: 'Кратко', page: 'Страница', of: 'из', file: 'Otchet' },
+  uk: { title: 'Звіт по об’єкту', client: 'Клієнт', period: 'Період', person: 'Відповідальний', date: 'Дата', summary: 'Коротко', page: 'Сторінка', of: 'з', file: 'Zvit' },
+  en: { title: 'Site report', client: 'Client', period: 'Period', person: 'Responsible', date: 'Date', summary: 'Summary', page: 'Page', of: 'of', file: 'Report' }
+};
+function buildPdf(pages) {
+  const enc = new TextEncoder(), parts = [], offs = [];
+  let len = 0;
+  const push = x => { const b = typeof x === 'string' ? enc.encode(x) : new Uint8Array(x); parts.push(b); len += b.length; };
+  const obj = (id, body) => { offs[id] = len; push(id + ' 0 obj\n'); body(); push('\nendobj\n'); };
+  const PW = 595.28, PH = 841.89, n = pages.length;
+  push('%PDF-1.4\n%âãÏÓ\n');
+  obj(1, () => push('<< /Type /Catalog /Pages 2 0 R >>'));
+  obj(2, () => push(`<< /Type /Pages /Kids [${pages.map((_, i) => (3 + 3 * i) + ' 0 R').join(' ')}] /Count ${n} >>`));
+  pages.forEach((p, i) => {
+    const pid = 3 + 3 * i, cid = pid + 1, iid = pid + 2;
+    obj(pid, () => push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 ${iid} 0 R >> >> /Contents ${cid} 0 R >>`));
+    const cs = `q ${PW} 0 0 ${PH} 0 0 cm /Im0 Do Q`;
+    obj(cid, () => { push(`<< /Length ${cs.length} >>\nstream\n`); push(cs); push('\nendstream'); });
+    obj(iid, () => { push(`<< /Type /XObject /Subtype /Image /Width ${p.w} /Height ${p.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${p.buf.byteLength} >>\nstream\n`); push(p.buf); push('\nendstream'); });
+  });
+  const xref = len, total = 3 + 3 * n;
+  let x = `xref\n0 ${total}\n0000000000 65535 f \n`;
+  for (let i = 1; i < total; i++) x += String(offs[i]).padStart(10, '0') + ' 00000 n \n';
+  push(x);
+  push(`trailer\n<< /Size ${total} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
+  return new Blob(parts, { type: 'application/pdf' });
+}
+async function makeReportPdf(project, photos, summary, cfg = settings) {
+  const L = LBL[cfg.pdfLang] || LBL.en;
+  const W = 1240, H = 1754, M = 90, ACC = '#FFB400', BRAND = '#17324D', INK = '#14202B', MUT = '#5B6672';
+  const F = (px, w = 400) => `${w} ${px}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`;
+  const pages = [];
+  let c, x, y;
+  const newPage = () => {
+    c = document.createElement('canvas'); c.width = W; c.height = H;
+    x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.textBaseline = 'alphabetic';
+    pages.push(c); y = M;
+    if (pages.length > 1) { x.fillStyle = MUT; x.font = F(22); x.fillText(clip(project.name + ' · ' + L.title, W - 2 * M), M, y + 22); y += 56; }
+  };
+  const clip = (s, maxW) => { s = String(s); if (x.measureText(s).width <= maxW) return s; while (s.length && x.measureText(s + '…').width > maxW) s = s.slice(0, -1); return s + '…'; };
+  const wrap = (text, maxW, maxLines) => {
+    const out = [];
+    for (const para of String(text).split(/\n/)) {
+      let line = '';
+      for (const w of para.split(/\s+/).filter(Boolean)) {
+        const s = line ? line + ' ' + w : w;
+        if (x.measureText(s).width > maxW && line) { out.push(line); line = w; } else line = s;
+      }
+      if (line) out.push(line);
+    }
+    if (maxLines && out.length > maxLines) { const o = out.slice(0, maxLines); o[maxLines - 1] = clip(o[maxLines - 1] + '…', maxW); return o; }
+    return out.map(l => clip(l, maxW));
+  };
+  newPage();
+  /* header */
+  let hx = M;
+  if (cfg.logo) {
+    try {
+      const lg = await loadImg(new Blob([cfg.logo.buf], { type: cfg.logo.type }));
+      const s = Math.min(96 / lg.naturalHeight, 240 / lg.naturalWidth);
+      const lw = lg.naturalWidth * s, lh = lg.naturalHeight * s;
+      x.drawImage(lg, hx, y + (96 - lh) / 2, lw, lh); hx += lw + 26;
+    } catch (e) {}
+  }
+  const dateTxt = fmtDate(Date.now());
+  x.font = F(28, 600); const dw = x.measureText(dateTxt).width;
+  x.fillStyle = INK; x.font = F(30, 600); x.fillText(clip(cfg.company || '', W - M - hx - dw - 40), hx, y + 42);
+  x.fillStyle = MUT; x.font = F(22); x.fillText(clip(cfg.line2 || '', W - M - hx - dw - 40), hx, y + 78);
+  x.textAlign = 'right'; x.fillStyle = MUT; x.font = F(22); x.fillText(L.date, W - M, y + 38);
+  x.fillStyle = INK; x.font = F(28, 600); x.fillText(dateTxt, W - M, y + 76); x.textAlign = 'left';
+  y += 118; x.fillStyle = ACC; x.fillRect(M, y, W - 2 * M, 5); y += 50;
+  x.fillStyle = BRAND; x.font = F(58, 800); x.fillText(L.title, M, y + 52); y += 84;
+  x.fillStyle = '#3D4650'; x.font = F(28); x.fillText(clip([project.name, project.addr].filter(Boolean).join(' · '), W - 2 * M), M, y + 28); y += 58;
+  /* info boxes */
+  const t0 = Math.min(...photos.map(p => p.ts)), t1 = Math.max(...photos.map(p => p.ts));
+  const period = dayKey(t0) === dayKey(t1) ? fmtDate(t0) : fmtDate(t0) + ' – ' + fmtDate(t1);
+  const boxes = [[L.client, project.client || '—'], [L.period, period], [L.person, cfg.person || '—']];
+  const bw = (W - 2 * M - 2 * 24) / 3;
+  boxes.forEach(([k, v], i) => {
+    const bx = M + i * (bw + 24);
+    x.fillStyle = '#EEF3F8'; x.fillRect(bx, y, bw, 104); x.fillStyle = ACC; x.fillRect(bx, y, 6, 104);
+    x.fillStyle = MUT; x.font = F(20); x.fillText(k, bx + 22, y + 38);
+    x.fillStyle = INK; x.font = F(26, 600); x.fillText(clip(v, bw - 44), bx + 22, y + 78);
+  });
+  y += 104 + 44;
+  /* summary */
+  if (summary.trim()) {
+    x.fillStyle = MUT; x.font = F(20, 600); x.fillText(L.summary.toUpperCase(), M, y + 20); y += 40;
+    x.fillStyle = INK; x.font = F(26);
+    for (const line of wrap(summary.trim(), W - 2 * M, 8)) { x.fillText(line, M, y + 28); y += 40; }
+    y += 30;
+  }
+  /* photos, 2 per row; portrait shots keep their shape instead of shrinking to a strip */
+  const gap = 36, cw = (W - 2 * M - gap) / 2, capLines = 3, capH = 24 + capLines * 32 + 20;
+  const bottom = H - M - 40;
+  const loadPhoto = async ph => {
+    try {
+      const full = ph.full || await get('blobs', ph.id);
+      return await loadImg(new Blob([full ? full.buf : ph.thumb.buf], { type: 'image/jpeg' }));
+    } catch (e) { return null; }
+  };
+  for (let i = 0; i < photos.length; i += 2) {
+    const row = photos.slice(i, i + 2);
+    const imgs = await Promise.all(row.map(loadPhoto));
+    /* each photo fits a cw × cw box at most; the row is as tall as its tallest photo */
+    const sizes = imgs.map(im => { if (!im) return [cw, Math.round(cw * 0.66)]; const s = Math.min(cw / im.naturalWidth, cw / im.naturalHeight); return [im.naturalWidth * s, Math.round(im.naturalHeight * s)]; });
+    const ih = Math.max(...sizes.map(z => z[1]));
+    if (y + ih + capH > bottom) newPage();
+    row.forEach((ph, col) => {
+      const cx = M + col * (cw + gap), im = imgs[col], [w, h] = sizes[col];
+      if (im) x.drawImage(im, cx + (cw - w) / 2, y, w, h);
+      else { x.fillStyle = '#EEF1F4'; x.fillRect(cx, y, w, h); }
+      let ty = y + h + 34;
+      x.font = F(22, 700); x.fillStyle = INK;
+      x.fillText(fmtDate(ph.ts) + ' ' + fmtTime(ph.ts), cx, ty);
+      x.font = F(22); x.fillStyle = '#3D4650';
+      for (const line of wrap(ph.caption || '', cw, capLines)) { ty += 32; x.fillText(line, cx, ty); }
+    });
+    y += ih + capH;
+  }
+  /* footers */
+  pages.forEach((pg, i) => {
+    const g = pg.getContext('2d');
+    g.fillStyle = '#E3E7EC'; g.fillRect(M, H - M + 6, W - 2 * M, 2);
+    g.fillStyle = MUT; g.font = F(20);
+    g.fillText(cfg.company || 'FotoObra', M, H - M + 40);
+    g.textAlign = 'right'; g.fillText(`${L.page} ${i + 1} ${L.of} ${pages.length}`, W - M, H - M + 40); g.textAlign = 'left';
+  });
+  const jpgs = [];
+  for (const pg of pages) {
+    const b = await new Promise(r => pg.toBlob(r, 'image/jpeg', 0.86));
+    jpgs.push({ buf: await b.arrayBuffer(), w: W, h: H });
+    pg.width = pg.height = 1;
+  }
+  const name = `${L.file}_${slug(project.name)}_${dayKey(Date.now())}.pdf`;
+  return { file: new File([buildPdf(jpgs)], name, { type: 'application/pdf' }), pages: pages.length };
+}
+
+/* ---------- sample report (real photos from ../assets, nothing stored) ---------- */
+const SAMPLE = {
+  en: { company: 'Your company', line2: 'Phone · e-mail', person: 'Your name', summary: 'Example report with photos from different jobs in Lisbon.',
+    caps: ['Apartment: demolition done, opening made, temporary beam in place', 'Showroom: kitchen fronts fitted, worktop tomorrow', 'Showroom: kitchen finished, LED strips under the cabinets connected', 'Apartment: kitchen units and appliances installed'] },
+  pt: { company: 'A sua empresa', line2: 'Telefone · e-mail', person: 'O seu nome', summary: 'Relatório de exemplo com fotos de várias obras em Lisboa.',
+    caps: ['Apartamento: demolição concluída, vão aberto, viga provisória colocada', 'Showroom: frentes da cozinha montadas, tampo amanhã', 'Showroom: cozinha pronta, LED sob os armários ligado', 'Apartamento: móveis de cozinha e eletrodomésticos instalados'] },
+  ru: { company: 'Ваша компания', line2: 'Телефон · e-mail', person: 'Ваше имя', summary: 'Пример отчёта с фото с разных объектов в Лиссабоне.',
+    caps: ['Квартира: демонтаж закончен, проём открыт, стоит временная балка', 'Шоурум: фасады кухни выставлены, столешница завтра', 'Шоурум: кухня готова, LED-подсветка под шкафами подключена', 'Квартира: кухонный блок и техника установлены'] },
+  uk: { company: 'Ваша компанія', line2: 'Телефон · e-mail', person: 'Ваше ім’я', summary: 'Приклад звіту з фото з різних об’єктів у Лісабоні.',
+    caps: ['Квартира: демонтаж завершено, проріз відкрито, стоїть тимчасова балка', 'Шоурум: фасади кухні виставлено, стільниця завтра', 'Шоурум: кухня готова, LED-підсвітку під шафами підключено', 'Квартира: кухонний блок і техніку встановлено'] }
+};
+const SAMPLE_PHOTOS = ['demolition.jpg', 'install.jpg', 'showroom.jpg', 'kitchen.jpg'];
+async function makeSamplePdf() {
+  const lang = SAMPLE[settings.pdfLang] ? settings.pdfLang : 'en';
+  const T = SAMPLE[lang];
+  const now = Date.now();
+  const photos = await Promise.all(SAMPLE_PHOTOS.map(async (f, i) => {
+    const r = await fetch('../assets/' + f);
+    if (!r.ok) throw new Error(f);
+    return { id: 'sample' + i, ts: startOfDay(now) - (3 - i) * DAY + (9 + i * 2) * 3600000, caption: T.caps[i], full: { buf: await r.arrayBuffer(), type: 'image/jpeg' } };
+  }));
+  const cfg = settings.company ? settings : { ...settings, company: T.company, line2: T.line2, person: T.person };
+  const project = { name: 'FotoObra', addr: 'Lisboa', client: '—' };
+  return (await makeReportPdf(project, photos, T.summary, { ...cfg, pdfLang: lang })).file;
+}
+
+function download(file) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(file); a.download = file.name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 5000);
+}
+async function shareFile(file, title) {
+  try { await navigator.share({ files: [file], title }); }
+  catch (e) { if (e.name !== 'AbortError') download(file); }
+}
+
+/* ---------- backup ---------- */
+function toB64(buf) {
+  const u = new Uint8Array(buf); let s = '';
+  for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000));
+  return btoa(s);
+}
+function fromB64(b) { const s = atob(b); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; }
+const packBin = o => o && o.buf ? { type: o.type, w: o.w, h: o.h, b64: toB64(o.buf) } : o;
+const unpackBin = o => o && o.b64 ? { type: o.type, w: o.w, h: o.h, buf: fromB64(o.b64) } : o;
+async function makeBackup() {
+  const [projects, photos, blobs, kv] = await Promise.all([getAll('projects'), getAll('photos'), getAll('blobs'), getAll('kv')]);
+  const parts = ['{"app":"fotoobra","v":1,"at":' + JSON.stringify(new Date().toISOString()),
+    ',"projects":' + JSON.stringify(projects),
+    ',"photos":' + JSON.stringify(photos.map(p => ({ ...p, thumb: packBin(p.thumb) }))),
+    ',"kv":' + JSON.stringify(kv.map(k => ({ ...k, logo: packBin(k.logo) }))), ',"blobs":['];
+  blobs.forEach((b, i) => parts.push((i ? ',' : '') + JSON.stringify({ id: b.id, ...packBin(b) })));
+  parts.push(']}');
+  return new File(parts, `fotoobra-backup-${dayKey(Date.now())}.json`, { type: 'application/json' });
+}
+async function restoreBackup(file) {
+  let data;
+  try { data = JSON.parse(await file.text()); } catch (e) { return toast(t('notBackup')); }
+  if (data.app !== 'fotoobra') return toast(t('notBackup'));
+  if (!confirm(t('confirmRestore', data.projects.length, data.photos.length))) return;
+  await tx(['projects', 'photos', 'blobs', 'kv'], 'readwrite', tr => {
+    data.projects.forEach(p => tr.objectStore('projects').put(p));
+    data.photos.forEach(p => tr.objectStore('photos').put({ ...p, thumb: unpackBin(p.thumb) }));
+    data.blobs.forEach(b => { const u = unpackBin(b); tr.objectStore('blobs').put({ id: b.id, buf: u.buf, type: u.type, w: u.w, h: u.h }); });
+    data.kv.forEach(k => tr.objectStore('kv').put({ ...k, logo: unpackBin(k.logo) }));
+  });
+  settings = { ...DEFAULTS, ...((await get('kv', 'settings')) || {}) };
+  toast(t('restored'));
+  replace('home');
+}
+
+/* ---------- actions ---------- */
+function readSettingsFields() {
+  if (!$('#sCompany')) return;
+  settings.company = $('#sCompany').value.trim();
+  settings.line2 = $('#sLine2').value.trim();
+  settings.person = $('#sPerson').value.trim();
+  settings.pdfLang = $('#sPdfLang').value;
+  settings.voiceLang = $('#sVoice').value;
+}
+async function busy(btn, text, fn) {
+  const old = btn.innerHTML; btn.disabled = true; btn.textContent = text;
+  try { await fn(); } catch (e) { console.error(e); toast(t('error', e.message || e)); btn.disabled = false; btn.innerHTML = old; }
+}
+const ACT = {
+  back: () => history.back(),
+  settings: () => go('settings'),
+  help: () => go('help'),
+  open: b => go('project', { pid: b.dataset.id }),
+  newProject: () => go('projectForm', { pid: null }),
+  editProject: () => go('projectForm'),
+  saveProject: async () => {
+    const name = $('#pfName').value.trim();
+    if (!name) { $('#pfName').focus(); return toast(t('needName')); }
+    const old = S.pid ? await get('projects', S.pid) : null;
+    const p = { ...(old || { id: uid(), created: Date.now() }), name, addr: $('#pfAddr').value.trim(), client: $('#pfClient').value.trim() };
+    await put('projects', p);
+    if (old) history.back(); else replace('project', { pid: p.id });
+  },
+  deleteProject: async () => {
+    const p = await get('projects', S.pid);
+    if (!confirm(t('confirmDelJob', p.name))) return;
+    const photos = await byProject(p.id);
+    await tx(['projects', 'photos', 'blobs'], 'readwrite', tr => {
+      photos.forEach(ph => { tr.objectStore('photos').delete(ph.id); tr.objectStore('blobs').delete(ph.id); dropUrl(ph.id); });
+      tr.objectStore('projects').delete(p.id);
+    });
+    toast(t('jobDeleted'));
+    replace('home', { pid: null });
+  },
+  cam: () => $('#camIn').click(),
+  gal: () => $('#galIn').click(),
+  photo: b => go('photo', { photoId: b.dataset.id }),
+  report: () => { S.report = null; go('report'); },
+  mic: b => toggleMic(b),
+  skip: () => { S.qi++; S.qi < S.queue.length ? render('add') : history.back(); },
+  savePhoto: b => busy(b, t('saving'), async () => {
+    stopMic();
+    const f = S.queue[S.qi];
+    const img = await loadImg(f);
+    const full = await resize(img, 1600, 0.82);
+    const thumb = await resize(img, 480, 0.72);
+    const id = uid();
+    const ts = f.lastModified && f.lastModified <= Date.now() ? f.lastModified : Date.now();
+    await tx(['photos', 'blobs'], 'readwrite', tr => {
+      tr.objectStore('photos').put({ id, projectId: S.pid, ts, caption: $('#cap').value.trim(), thumb });
+      tr.objectStore('blobs').put({ id, ...full });
+    });
+    try { navigator.storage?.persist?.(); } catch (e) {}
+    S.qi++;
+    if (S.qi < S.queue.length) { toast(t('saved')); render('add'); }
+    else { S.queue = []; toast(t('photoSaved')); history.back(); }
+  }),
+  updatePhoto: async () => {
+    stopMic();
+    const ph = await get('photos', S.photoId);
+    ph.caption = $('#cap').value.trim();
+    await put('photos', ph);
+    toast(t('saved')); history.back();
+  },
+  deletePhoto: async () => {
+    if (!confirm(t('confirmDelPhoto'))) return;
+    const id = S.photoId;
+    await tx(['photos', 'blobs'], 'readwrite', tr => { tr.objectStore('photos').delete(id); tr.objectStore('blobs').delete(id); });
+    dropUrl(id); toast(t('photoDeleted')); history.back();
+  },
+  range: b => { const R = S.report; R.range = b.dataset.range; R.pdf = null; render('report'); },
+  pick: b => { const R = S.report, id = b.dataset.id; R.excluded.has(id) ? R.excluded.delete(id) : R.excluded.add(id); R.pdf = null; render('report'); },
+  makePdf: b => busy(b, t('creatingPdf'), async () => {
+    stopMic();
+    const R = S.report;
+    const p = await get('projects', S.pid);
+    const list = (await byProject(p.id)).sort((a, c) => a.ts - c.ts).filter(x => inRange(x.ts, R) && !R.excluded.has(x.id));
+    if (!list.length) return toast(t('noReportPhotos'));
+    const out = await makeReportPdf(p, list, R.summary);
+    R.pdf = out.file; R.pdfPages = out.pages;
+    const y = window.scrollY; await render('report'); window.scrollTo(0, y);
+  }),
+  sharePdf: async () => { const p = await get('projects', S.pid); shareFile(S.report.pdf, p.name); },
+  dlPdf: () => download(S.report.pdf),
+  logo: () => { readSettingsFields(); $('#logoIn').click(); },
+  logoDel: async () => { readSettingsFields(); settings.logo = null; await put('kv', settings); render('settings'); },
+  saveSettings: async () => { readSettingsFields(); await put('kv', settings); dropSample(); toast(t('settingsSaved')); },
+  backup: b => busy(b, t('preparingCopy'), async () => { S.backupFile = await makeBackup(); readSettingsFields(); await render('settings'); window.scrollTo(0, document.body.scrollHeight); }),
+  shareBackup: () => shareFile(S.backupFile, t('backupTitle')),
+  dlBackup: () => download(S.backupFile),
+  restore: () => $('#backupIn').click(),
+  sample: b => busy(b, t('creatingSample'), async () => {
+    dropSample();
+    S.samplePdf = await makeSamplePdf();
+    S.sampleUrl = URL.createObjectURL(S.samplePdf);
+    $('#sampleBtns').innerHTML = sampleLinks();
+  }),
+  dlSample: () => download(S.samplePdf)
+};
+/* the sample follows the report language, so rebuild it after settings change */
+function dropSample() { if (S.sampleUrl) URL.revokeObjectURL(S.sampleUrl); S.sampleUrl = S.samplePdf = null; }
+app.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]');
+  if (b && !b.disabled && ACT[b.dataset.act]) ACT[b.dataset.act](b, e);
+});
+app.addEventListener('input', e => {
+  if (e.target.id === 'summary' && S.report) {
+    S.report.summary = e.target.value;
+    if (S.report.pdf) { S.report.pdf = null; $('.done')?.remove(); $('#barIn').innerHTML = reportBar(); }
+  }
+});
+app.addEventListener('change', async e => {
+  if ((e.target.id === 'dFrom' || e.target.id === 'dTo') && S.report) {
+    S.report[e.target.id === 'dFrom' ? 'from' : 'to'] = e.target.value; S.report.pdf = null; render('report');
+  }
+  if (e.target.id === 'sUiLang') {
+    readSettingsFields(); settings.uiLang = e.target.value; await put('kv', settings);
+    const y = window.scrollY; await render('settings'); window.scrollTo(0, y);
+  }
+});
+const onFiles = input => {
+  const files = [...input.files]; input.value = '';
+  if (files.length) go('add', { queue: files, qi: 0 });
+};
+$('#camIn').addEventListener('change', e => onFiles(e.target));
+$('#galIn').addEventListener('change', e => onFiles(e.target));
+$('#logoIn').addEventListener('change', async e => {
+  const f = e.target.files[0]; e.target.value = '';
+  if (!f) return;
+  try { settings.logo = await resize(await loadImg(f), 480, 0.92, 'image/png'); await put('kv', settings); render('settings'); }
+  catch (err) { toast(t('badImage')); }
+});
+$('#backupIn').addEventListener('change', e => { const f = e.target.files[0]; e.target.value = ''; if (f) restoreBackup(f); });
+
+/* ---------- start ---------- */
+(async () => {
+  try { settings = { ...DEFAULTS, ...((await get('kv', 'settings')) || {}) }; } catch (e) {}
+  history.replaceState({ v: 'home' }, '');
+  render('home');
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(() => {});
+})();
+</script>
+</body>
+</html>
