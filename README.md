@@ -67,6 +67,10 @@ Two HTML files: the website (`index.html`) and the app (`app/index.html`). No fr
 - [ ] Before / after pairs
 - [ ] Share a report as a link
 
+## Credits
+
+Built by Davyd Medvedchuk, with Claude as a coding partner.
+
 ## License
 
 [MIT](LICENSE). Fonts: Oswald and Inter, SIL Open Font License.
