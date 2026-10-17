@@ -679,7 +679,12 @@ async function makeReportPdf(project, photos, summary, cfg = settings) {
     const bx = M + i * (bw + 24);
     x.fillStyle = '#EEF3F8'; x.fillRect(bx, y, bw, 104); x.fillStyle = ACC; x.fillRect(bx, y, 6, 104);
     x.fillStyle = MUT; x.font = F(20); x.fillText(k, bx + 22, y + 38);
-    x.fillStyle = INK; x.font = F(26, 600); x.fillText(clip(v, bw - 44), bx + 22, y + 78);
+    /* long values (a two-day period, a company name) shrink to fit, then wrap to two lines, instead of being cut off */
+    x.fillStyle = INK;
+    let fs = 26; x.font = F(fs, 600);
+    while (fs > 20 && x.measureText(v).width > bw - 44) x.font = F(--fs, 600);
+    if (x.measureText(v).width <= bw - 44) x.fillText(v, bx + 22, y + 78);
+    else wrap(v, bw - 44, 2).forEach((line, j) => x.fillText(line, bx + 22, y + 68 + j * 25));
   });
   y += 104 + 44;
   /* summary */
