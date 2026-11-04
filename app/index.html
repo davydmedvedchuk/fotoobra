@@ -126,7 +126,7 @@ const STR = {
     today: 'today', yesterday: 'yesterday', Today: 'Today', Yesterday: 'Yesterday', MB: 'MB',
     dictate: 'Dictate', micHint: 'Tap the mic and say what was done.', micHintKb: 'You can dictate with the mic on your keyboard.',
     micErr: 'Microphone: {0}', micNone: 'Microphone unavailable', back: 'Back', cancel: 'Cancel', settings: 'Settings',
-    myJobs: 'My jobs', nPhotos: '{0} photos', noPhotosYet: 'No photos yet',
+    myJobs: 'My jobs', nPhotos: '{0} {0|photo|photos}', noPhotosYet: 'No photos yet',
     welcome: 'Welcome', welcomeSub: 'Your first report takes a couple of minutes.',
     step1: 'Create a job', step2: 'Take photos and dictate what was done', step3: 'Send your client a PDF',
     seeSample: 'See a sample report', helpRow: 'Photos on site and FAQ', newJob: 'New job',
@@ -136,9 +136,9 @@ const STR = {
     noCaption: 'No caption', newPhoto: 'New photo', nOfM: '{0} of {1}', photo: 'Photo', caption: 'Caption',
     captionPh: 'What was done? e.g. plaster in room 2 finished', skip: 'Skip', deletePhoto: 'Delete photo',
     rToday: 'Today', rWeek: '7 days', rAll: 'All', rDates: 'Dates', from: 'From', to: 'To',
-    inReport: 'In the report: {0} of {1} photos. Tap a photo to leave it out or add it back.', noPeriod: 'No photos for this period.',
+    inReport: 'In the report: {0} of {1} {1|photo|photos}. Tap a photo to leave it out or add it back.', noPeriod: 'No photos for this period.',
     summary: 'Summary for the period (optional)', summaryPh: 'e.g. plaster done, tiling starts tomorrow',
-    pdfReady: 'PDF ready: {0} pages, {1}', send: 'Send', download: 'Download', makePdf: 'Create PDF',
+    pdfReady: 'PDF ready: {0} {0|page|pages}, {1}', send: 'Send', download: 'Download', makePdf: 'Create PDF',
     install: '<b>Add it to your Home Screen.</b> iPhone: Safari → Share → Add to Home Screen. Android: Chrome → ⋮ → Add to Home screen. Open the app from the icon: photos are kept more reliably.',
     appLang: 'App language', forPdf: 'PDF report', company: 'Company', companyPh: 'Company name', line2: 'Second line', line2Ph: 'VAT no., phone, e-mail',
     person: 'Responsible', personPh: 'Your name', logo: 'Logo', replace: 'Replace', upload: 'Upload', remove: 'Remove',
@@ -147,7 +147,7 @@ const STR = {
     backup: 'Backup', backupHint: 'Everything is stored only on this phone. Once a week, make a copy and keep it in Google Drive or on a computer.', used: 'Used on this phone: {0}.',
     makeCopy: 'Make a copy', restore: 'Restore', copyReady: 'Copy ready, {0}', sendSave: 'Send / save',
     footer: 'FotoObra 1.1 · works offline, no account, no subscription.',
-    notBackup: 'This is not a FotoObra backup file', confirmRestore: 'Restore {0} jobs and {1} photos? Matching records will be replaced.', restored: 'Backup restored',
+    notBackup: 'This is not a FotoObra backup file', confirmRestore: 'Restore {0} {0|job|jobs} and {1} {1|photo|photos}? Matching records will be replaced.', restored: 'Backup restored',
     error: 'Error: {0}', needName: 'Enter the job name', confirmDelJob: 'Delete “{0}” and all its photos? This cannot be undone.', jobDeleted: 'Job deleted',
     saving: 'Saving…', saved: 'Saved', photoSaved: 'Photo saved', confirmDelPhoto: 'Delete this photo?', photoDeleted: 'Photo deleted',
     creatingPdf: 'Creating PDF…', noReportPhotos: 'No photos for the report', settingsSaved: 'Settings saved', preparingCopy: 'Preparing copy…',
@@ -157,7 +157,7 @@ const STR = {
     today: 'hoje', yesterday: 'ontem', Today: 'Hoje', Yesterday: 'Ontem', MB: 'MB',
     dictate: 'Ditar', micHint: 'Toque no microfone e diga o que foi feito.', micHintKb: 'Pode ditar com o microfone do teclado.',
     micErr: 'Microfone: {0}', micNone: 'Microfone indisponível', back: 'Voltar', cancel: 'Cancelar', settings: 'Definições',
-    myJobs: 'As minhas obras', nPhotos: '{0} fotos', noPhotosYet: 'Ainda sem fotos',
+    myJobs: 'As minhas obras', nPhotos: '{0} {0|foto|fotos}', noPhotosYet: 'Ainda sem fotos',
     welcome: 'Bem-vindo', welcomeSub: 'O primeiro relatório faz-se em dois minutos.',
     step1: 'Crie uma obra', step2: 'Tire fotos e dite o que foi feito', step3: 'Envie o PDF ao cliente',
     seeSample: 'Ver um relatório de exemplo', helpRow: 'Fotos em obra e perguntas', newJob: 'Nova obra',
@@ -167,7 +167,7 @@ const STR = {
     noCaption: 'Sem legenda', newPhoto: 'Nova foto', nOfM: '{0} de {1}', photo: 'Foto', caption: 'Legenda',
     captionPh: 'O que foi feito? Ex.: reboco do quarto 2 concluído', skip: 'Saltar', deletePhoto: 'Apagar foto',
     rToday: 'Hoje', rWeek: '7 dias', rAll: 'Tudo', rDates: 'Datas', from: 'De', to: 'Até',
-    inReport: 'No relatório: {0} de {1} fotos. Toque numa foto para a retirar ou repor.', noPeriod: 'Sem fotos neste período.',
+    inReport: 'No relatório: {0} de {1} {1|foto|fotos}. Toque numa foto para a retirar ou repor.', noPeriod: 'Sem fotos neste período.',
     summary: 'Resumo do período (opcional)', summaryPh: 'Ex.: reboco concluído, amanhã começa o azulejo',
     pdfReady: 'PDF pronto: {0} pág., {1}', send: 'Enviar', download: 'Descarregar', makePdf: 'Criar PDF',
     install: '<b>Adicione ao ecrã principal.</b> iPhone: Safari → Partilhar → Adicionar ao ecrã principal. Android: Chrome → ⋮ → Adicionar ao ecrã principal. Abra a app pelo ícone: as fotos ficam guardadas com mais segurança.',
@@ -178,7 +178,7 @@ const STR = {
     backup: 'Cópia de segurança', backupHint: 'Tudo fica guardado só neste telemóvel. Uma vez por semana, faça uma cópia e guarde-a no Google Drive ou no computador.', used: 'Ocupado neste telemóvel: {0}.',
     makeCopy: 'Fazer cópia', restore: 'Restaurar', copyReady: 'Cópia pronta, {0}', sendSave: 'Enviar / guardar',
     footer: 'FotoObra 1.1 · funciona sem internet, sem conta e sem subscrição.',
-    notBackup: 'Este ficheiro não é uma cópia do FotoObra', confirmRestore: 'Restaurar {0} obras e {1} fotos? Os registos iguais serão substituídos.', restored: 'Cópia restaurada',
+    notBackup: 'Este ficheiro não é uma cópia do FotoObra', confirmRestore: 'Restaurar {0} {0|obra|obras} e {1} {1|foto|fotos}? Os registos iguais serão substituídos.', restored: 'Cópia restaurada',
     error: 'Erro: {0}', needName: 'Escreva o nome da obra', confirmDelJob: 'Apagar «{0}» e todas as fotos? Não é possível desfazer.', jobDeleted: 'Obra apagada',
     saving: 'A guardar…', saved: 'Guardado', photoSaved: 'Foto guardada', confirmDelPhoto: 'Apagar esta foto?', photoDeleted: 'Foto apagada',
     creatingPdf: 'A criar PDF…', noReportPhotos: 'Sem fotos para o relatório', settingsSaved: 'Definições guardadas', preparingCopy: 'A preparar cópia…',
@@ -261,13 +261,13 @@ const FAQ = {
 };
 const LANGS = [['en', 'English'], ['pt', 'Português'], ['ru', 'Русский'], ['uk', 'Українська']];
 const EXTRA = {
-  en: { sizePh: 'Size', textPh: 'Text', cancel: 'Cancel', toolDim: 'Dimension arrow', toolCircle: 'Circle', toolText: 'Text', toolUndo: 'Undo' },
-  pt: { sizePh: 'Medida', textPh: 'Texto', cancel: 'Cancelar', toolDim: 'Seta de cota', toolCircle: 'Círculo', toolText: 'Texto', toolUndo: 'Anular' },
-  ru: { sizePh: 'Размер', textPh: 'Текст', cancel: 'Отмена', toolDim: 'Размерная стрелка', toolCircle: 'Круг', toolText: 'Текст', toolUndo: 'Отменить' },
-  uk: { sizePh: 'Розмір', textPh: 'Текст', cancel: 'Скасувати', toolDim: 'Розмірна стрілка', toolCircle: 'Коло', toolText: 'Текст', toolUndo: 'Скасувати' }
+  en: { sizePh: 'Size', textPh: 'Text', cancel: 'Cancel', toolDim: 'Dimension arrow', toolCircle: 'Circle', toolText: 'Text', toolUndo: 'Undo', showAll: 'Show all photos', lastPhoto: 'Last photo: {0}.' },
+  pt: { sizePh: 'Medida', textPh: 'Texto', cancel: 'Cancelar', toolDim: 'Seta de cota', toolCircle: 'Círculo', toolText: 'Texto', toolUndo: 'Anular', showAll: 'Mostrar todas as fotos', lastPhoto: 'Última foto: {0}.' },
+  ru: { sizePh: 'Размер', textPh: 'Текст', cancel: 'Отмена', toolDim: 'Размерная стрелка', toolCircle: 'Круг', toolText: 'Текст', toolUndo: 'Отменить', showAll: 'Показать все фото', lastPhoto: 'Последнее фото: {0}.' },
+  uk: { sizePh: 'Розмір', textPh: 'Текст', cancel: 'Скасувати', toolDim: 'Розмірна стрілка', toolCircle: 'Коло', toolText: 'Текст', toolUndo: 'Скасувати', showAll: 'Показати всі фото', lastPhoto: 'Останнє фото: {0}.' }
 };
 for (const l in EXTRA) Object.assign(STR[l], EXTRA[l]);
-const t = (k, ...a) => { let s = (STR[settings.uiLang] || STR.en)[k] ?? STR.en[k] ?? k; a.forEach((v, i) => { s = s.replace('{' + i + '}', v); }); return s; };
+const t = (k, ...a) => { let s = (STR[settings.uiLang] || STR.en)[k] ?? STR.en[k] ?? k; s = s.replace(/\{(\d)\|([^|}]*)\|([^}]*)\}/g, (m, i, one, many) => (+a[i] === 1 ? one : many)); a.forEach((v, i) => { s = s.replace('{' + i + '}', v); }); return s; };
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
@@ -679,9 +679,13 @@ function reportBar() {
 VIEWS.report = async () => {
   const p = await get('projects', S.pid);
   if (!p) return replace('home');
-  if (!S.report || S.report.pid !== p.id) S.report = { pid: p.id, range: 'today', from: dayKey(Date.now() - 6 * DAY), to: dayKey(Date.now()), excluded: new Set(), summary: '', pdf: null };
-  const R = S.report;
   const all = (await byProject(p.id)).sort((a, b) => a.ts - b.ts);
+  if (!S.report || S.report.pid !== p.id) {
+    /* open on the shortest period that actually has photos */
+    const t0 = startOfDay(Date.now()), range = all.some(x => x.ts >= t0) ? 'today' : all.some(x => x.ts >= t0 - 6 * DAY) ? 'week' : 'all';
+    S.report = { pid: p.id, range, from: dayKey(Date.now() - 6 * DAY), to: dayKey(Date.now()), excluded: new Set(), summary: '', pdf: null };
+  }
+  const R = S.report;
   const list = all.filter(x => inRange(x.ts, R));
   R.selCount = list.filter(x => !R.excluded.has(x.id)).length;
   const chip = (id, label) => `<button class="chip ${R.range === id ? 'on' : ''}" data-act="range" data-range="${id}" aria-pressed="${R.range === id}">${esc(label)}</button>`;
@@ -689,7 +693,8 @@ VIEWS.report = async () => {
 <main class="wrap">
   <div class="chips">${chip('today', t('rToday'))}${chip('week', t('rWeek'))}${chip('all', t('rAll'))}${chip('custom', t('rDates'))}</div>
   ${R.range === 'custom' ? `<div class="row"><div class="field"><label for="dFrom">${esc(t('from'))}</label><input type="date" id="dFrom" value="${R.from}"></div><div class="field"><label for="dTo">${esc(t('to'))}</label><input type="date" id="dTo" value="${R.to}"></div></div>` : ''}
-  <p class="hint" style="margin-bottom:12px">${esc(list.length ? t('inReport', R.selCount, list.length) : t('noPeriod'))}</p>
+  <p class="hint" style="margin-bottom:12px">${esc(list.length ? t('inReport', R.selCount, list.length) : t('noPeriod') + (all.length ? ' ' + t('lastPhoto', fmtDate(all[all.length - 1].ts)) : ''))}</p>
+  ${!list.length && all.length ? `<div class="chips"><button class="chip on" data-act="range" data-range="all">${esc(t('showAll'))}</button></div>` : ''}
   <div class="grid">${list.map(x => {
     const off = R.excluded.has(x.id);
     return `<button class="ph pick ${off ? 'off' : ''}" data-act="pick" data-id="${x.id}" aria-pressed="${!off}"><img src="${thumbUrl(x)}" alt="" loading="lazy"><span class="time">${fmtDate(x.ts).slice(0, 5)} ${fmtTime(x.ts)}</span><span class="tick">${ICON.check}</span><span class="cap ${x.caption ? '' : 'none'}">${esc(x.caption || t('noCaption'))}</span></button>`;
