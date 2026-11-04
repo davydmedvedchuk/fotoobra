@@ -18,6 +18,7 @@ FotoObra keeps photos by job and turns them into a clean PDF in a couple of taps
 
 - **Jobs.** Name, address, client.
 - **Photos by day.** Straight from the camera or several at once from the gallery.
+- **Marks on photos.** Dimension arrows with a size (mm, cm or m), circles and short text labels. Drawn over the photo, kept as a layer, shown in the feed and in the PDF.
 - **Voice captions.** Tap the mic and say what was done.
 - **PDF report.** Today, last 7 days, all, or custom dates. Tap a photo to leave it out. Your logo and company name in the header. Portrait photos keep their shape.
 - **Send.** Share the PDF straight to WhatsApp, e-mail or Drive.
