@@ -26,9 +26,9 @@ FotoObra keeps photos by job and turns them into a clean PDF in a couple of taps
 - **Four languages.** App, website and reports in English, Portuguese, Russian and Ukrainian. English by default.
 - **Help inside.** A sample report, why photos on site matter, and FAQ.
 
-| Jobs | Photo feed | Report | Help |
-|---|---|---|---|
-| ![Jobs](docs/screen-jobs.jpg) | ![Photo feed](docs/screen-feed.jpg) | ![Report](docs/screen-report.jpg) | ![Help](docs/screen-help.jpg) |
+| Jobs | Photo feed | Marks | Report | Help |
+|---|---|---|---|---|
+| ![Jobs](docs/screen-jobs.jpg) | ![Photo feed](docs/screen-feed.jpg) | ![Dimension arrows on a photo](docs/screen-marks.jpg) | ![Report](docs/screen-report.jpg) | ![Help](docs/screen-help.jpg) |
 
 ### The PDF your client gets
 

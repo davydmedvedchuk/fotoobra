@@ -1,5 +1,5 @@
 // FotoObra: keeps the app working without internet.
-const CACHE = 'fotoobra-v6';
+const CACHE = 'fotoobra-v7';
 const FILES = ['./', './index.html', './app/', './app/index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png', './assets/fonts.css',
   ...['Inter-400', 'Inter-600', 'Inter-800', 'Oswald-500', 'Oswald-700'].flatMap(f => [`./assets/fonts/${f}-latin.woff2`, `./assets/fonts/${f}-cyrillic.woff2`])];
 
