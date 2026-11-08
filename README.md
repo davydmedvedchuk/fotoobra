@@ -64,7 +64,6 @@ Two HTML files: the website (`index.html`) and the app (`app/index.html`). No fr
 
 ## Next
 
-- [ ] Draw on photos (arrows, circles)
 - [ ] Before / after pairs
 - [ ] Share a report as a link
 
