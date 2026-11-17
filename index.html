@@ -60,9 +60,15 @@ h1 span{color:var(--amber)}
 .qrline small{color:#AFC0D2;font-size:13px}
 
 /* phone with the app */
-.phone{width:300px;height:600px;margin:0 auto -60px;background:#0A0F15;border-radius:46px;padding:12px;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 0 0 2px #2A3440;position:relative;z-index:2}
-.screen{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#F4F5F7;color:var(--ink);position:relative}
-.at{background:var(--navy);color:#fff;padding:36px 14px 12px;display:flex;align-items:center;gap:10px}
+.phone{width:300px;height:651px;margin:0 auto -111px;background:#07080a;border:2px solid #4a525c;border-radius:54px;padding:8px;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 0 0 1px #1d2228;position:relative;z-index:2}
+.screen{width:100%;height:100%;border-radius:45px;overflow:hidden;background:#F4F5F7;color:var(--ink);position:relative}
+.isl{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:86px;height:25px;border-radius:13px;background:#000;z-index:4}
+.isl:after{content:"";position:absolute;right:8px;top:8px;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#1b2a44,#05070b)}
+.sb{position:absolute;left:0;right:0;top:0;height:34px;z-index:3;color:#fff;font:600 13px Inter,sans-serif}
+.sb b{position:absolute;left:30px;top:10px}
+.sb span{position:absolute;right:24px;top:11px;display:flex;gap:5px;align-items:center}
+.pb{position:absolute;width:4px;background:#2c323a;border-radius:2px}
+.at{background:var(--navy);color:#fff;padding:44px 14px 12px;display:flex;align-items:center;gap:10px}
 .at .bk{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.14)}
 .at b{display:block;font-size:16px}
 .at small{font-size:11px;color:var(--soft)}
@@ -148,7 +154,7 @@ footer a{text-decoration:underline}
   .cta .btn{flex:1;padding:0 12px}
   .qrline{display:none}
   .ticks{gap:8px 16px;font-size:14px}
-  .phone{transform:scale(.8);transform-origin:top center;margin-bottom:-160px}
+  .phone{transform:scale(.8);transform-origin:top center;margin-bottom:-200px}
   section{padding:64px 0}
   h2{font-size:36px}
   .sub{font-size:16px;margin-bottom:28px}
@@ -186,7 +192,7 @@ footer a{text-decoration:underline}
       <div class="ticks"><span data-t="t1"></span><span data-t="t2"></span><span data-t="t3"></span></div>
       <div class="qrline"><div class="q"><img src="assets/qr-app.svg" alt=""></div><div><b data-t="qrTitle"></b><small data-t="qrSub"></small></div></div>
     </div>
-    <div><div class="phone" aria-hidden="true"><div class="screen">
+    <div><div class="phone" aria-hidden="true"><i class="pb" style="left:-5px;top:93px;height:25px"></i><i class="pb" style="left:-5px;top:143px;height:47px"></i><i class="pb" style="left:-5px;top:200px;height:47px"></i><i class="pb" style="right:-5px;top:164px;height:72px"></i><div class="screen"><div class="isl"></div><div class="sb"><b>9:41</b><span><svg width="16" height="11" viewBox="0 0 30 20" fill="#fff"><rect x="0" y="13" width="5" height="7" rx="1.5"/><rect x="8" y="9" width="5" height="11" rx="1.5"/><rect x="16" y="5" width="5" height="15" rx="1.5"/><rect x="24" y="0" width="5" height="20" rx="1.5"/></svg><svg width="15" height="11" viewBox="0 0 28 20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M2 7a17 17 0 0 1 24 0"/><path d="M7 12a10 10 0 0 1 14 0"/><circle cx="14" cy="17" r="1.5" fill="#fff" stroke="none"/></svg><svg width="23" height="11" viewBox="0 0 42 20"><rect x="1" y="1" width="35" height="18" rx="5.5" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><rect x="4" y="4" width="29" height="12" rx="3" fill="#fff"/><rect x="38" y="7" width="3" height="6" rx="1.5" fill="#fff" fill-opacity=".5"/></svg></span></div>
       <div class="at"><div class="bk"></div><div><b data-t="mockJob"></b><small data-t="mockSub"></small></div></div>
       <div class="feed">
         <div class="day" data-t="today"></div>
