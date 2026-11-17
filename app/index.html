@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#17324D">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,13 +15,18 @@
 <link rel="stylesheet" href="../assets/fonts.css">
 <title>FotoObra</title>
 <style>
-:root{--bg:#F4F5F7;--card:#FFFFFF;--ink:#14202B;--muted:#5B6672;--line:#DFE3E8;--brand:#17324D;--brand2:#22476B;--accent:#FFB400;--accent-ink:#14202B;--soft:#FFF4D6;--sky:#E6EEF6;--edge:#AEB6C0}
+:root{--bg:#F4F5F7;--card:#FFFFFF;--ink:#14202B;--muted:#5B6672;--line:#DFE3E8;--brand:#17324D;--brand2:#22476B;--accent:#FFB400;--accent-ink:#14202B;--soft:#FFF4D6;--sky:#E6EEF6;--edge:#AEB6C0;--noteb:#F2DA94;--done:#E7F5E4;--qa:#3D4650;--dng:#B91C1C;--hdr:#17324D}
+:root[data-theme=dark]{--bg:#0E151C;--card:#17212B;--ink:#E9EEF3;--muted:#9AA7B4;--line:#273341;--brand:#1D4064;--brand2:#86B6E4;--soft:#33290F;--sky:#1F2D3B;--edge:#4A5968;--noteb:#5A4A18;--done:#16301A;--qa:#B7C2CD;--dng:#F87171;--hdr:#12263A}
+:root[data-theme=dark] .top{background:var(--hdr)}
+:root[data-theme=dark] .toast{color:var(--bg)}
+:root[data-theme=dark] .pick .tick{border-color:var(--card)}
+:root[data-theme=dark] .btn.dark{background:var(--brand)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-text-size-adjust:100%}
 button{font:inherit;color:inherit;cursor:pointer}
 a{color:inherit}
 svg{flex-shrink:0}
-.top{position:sticky;top:0;z-index:5;background:var(--brand);color:#fff;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;margin-bottom:12px}
+.top{position:sticky;top:0;z-index:5;background:var(--hdr);color:#fff;padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;margin-bottom:12px}
 .top-in{display:flex;align-items:center;gap:10px;max-width:728px;margin:0 auto}
 .top .icon-btn{background:rgba(255,255,255,.12);color:#fff}
 .top .sub{color:#C9D6E3}
@@ -42,7 +47,7 @@ svg{flex-shrink:0}
 .btn.primary{background:var(--accent);color:var(--accent-ink)}
 .btn.dark{background:var(--brand);color:#fff}
 .btn.ghost{background:transparent;border:1.5px solid var(--edge)}
-.btn.danger{background:transparent;border:1.5px solid #DC2626;color:#B91C1C}
+.btn.danger{background:transparent;border:1.5px solid #DC2626;color:var(--dng)}
 .btn.sq{flex:0 0 52px;padding:0}
 .btn:disabled{opacity:.5}
 .group-label{display:flex;align-items:center;gap:8px;font-family:Oswald,Inter,sans-serif;font-size:14px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--brand2);margin:18px 0 10px}
@@ -70,7 +75,7 @@ textarea{min-height:92px;resize:vertical;line-height:1.4}
 .chip{height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--edge);background:transparent;font-size:14px;font-weight:600}
 .chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .preview-img{width:100%;max-height:52vh;object-fit:contain;border-radius:14px;background:#1C2630;display:block;margin-bottom:16px}
-.done{margin-top:16px;padding:14px;border-radius:14px;background:#E7F5E4;font-weight:600;display:flex;gap:8px;align-items:center}
+.done{margin-top:16px;padding:14px;border-radius:14px;background:var(--done);font-weight:600;display:flex;gap:8px;align-items:center}
 .section{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
 h2{font-family:Oswald,Inter,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.3px;font-size:20px;margin:0 0 10px}
 .logo-prev{max-height:64px;max-width:220px;display:block;margin:4px 0 10px;background:#fff;border-radius:8px;padding:6px;border:1px solid var(--line)}
@@ -79,7 +84,7 @@ h2{font-family:Oswald,Inter,sans-serif;font-weight:700;text-transform:uppercase;
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:500;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;line-height:1.45;font-size:14px}
-.card.note{background:var(--soft);border-color:#F2DA94}
+.card.note{background:var(--soft);border-color:var(--noteb)}
 .welcome{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px}
 .welcome h3{margin:0 0 4px;font-family:Oswald,Inter,sans-serif;font-weight:700;text-transform:uppercase;font-size:24px;letter-spacing:.3px}
 .welcome>p{margin:0 0 10px;color:var(--muted);font-size:14px}
@@ -95,7 +100,7 @@ details.qa summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:
 details.qa summary::-webkit-details-marker{display:none}
 details.qa summary::after{content:"+";margin-left:auto;font-size:20px;font-weight:500;color:var(--brand2)}
 details.qa[open] summary::after{content:"–"}
-details.qa .a{padding:0 14px 14px;color:#3D4650}
+details.qa .a{padding:0 14px 14px;color:var(--qa)}
 .ed{position:relative;margin-bottom:16px;border-radius:14px;overflow:hidden;background:#1C2630;text-align:center;line-height:0}
 .ed canvas{display:inline-block;max-width:100%;max-height:52vh;width:auto;height:auto;touch-action:auto;-webkit-user-select:none;user-select:none}
 .ed.on canvas{touch-action:none;cursor:crosshair}
@@ -125,7 +130,7 @@ const STR = {
   en: {
     today: 'today', yesterday: 'yesterday', Today: 'Today', Yesterday: 'Yesterday', MB: 'MB',
     dictate: 'Dictate', micHint: 'Tap the mic and say what was done.', micHintKb: 'You can dictate with the mic on your keyboard.',
-    micErr: 'Microphone: {0}', micNone: 'Microphone unavailable', back: 'Back', cancel: 'Cancel', settings: 'Settings',
+    micErr: 'Microphone: {0}', micNone: 'Microphone unavailable', back: 'Back', cancel: 'Cancel', settings: 'Settings', theme: 'Theme', themeAuto: 'Auto', themeLight: 'Light', themeDark: 'Dark',
     myJobs: 'My jobs', nPhotos: '{0} {0|photo|photos}', noPhotosYet: 'No photos yet',
     welcome: 'Welcome', welcomeSub: 'Your first report takes a couple of minutes.',
     step1: 'Create a job', step2: 'Take photos and dictate what was done', step3: 'Send your client a PDF',
@@ -156,7 +161,7 @@ const STR = {
   pt: {
     today: 'hoje', yesterday: 'ontem', Today: 'Hoje', Yesterday: 'Ontem', MB: 'MB',
     dictate: 'Ditar', micHint: 'Toque no microfone e diga o que foi feito.', micHintKb: 'Pode ditar com o microfone do teclado.',
-    micErr: 'Microfone: {0}', micNone: 'Microfone indisponível', back: 'Voltar', cancel: 'Cancelar', settings: 'Definições',
+    micErr: 'Microfone: {0}', micNone: 'Microfone indisponível', back: 'Voltar', cancel: 'Cancelar', settings: 'Definições', theme: 'Aparência', themeAuto: 'Automático', themeLight: 'Claro', themeDark: 'Escuro',
     myJobs: 'As minhas obras', nPhotos: '{0} {0|foto|fotos}', noPhotosYet: 'Ainda sem fotos',
     welcome: 'Bem-vindo', welcomeSub: 'O primeiro relatório faz-se em dois minutos.',
     step1: 'Crie uma obra', step2: 'Tire fotos e dite o que foi feito', step3: 'Envie o PDF ao cliente',
@@ -187,7 +192,7 @@ const STR = {
   ru: {
     today: 'сегодня', yesterday: 'вчера', Today: 'Сегодня', Yesterday: 'Вчера', MB: 'МБ',
     dictate: 'Надиктовать', micHint: 'Нажми микрофон и скажи, что сделано.', micHintKb: 'Можно надиктовать через микрофон на клавиатуре.',
-    micErr: 'Микрофон: {0}', micNone: 'Микрофон недоступен', back: 'Назад', cancel: 'Отмена', settings: 'Настройки',
+    micErr: 'Микрофон: {0}', micNone: 'Микрофон недоступен', back: 'Назад', cancel: 'Отмена', settings: 'Настройки', theme: 'Тема', themeAuto: 'Авто', themeLight: 'Светлая', themeDark: 'Тёмная',
     myJobs: 'Мои объекты', nPhotos: '{0} фото', noPhotosYet: 'Пока без фото',
     welcome: 'Добро пожаловать', welcomeSub: 'Первый отчёт — за пару минут.',
     step1: 'Создай объект', step2: 'Снимай и диктуй, что сделано', step3: 'Отправь клиенту PDF',
@@ -218,7 +223,7 @@ const STR = {
   uk: {
     today: 'сьогодні', yesterday: 'вчора', Today: 'Сьогодні', Yesterday: 'Вчора', MB: 'МБ',
     dictate: 'Надиктувати', micHint: 'Натисни мікрофон і скажи, що зроблено.', micHintKb: 'Можна надиктувати через мікрофон на клавіатурі.',
-    micErr: 'Мікрофон: {0}', micNone: 'Мікрофон недоступний', back: 'Назад', cancel: 'Скасувати', settings: 'Налаштування',
+    micErr: 'Мікрофон: {0}', micNone: 'Мікрофон недоступний', back: 'Назад', cancel: 'Скасувати', settings: 'Налаштування', theme: 'Тема', themeAuto: 'Авто', themeLight: 'Світла', themeDark: 'Темна',
     myJobs: 'Мої об’єкти', nPhotos: '{0} фото', noPhotosYet: 'Поки без фото',
     welcome: 'Ласкаво просимо', welcomeSub: 'Перший звіт — за пару хвилин.',
     step1: 'Створи об’єкт', step2: 'Знімай і диктуй, що зроблено', step3: 'Надішли клієнту PDF',
@@ -357,8 +362,15 @@ const get = (s, k) => tx(s, 'readonly', tr => tr.objectStore(s).get(k));
 const put = (s, v) => tx(s, 'readwrite', tr => tr.objectStore(s).put(v));
 const byProject = pid => tx('photos', 'readonly', tr => tr.objectStore('photos').index('projectId').getAll(pid));
 
-const DEFAULTS = { k: 'settings', company: '', line2: '', person: '', logo: null, uiLang: 'en', pdfLang: 'en', voiceLang: 'en-GB' };
+const DEFAULTS = { k: 'settings', company: '', line2: '', person: '', logo: null, uiLang: 'en', pdfLang: 'en', voiceLang: 'en-GB', theme: 'auto' };
 let settings = { ...DEFAULTS };
+const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+function applyTheme() {
+  const dark = settings.theme === 'dark' || (settings.theme !== 'light' && darkMQ.matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = dark ? '#12263A' : '#17324D';
+}
+darkMQ.addEventListener?.('change', applyTheme);
 
 const urlCache = new Map();
 function thumbUrl(ph) {
@@ -526,7 +538,7 @@ function toggleMic(btn) {
 /* ---------- navigation ---------- */
 const S = { view: 'home', pid: null, photoId: null, queue: [], qi: 0, report: null, backupFile: null };
 const VIEWS = {};
-async function render(v) { stopMic(); S.view = v; document.documentElement.lang = settings.uiLang; await VIEWS[v](); }
+async function render(v) { applyTheme(); stopMic(); S.view = v; document.documentElement.lang = settings.uiLang; await VIEWS[v](); }
 function go(v, p = {}) {
   Object.assign(S, p);
   history.pushState({ v, pid: S.pid, photoId: S.photoId }, '');
@@ -716,6 +728,7 @@ VIEWS.settings = async () => {
 <main class="wrap">
   ${standalone ? '' : `<div class="card note">${t('install')}</div>`}
   <div class="field"><label for="sUiLang">${esc(t('appLang'))}</label><select id="sUiLang">${LANGS.map(([v, n]) => opt(v, s.uiLang, n)).join('')}</select></div>
+  <div class="field"><label for="sTheme">${esc(t('theme'))}</label><select id="sTheme">${opt('auto', s.theme, t('themeAuto'))}${opt('light', s.theme, t('themeLight'))}${opt('dark', s.theme, t('themeDark'))}</select></div>
   <button class="linkrow" data-act="help">${esc(t('help'))}${ICON.chev}</button>
   <div class="section">
   <h2>${esc(t('forPdf'))}</h2>
@@ -1102,6 +1115,7 @@ app.addEventListener('change', async e => {
   if ((e.target.id === 'dFrom' || e.target.id === 'dTo') && S.report) {
     S.report[e.target.id === 'dFrom' ? 'from' : 'to'] = e.target.value; S.report.pdf = null; render('report');
   }
+  if (e.target.id === 'sTheme') { settings.theme = e.target.value; applyTheme(); await put('kv', settings); }
   if (e.target.id === 'sUiLang') {
     readSettingsFields(); settings.uiLang = e.target.value; await put('kv', settings);
     const y = window.scrollY; await render('settings'); window.scrollTo(0, y);
